@@ -1,0 +1,33 @@
+.banner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin: 20px auto;
+    gap: 7px;
+}
+.banner div{
+    width: 100%;
+}
+.banner img{
+width: 100%;
+    height: 15em;
+}
+
+
+@media screen and (max-width: 992px) { 
+    .banner{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 95%;
+        flex-direction: column;
+       
+        
+        gap: 7px;
+    }
+    .banner img{
+        width: 100%;
+            height: auto;
+        }
+}

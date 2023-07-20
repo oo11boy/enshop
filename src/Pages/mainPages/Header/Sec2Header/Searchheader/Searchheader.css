@@ -1,0 +1,32 @@
+.searchsec2header{
+    flex: 0.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.searchsec2header form {
+    width: 100%;
+    position: relative;
+}
+.searchsec2header form  svg{
+  position: absolute;
+  top: 0;
+  transform: translate(-10px, 6px);
+  color: white;
+  font-size: 30px;
+  left: 20px;
+}
+.searchsec2header form input{
+    width: 100%;
+
+    padding: 10px;
+      border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+    background-color: #FF4D6D;
+    outline: none;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  color:white;
+  font-family: isans;
+}

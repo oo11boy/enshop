@@ -1,0 +1,36 @@
+.products{
+    width: 95%;
+
+    display: flex;
+     margin-left: auto;
+     margin-right: auto;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.mt-90{
+    margin-top: -90px;
+}
+.titerproduct {
+    
+border-bottom: 1px dashed #FF4D6D;
+margin-bottom: 20px;
+padding-bottom: 10px;
+
+}
+
+.titerproduct p{
+    border-bottom: 3px solid #FF4D6D;
+    display: inline;
+    font-family: kalameh;
+    color: #FF4D6D;
+    font-size: 1.2em!important;
+    padding-bottom: 9px;
+}
+
+.productbody{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #fff;
+}

@@ -1,0 +1,72 @@
+.containerHeader{
+    background-color: #FFE9ED;
+padding-bottom: 20px;
+}
+.containerHeader,.containerHeader::after{
+    box-sizing:unset!important;
+
+}
+.upheader{
+    background-color: #FF4D6D;
+    height: 20px; 
+}
+.boxheader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+
+}
+.boxheader svg{
+    font-size: 30px;
+}
+.informboxheader{
+    margin-right: 20px;
+    font-size: 10px;
+    font-family: Kalameh;
+}
+
+.sec1header{
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.siteinform{
+    display: flex;
+  justify-content: flex-start;
+    align-items: center;
+    flex: 0.8;
+    margin-top: 15px;
+}
+
+.iconsocialheader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.boxesheader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.iconsocialheader a{
+    margin-left: 20px;
+    font-size: 20px;
+    z-index: 999;
+}
+.logoheader img{
+position: absolute;
+top: 30px;
+right: 103px;
+}
+.logoheader a::before{
+    content: "";
+    position: absolute;
+    right: 50px;
+
+    top: 20px;
+    width: 240px;
+    height: 60px;
+    background: url(./pattern-cosmetic.png) no-repeat 0 0;
+}

@@ -1,0 +1,74 @@
+.posts{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    width: 95%;
+    margin: auto;
+    gap: 10px;
+}
+
+.postbody{
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
+ 
+}
+.postbody:hover{
+filter: drop-shadow(2px 4px 6px black);
+transition: 0.3s all ease;
+}
+
+.postbody h3{
+    position: absolute;
+    background-color: rgba(255, 0, 0, 0.281);
+ bottom: 5px;
+ font-family: kalameh2;
+ font-size: 2em!important;
+ color: white;
+width: 100%;
+text-align: center;
+}
+.postbody {
+    width: 100%;
+    height: 15em;
+}
+@media screen and (max-width: 992px) { 
+    .posts{ 
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+
+@media screen and (max-width: 702px) { 
+    .posts{
+ 
+        grid-template-columns: repeat(3,1fr);
+       
+    }
+    .postbody {
+        width: 100%;
+        height: 10em;
+    }
+}
+
+@media screen and (max-width: 590px) { 
+    .posts{
+ 
+        grid-template-columns: repeat(2,1fr);
+       
+
+    }
+}
+
+@media screen and (max-width: 360px) { 
+    .posts{
+ 
+        grid-template-columns: repeat(1,1fr);
+       
+
+    }
+    
+.postbody{
+    width: 100%;
+    height: 10em;
+}
+}
+
