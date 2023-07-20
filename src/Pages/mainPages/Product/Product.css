@@ -53,14 +53,24 @@ position: relative;
     border-radius: 5px;
    padding: 0 5px;
    font-size: 1.3em!important;
-   color: #FF4D6D;
+   color: #ffffff !important;
+   background-color: #FF4D6D;
   
 }
 .productname  a{
-    height: 30px;
+    height: 40px;
     margin-top: 10px;
  margin-bottom: 10px;
+
 }
+@media (min-width: 300px) and (max-width: 450px) {
+    .productname  a{
+    
+    font-size: smaller;
+    }
+    
+  }
+  
 .productbody img{
     width: 120px;
     height: 110px;

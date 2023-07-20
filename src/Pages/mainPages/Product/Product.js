@@ -24,15 +24,12 @@ export default function Product(props) {
   }
   // Define breakpoints
   const breakpoints = {
-    320: {
-      slidesPerView: 1,
+    300: {
+      slidesPerView: 2,
       spaceBetween: 10,
     },
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    768: {
+  
+    608: {
       slidesPerView: 3,
       spaceBetween: 30,
     },
@@ -60,6 +57,7 @@ export default function Product(props) {
         <Swiper
           breakpoints={breakpoints} // Apply breakpoints
           navigation={true}
+     
           modules={[Pagination, Navigation]}
           className="mySwiper2"
         >

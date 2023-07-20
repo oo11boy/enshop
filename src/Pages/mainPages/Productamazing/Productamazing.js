@@ -19,11 +19,11 @@ export default function Productamazing() {
 
   // Define breakpoints
   const breakpoints = {
-    320: {
+    0: {
       slidesPerView: 1,
       spaceBetween: 10,
     },
-    480: {
+    300: {
       slidesPerView: 2,
       spaceBetween: 20,
     },
@@ -53,6 +53,7 @@ export default function Productamazing() {
         <Swiper
           breakpoints={breakpoints} // Apply breakpoints
           navigation={true}
+         centeredSlidesBounds={true}
           modules={[Pagination, Navigation]}
           className="mySwiper2"
         >

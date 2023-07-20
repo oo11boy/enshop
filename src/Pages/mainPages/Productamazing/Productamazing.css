@@ -20,6 +20,7 @@
     border-radius: 5px;
     background: #fff;
     padding: 10px;
+    height: 21em;
 }
 .productbodyamazingimg{
     display: flex;
@@ -28,8 +29,16 @@
 }
 .productbodyamazingimg img{
     width: 15em;
-    height: 18em
+    height: 21em
 }
+@media (min-width: 300px) and (max-width: 450px) {
+    .productbodyamazing p {
+        font-size: small!important;
+        color: #FF4D6D;
+        margin-top: 5px;
+    }
+    
+  }
 .productname {
     width: 100%;
     
