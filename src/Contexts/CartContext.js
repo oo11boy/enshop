@@ -7,6 +7,9 @@ tedadproduct:()=>{},
 removeproductcart:()=>{},
 tedadhamecart:()=>{},
 totalprice:()=>{},
+showcartmobstatus:()=>{},
+showcartmob:()=>{},
+falsemenumob:()=>{},
 successtocart:''
 })
 
@@ -16,6 +19,7 @@ export const CartContextProvider=(props)=>{
   
     const [dataCart,setDatacart]=useState([])
 
+    const [showcartstatus,setshowcartmobstatus]=useState(false)
     const[successc,setsuccesstocart]=useState('')
  const Cartvalue={
     item: dataCart,
@@ -24,7 +28,10 @@ export const CartContextProvider=(props)=>{
     removeproductcart,
     tedadhamecart,
     totalprice,
-    successtocart:successc
+    showcartmobstatus:showcartstatus,
+    showcartmob,
+    successtocart:successc,
+    falsemenumob
  }
  const [tedadhame,settedadhame]=useState(0)
 function tedadhamecart(){
@@ -57,7 +64,15 @@ return alert (successc)
  const newremoveitem=dataCart.filter((item)=>item.id !== id)
  setDatacart(newremoveitem)
  }
+  
 
+function showcartmob (){
+   setshowcartmobstatus(!showcartstatus)
+}
+
+function     falsemenumob(){
+   setshowcartmobstatus(false)
+}
  function tedadproduct (id){
    const quantity = dataCart.filter(item => item.id === id).length;
 return quantity

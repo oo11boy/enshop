@@ -15,7 +15,7 @@ export const MenumobileContextProvider=({children})=>{
 
   function Showmenu(){
     setmenushow(!menumobshow)
-  
+ 
   }
     return (
   <MenumobileContext.Provider value={mobilemenuval}>{children}</MenumobileContext.Provider>

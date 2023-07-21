@@ -14,7 +14,7 @@ box-shadow: 5px 2px 31px rgba(0,0,0,.17);
 .footermenu{
     position: fixed;
     bottom:  0;
-z-index: 999;
+z-index: 1000;
 border-radius: 10px;
 background-color: rgb(255, 255, 255);
 height: 60px;

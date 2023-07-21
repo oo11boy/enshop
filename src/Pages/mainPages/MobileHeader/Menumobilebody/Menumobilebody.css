@@ -6,18 +6,16 @@
     position: fixed;
   transform: translate(-2.5%, 90px)!important;
     box-shadow: 5px 2px 31px rgba(0,0,0,.17);
-    z-index: 999;
+    z-index: 1000;
     border-radius: 10px;
     
-    transition: 0.3s transform;
+    transition: 0.2s all ;
 }
 
 .hiddenmenu{
     transform: translate(100%, 90px)!important;
-  opacity: 0;
-  height: 0;
-  width: 0;
-    transition: 0.3s all ease-in!important;
+  
+    transition: 0.2s all ease-in!important;
 }
 
 .menumobitem{

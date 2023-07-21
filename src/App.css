@@ -48,3 +48,13 @@ a{
 	color: unset;
 	text-decoration: none;
 }
+
+
+
+
+@media screen and (max-width: 1361px) { 
+
+  .hiddenmobile{
+	display: none;
+  }
+}

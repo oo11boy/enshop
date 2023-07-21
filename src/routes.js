@@ -6,6 +6,7 @@ import Home from "./Pages/mainPages/Home"
 import SearchPage from "./Pages/mainPages/SearchPage/SearchPage"
 import SinglePost from "./Pages/mainPages/SinglePost/SinglePost"
 import SingleProduct from "./Pages/mainPages/SingleProudct/SingleProduct"
+import UserAccount from "./Pages/mainPages/UserAccount/UserAccount"
 
 
 
@@ -18,6 +19,7 @@ let routes=[
     {path:`/product/:cat/:id` , element:<SingleProduct/> },
     {path:`/post/:id` , element:<SinglePost/> },
     {path:'/search' , element:<SearchPage/> },
+    {path:'/useraccount' , element:<UserAccount />}, 
 
 
 

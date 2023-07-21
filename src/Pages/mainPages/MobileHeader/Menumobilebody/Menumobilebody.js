@@ -50,7 +50,7 @@ const deepmenu =(cat)=>{
     return (
 
 
-        <div className={menuinfo.menustatus === true ? 'Menumobilebody' : ' hiddenmenu'}>
+        <div className={menuinfo.menustatus === true ? 'Menumobilebody' : ' Menumobilebody hiddenmenu'}>
 
             {showfirstmenu ?
                 <ul >
