@@ -1,0 +1,56 @@
+.footermenubody{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    font-size: small!important;
+    padding: 3px;
+}
+
+.footermenubody a ,.footermenubody div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+    width: 100%;
+
+ 
+}
+.footermenubody a svg , .footermenubody div svg{
+    font-size:xx-large;
+}
+.footermenubody div p{
+    margin-top: 2px;
+    font-size: 13px!important;
+}
+
+.catfootermenu{
+    color: blueviolet;
+}
+
+
+@media (min-width: 0px) and (max-width: 350px) {
+    .footermenubody div svg , .footermenubody a svg{
+        font-size: x-large;
+    }
+    .footermenubody div p ,.footermenubody a p{
+        margin-top: 2px;
+        font-size: 6px!important;
+    }
+    
+}
+
+
+
+@media (min-width: 350px) and (max-width: 450px) {
+
+    .footermenubody div svg , .footermenubody a svg{
+        font-size: x-large;
+    }
+    .footermenubody div p ,.footermenubody a p{
+        margin-top: 2px;
+        font-size: 10px!important;
+    }
+
+}

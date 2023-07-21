@@ -1,0 +1,18 @@
+
+.mobileHeader{
+    display: none;
+}
+
+@media screen and (max-width: 1361px) { 
+.containerHeader{
+    display: none;
+}
+.slidersec {
+    background-color: #FFE9ED;
+    padding: 102px 0 10px 0;
+}
+.mobileHeader{
+    display: flex;
+}
+
+}

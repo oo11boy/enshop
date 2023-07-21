@@ -1,0 +1,25 @@
+.headermenu{
+position: fixed;
+top: 0;
+transform: translate(-2.5%, 13px);
+border-radius: 10px;
+width: 95%;
+margin: auto;
+background-color: rgb(255, 255, 255);
+z-index: 999;
+height: 60px;
+box-shadow: 5px 2px 31px rgba(0,0,0,.17);
+}
+
+.footermenu{
+    position: fixed;
+    bottom:  0;
+z-index: 999;
+border-radius: 10px;
+background-color: rgb(255, 255, 255);
+height: 60px;
+box-shadow: 5px 2px 31px rgba(0,0,0,.17);
+    transform: translate(-2.5%, -13px);
+    width: 95%;
+margin: auto;
+}

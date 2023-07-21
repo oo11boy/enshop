@@ -1,0 +1,30 @@
+.headermenu{
+    display: flex;
+justify-content: space-between;
+align-items: center;
+
+}
+
+.headermenu div{
+    width: 100%;
+    text-align: center;
+}
+
+.menumobicon {
+    text-align: right!important;
+    margin-right: 10px;
+}
+
+.menumobicon svg{
+    font-size: 3em;
+    cursor: pointer;
+}
+
+.helpmob{
+    text-align: left!important;
+    margin-left: 10px;
+}
+.helpmob svg{
+    font-size: 2.5em;
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@ import HomePannel from "./Pages/PannelPages/MainPage/HomePannel"
 import Adduser from "./Pages/PannelPages/Users/Adduser/Adduser"
 import Billing from "./Pages/mainPages/Billing/Billing"
 import Home from "./Pages/mainPages/Home"
+import SearchPage from "./Pages/mainPages/SearchPage/SearchPage"
 import SinglePost from "./Pages/mainPages/SinglePost/SinglePost"
 import SingleProduct from "./Pages/mainPages/SingleProudct/SingleProduct"
 
@@ -16,6 +17,7 @@ let routes=[
     {path:`/biling/*` , element:<Billing/> },
     {path:`/product/:cat/:id` , element:<SingleProduct/> },
     {path:`/post/:id` , element:<SinglePost/> },
+    {path:'/search' , element:<SearchPage/> },
 
 
 

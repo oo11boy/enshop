@@ -7,14 +7,16 @@ import BannerHome from './BannerHome/BannerHome'
 import Brands from './Brands/Brands'
 import PostsHome from './PostsHome/PostsHome'
 import Footer from './Footer/Footer'
-
+import MobileHeader from './MobileHeader/MobileHeader'
+import './Home.css'
 export default function Home() {
 
 
   return (
     <>
 
-      <Header />
+      <Header/>
+      <MobileHeader />
       <SlidersHome />
       <Product margin="mt-90" title="جدیدترین محصولات" />
       <Productamazing />
