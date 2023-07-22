@@ -1,0 +1,68 @@
+
+.containerLogin{
+    display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      width:100%;
+
+      
+  }
+    .form-boxLogin{
+        width:95%;
+        height:auto;
+    
+        padding:20px;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
+     
+        border-radius:2%;
+        box-shadow: 5px 2px 31px rgba(0,0,0,.17)
+    }
+@media screen and (min-width:1300px) {
+  .form-boxLogin{
+    width:30%;
+  }
+}
+@media screen and (max-width:460px) {
+
+  .underloginform{
+ 
+    flex-direction: column;
+ 
+  }
+  .underloginbtn{
+    width: 100%!important;
+  }
+}
+
+    .topAccount{
+      background-color: bisque;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      width: 100%;
+      font-size: 1.5em;
+      font-family: kalameh;
+  }
+    
+
+  .boxformac{
+    margin:10px 0;
+    width: 100%;
+  }
+
+  .underloginform{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    gap:10px
+  }
+
+.underloginbtn ,.btnlogin{
+  font-family: kalameh;
+  font-size: small;
+}

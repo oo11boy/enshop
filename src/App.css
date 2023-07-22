@@ -57,4 +57,7 @@ a{
   .hiddenmobile{
 	display: none;
   }
+  .paddingtopmob{
+	padding-top: 102px;
+  }
 }

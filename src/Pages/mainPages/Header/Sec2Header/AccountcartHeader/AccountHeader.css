@@ -1,0 +1,43 @@
+.accountsec2header{
+    position: relative;
+}
+
+.headeracstatus{
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 15px;
+    position: absolute;
+    top: 120%;
+    left: 0;
+}
+
+.headeracstatus ul li{
+   list-style-type: none;
+   padding:10px 10px 10px 20px;
+
+   width: 100%;
+   display: flex;
+   font-family: kalameh;
+   align-items: center;
+   justify-content: flex-start;
+}
+.headeracstatus ul li:nth-child(1){
+    border-bottom: 1px dashed red;
+}
+.headeracstatus ul li svg{
+    font-size: 2em;
+    margin-left: 5px;
+}
+
+
+.headeracstatus ul{
+    margin: 0;
+    padding: 5px;
+}
+
+.posheader p{
+    background-color: #FF4D6D;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
