@@ -1,0 +1,119 @@
+.UserAcmobile{
+    display: flex;
+    width: 95%;
+    margin: auto;
+    height: 80vh;
+    background-color: white;
+    position: relative;
+}
+
+.logoacmob{
+    position: fixed;
+    z-index: 998;
+    display: flex;
+    bottom: 75px;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+}
+
+
+
+.logoacmob svg{
+    z-index: 1000;
+    color: white;
+    font-size: 2em;
+    border-radius: 94% 94% 0 0;
+    width: 100%;
+    background-color: black;
+    filter: contrast(0.5);
+    box-sizing: unset!important;
+}
+@media screen and (max-width:350px) {
+  
+.logoacmob svg{
+  
+    font-size: 1.5em;
+   
+}
+
+}
+
+
+.menumobacuser{
+    background-color: rgb(255, 255, 255);
+    width: 95%;
+    box-shadow: 5px 2px 31px rgba(0,0,0,.17);
+    margin: auto;
+    position: fixed;
+    height: 70vh;
+    border-radius: 15px 15px 0 0;
+}
+    
+
+.animemenumobop100{
+ 
+    transform: translate(0,0%);
+    transition: 0.3s all;
+ 
+}
+
+.animemenumobop0{
+  
+    opacity: 0;
+    transform: translate(0,150%);
+    
+    transition: 0.3s all;
+
+}
+
+.menuacmob{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.menutitleacmob{
+    padding: 0;
+    margin: 0;
+}
+.menutitleacmob > li{
+    list-style-type: none;
+    padding: 10px 20px;
+    background-color: #F6F7FB;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+ font-size: 1.3em;
+    font-family: kalameh;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.menutitleacmob > li svg{
+    margin-left: 5px;
+    font-size: 1.5em;
+}
+
+
+.profileacusermob{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-shadow: 5px 2px 31px rgba(0,0,0,.17);
+    padding: 10px;
+    align-items: center;
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.avatarusermob svg{
+  font-size: 2em;
+}
+

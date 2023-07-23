@@ -10,6 +10,7 @@ import { RxAvatar } from 'react-icons/rx'
 import { Link } from 'react-router-dom'
 import { AccountContext } from '../../../../Contexts/AccountContext'
 import UserAcmobile from './UserAcmobile/UserAcmobile'
+import { IoMdExit } from 'react-icons/io'
 export default function Accountinformuser() {
 
   const [statusmenu, setstatusmenu] = useState('menu1')
@@ -63,7 +64,7 @@ export default function Accountinformuser() {
               <li onClick={clickmenu4}><FaRegAddressBook />آدرس ها</li>
               <li onClick={clickmenu5}> <AiOutlineHeart /> محصولات مورد علاقه </li>
               <li onClick={clickmenu6}><AiOutlineComment /> دیدگاه های شما</li>
-              <li onClick={acinfo.signoutuser}>خروج از سیستم</li>
+              <li onClick={acinfo.signoutuser}><IoMdExit /> خروج از سیستم</li>
             </ul>
           </div>
 
@@ -78,12 +79,21 @@ export default function Accountinformuser() {
           </div>
         </div>
 
+
+<div className="hiddendesktop">
+
+
   <UserAcmobile />
+
+  </div>
       </div>
 
 
 
-      <Footer />
+
+<div className='hiddenmobile'>
+      <Footer  />
+      </div>
     </>
   )
 }

@@ -1,7 +1,99 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import './UserAcmobile.css'
+import {BiSolidUpArrow,BiSolidDownArrow} from 'react-icons/bi'
+import { AiOutlineCloudDownload, AiOutlineComment, AiOutlineDashboard, AiOutlineHeart } from 'react-icons/ai'
+import { MdOutlineBorderColor } from 'react-icons/md'
+import { FaRegAddressBook } from 'react-icons/fa'
+import { AccountContext } from '../../../../../Contexts/AccountContext'
+import Dashboard from '../ItemsAcuser/Dashboard/Dashboard'
+import { IoMdExit } from 'react-icons/io'
+import { RxAvatar } from 'react-icons/rx'
 
 export default function UserAcmobile() {
+
+    const [showmenustatus,setshow]=useState(false)
+
+    const showmenu=()=>{
+        setshow(!showmenustatus)
+    }
+
+    const acinfo=useContext(AccountContext)
+
+    const [statusmenu, setstatusmenu] = useState('menu1')
+    const clickmenu1 = () => {
+      setstatusmenu('menu1')
+      setshow(false)
+    }
+    const clickmenu2 = () => {
+      setstatusmenu('menu2')
+      setshow(false)
+    }
+    const clickmenu3 = () => {
+      setstatusmenu('menu3')
+      setshow(false)
+    }
+    const clickmenu4 = () => {
+      setstatusmenu('menu4')
+      setshow(false)
+    }
+    const clickmenu5 = () => {
+      setstatusmenu('menu5')
+      setshow(false)
+    }
+    const clickmenu6 = () => {
+      setstatusmenu('menu6')
+      setshow(false)
+    }
+  
   return (
-    <div>UserAcmobile</div>
+    <div className='UserAcmobile'>
+       <div onClick={showmenu} className='logoacmob'>
+
+        {showmenustatus ? <BiSolidDownArrow />:<BiSolidUpArrow/> }
+       </div>
+
+      <div className={showmenustatus ?'menumobacuser animemenumobop100' : 'menumobacuser animemenumobop0'}>
+      <div className='menuacmob'>
+
+<ul className='menutitleacmob'>
+
+<div className='profileacusermob hiddendesktop'>
+                <div className="avatarusermob">
+                    <RxAvatar />
+                </div>
+                <div className='usernameacusermob'>
+                    <p>{acinfo.userinformitems.username}</p>
+                </div>
+               
+            </div>
+            
+<li onClick={clickmenu1}><AiOutlineDashboard /> پیشخوان</li>
+              <li onClick={clickmenu2}><MdOutlineBorderColor /> سفارش ها</li>
+              <li onClick={clickmenu3}><AiOutlineCloudDownload /> دانلود ها</li>
+              <li onClick={clickmenu4}><FaRegAddressBook />آدرس ها</li>
+              <li onClick={clickmenu5}> <AiOutlineHeart /> محصولات مورد علاقه </li>
+              <li onClick={clickmenu6}><AiOutlineComment /> دیدگاه های شما</li>
+              <li onClick={acinfo.signoutuser}><IoMdExit />  خروج از سیستم</li>
+              
+</ul>
+</div>
+
+ </div>
+ <div className='contentac'>
+                  {statusmenu==='menu1'&&
+                  
+              <Dashboard />
+                  }
+                  {statusmenu==='menu2'&& 'سفارشات'}
+                  {statusmenu==='menu3'&& 'دانلود ها'}
+                  {statusmenu==='menu4'&& 'ادرس'}
+                  {statusmenu==='menu5'&& 'علاقه'}
+                  {statusmenu==='menu6'&& 'دیدگاه'}
+                  
+          </div>
+
+     
+    </div>
+
   )
 }

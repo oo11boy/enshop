@@ -48,11 +48,13 @@ a{
 	color: unset;
 	text-decoration: none;
 }
+.hiddendesktop{
+	display: none;
+  }
 
 
 
-
-@media screen and (max-width: 1361px) { 
+@media screen and (max-width: 1300px) { 
 
   .hiddenmobile{
 	display: none;
@@ -60,4 +62,9 @@ a{
   .paddingtopmob{
 	padding-top: 102px;
   }
+
+  .hiddendesktop{
+    display: flex;
+    }
+  
 }

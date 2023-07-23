@@ -25,6 +25,15 @@
     width: 80%;
     height: 100%;
 }
+
+@media screen and (max-width:1360px) {
+
+    .contentac{
+        width: 95%;
+      margin: auto;
+      overflow: auto;
+    }
+}
 .menutitleac{
     padding: 0;
     margin: 0;
