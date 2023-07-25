@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { BiLogoDigitalocean } from 'react-icons/bi'
 import { MdFastfood } from 'react-icons/md'
 import { GiAmpleDress } from 'react-icons/gi'
+import { Api } from '../../../../api'
 export default function Menumobilebody() {
     useEffect (()=>{
         content()
@@ -16,7 +17,7 @@ export default function Menumobilebody() {
     
       const content=async()=> {
       
-      const res =await fetch (`http://localhost:5000/Menuinform`)
+      const res =await fetch (`${Api}/Menuinform`)
       const data= await res.json()
     
         setdataMenuinform(data) 

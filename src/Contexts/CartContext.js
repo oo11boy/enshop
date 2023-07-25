@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { Api } from "../api";
 
 export const CartContext = createContext({
   item: [],
@@ -86,7 +87,7 @@ export const CartContextProvider = (props) => {
 
   const contentporduct = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/product`);
+      const res = await fetch(`${Api}/product`);
       const data = await res.json();
       setdatafetchproduct(data);
     } catch (error) {

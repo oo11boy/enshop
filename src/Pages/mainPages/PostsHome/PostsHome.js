@@ -2,6 +2,7 @@ import React from 'react'
 import './PostsHome.css'
 import { Link } from 'react-router-dom'
 import { useEffect ,useState } from 'react';
+import { Api } from '../../../api';
 
 export default function PostsHome() {
 
@@ -13,7 +14,7 @@ export default function PostsHome() {
 
   const content=async()=> {
   
-  const res =await fetch (`http://localhost:5000/posts`)
+  const res =await fetch (`${Api}/posts`)
   const data= await res.json()
 
     setdataPostdata(data) 

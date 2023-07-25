@@ -1,6 +1,7 @@
 import React, { useContext ,useState,useEffect } from 'react'
 import { AccountContext } from '../../Contexts/AccountContext'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { Api } from '../../api'
 
 export default function PrivateRoute(props) {
     useEffect (()=>{
@@ -11,7 +12,7 @@ export default function PrivateRoute(props) {
     
       const content=async()=> {
       
-      const res =await fetch (`http://localhost:5000/UserLogindata`)
+      const res =await fetch (`${Api}/UserLogindata`)
       const data= await res.json()
     
       setUserLogindata(data) 

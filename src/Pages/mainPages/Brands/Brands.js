@@ -9,6 +9,7 @@ import { useEffect ,useState } from 'react';
 import { Pagination, Navigation } from 'swiper/modules';
 
 import './Brands.css';
+import { Api } from '../../../api';
 
 
 export default function Brands(props) {
@@ -22,7 +23,7 @@ export default function Brands(props) {
 
   const content = async () => {
 
-    const res = await fetch(`http://localhost:5000/Brandsdata`)
+    const res = await fetch(`${Api}/Brandsdata`)
     const data = await res.json()
 
     setdataBrandsdata(data)

@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Navigation } from 'swiper/modules';
+import { Api } from '../../../api';
 
 
 
@@ -28,7 +29,7 @@ export default function SlidersHome() {
 
  const content=async()=> {
  
- const res =await fetch (`http://localhost:5000/slider`)
+ const res =await fetch (`${Api}/slider`)
  const data= await res.json()
 
  setslider(data) 
@@ -39,7 +40,7 @@ export default function SlidersHome() {
 
  const contentleft=async()=> {
  
- const res =await fetch (`http://localhost:5000/slider`)
+ const res =await fetch (`${Api}/slider`)
  const data= await res.json()
 
  setsliderleftdata(data) 

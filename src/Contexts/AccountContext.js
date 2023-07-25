@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Api } from "../api";
 
 export const AccountContext = createContext({
     emailloginval: () => { },
@@ -55,7 +56,7 @@ export const AccountContextProvider = ({ children }) => {
 
   const contentlogin = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/UserLogindata`);
+      const res = await fetch(`${Api}UserLogindata`);
       const data = await res.json();
       setUserLogindata(data);
     } catch (error) {

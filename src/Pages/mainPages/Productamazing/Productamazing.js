@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 
 import './Productamazing.css';
+import { Api } from '../../../api';
 
 export default function Productamazing() {
   const Productandcart = useContext(CartContext);
@@ -54,7 +55,7 @@ export default function Productamazing() {
 
   const content=async()=> {
   
-  const res =await fetch (`http://localhost:5000/product`)
+  const res =await fetch (`${Api}/product`)
   const data= await res.json()
 
     setdatafetchproduct(data) 

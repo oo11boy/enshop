@@ -1,6 +1,7 @@
 import React from 'react'
 import './bannerHome.css'
 import { useEffect ,useState } from 'react';
+import { Api } from '../../../api';
 export default function BannerHome() {
 
   useEffect (()=>{
@@ -11,7 +12,7 @@ export default function BannerHome() {
 
   const content=async()=> {
   
-  const res =await fetch (`http://localhost:5000/bannerimg`)
+  const res =await fetch (`${Api}/bannerimg`)
   const data= await res.json()
 
   setbannerimg(data) 

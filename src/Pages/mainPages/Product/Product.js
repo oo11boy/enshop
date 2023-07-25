@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 
 import './Product.css';
+import { Api } from '../../../api';
 
 export default function Product(props) {
   const {margin,title}=props
@@ -52,7 +53,8 @@ export default function Product(props) {
 
   const contentporduct=async()=> {
   
-  const res =await fetch (`http://localhost:5000/product`)
+  const res =await fetch (`${Api}/product`)
+  console.log(res)
   const data= await res.json()
 
     setdatafetchproduct(data) 

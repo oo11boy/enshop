@@ -11,6 +11,7 @@ import { BsCartPlus } from 'react-icons/bs';
 import './SearchPage.css'
 import { TbSortDescending2 } from 'react-icons/tb';
 import { AiOutlineFilter } from 'react-icons/ai';
+import { Api } from '../../../api';
 export default function SearchPage() {
   
 const texthomesearch=useParams()
@@ -56,7 +57,7 @@ const showorder=()=>{
 
 
   const contentporduct = async () => {
-    const res = await fetch(`http://localhost:5000/product/?${cat !== '' && 'cat=' + cat}&q=${searchtext}&_sort=${sort[1]}&_order=${sort[0]}&price_gte=${minprice}&price_lte=${maxprice}`)
+    const res = await fetch(`${Api}/product/?${cat !== '' && 'cat=' + cat}&q=${searchtext}&_sort=${sort[1]}&_order=${sort[0]}&price_gte=${minprice}&price_lte=${maxprice}`)
     const data = await res.json()
     setdatafetchproduct(data)
 
@@ -71,7 +72,7 @@ const showorder=()=>{
 
 
   const contentcat = async () => {
-    const res = await fetch(`http://localhost:5000/category`)
+    const res = await fetch(`${Api}/category`)
     const data = await res.json()
     setcategoriylist(data)
 
