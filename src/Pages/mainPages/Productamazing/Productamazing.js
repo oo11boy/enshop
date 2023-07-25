@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext ,useEffect,useState} from 'react';
 import { CartContext } from '../../../Contexts/CartContext';
-import Dataproduct from '../../Database/DataProduct';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {BsCartPlus} from 'react-icons/bs'
@@ -45,6 +44,23 @@ export default function Productamazing() {
     },
   };
 
+
+  
+  useEffect (()=>{
+    content()
+  },[])
+  const [datafetchproduct,setdatafetchproduct]=useState([]) 
+
+
+  const content=async()=> {
+  
+  const res =await fetch (`http://localhost:5000/product`)
+  const data= await res.json()
+
+    setdatafetchproduct(data) 
+
+  }
+
   return (
     <div className='productamazing'>
    
@@ -63,7 +79,7 @@ export default function Productamazing() {
                 <img src="https://iraniwp.ir/digix/cosmetic/wp-content/themes/Digix/static/img/amazing.png" alt="" />
                 </div>
              </SwiperSlide>
-          {Dataproduct.map((item) => (
+          {datafetchproduct.map((item) => (
             <SwiperSlide key={item.id}>
               <div className='productbodyamazing'>
                 <div className='productname' >

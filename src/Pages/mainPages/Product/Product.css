@@ -90,8 +90,8 @@ position: relative;
     font-size: 13px;
     color: #FF4D6D;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 13px;
 }
 
 .tocartproduct{
@@ -114,3 +114,4 @@ position: relative;
     padding: 20px;
     border-radius: 10px;
 }
+

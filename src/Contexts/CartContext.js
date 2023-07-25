@@ -1,83 +1,100 @@
-import { createContext, useState } from "react";
-import  Dataproduct  from "../Pages/Database/DataProduct";
-export const CartContext=createContext({
-  item:[],
-  addtocard:()=>{},
-tedadproduct:()=>{},
-removeproductcart:()=>{},
-tedadhamecart:()=>{},
-totalprice:()=>{},
-showcartmobstatus:()=>{},
-showcartmob:()=>{},
-falsemenumob:()=>{},
-successtocart:''
-})
+import { createContext, useState, useEffect } from "react";
 
-export const CartContextProvider=(props)=>{
-    const {children}=props
+export const CartContext = createContext({
+  item: [],
+  addtocard: () => {},
+  tedadproduct: () => {},
+  removeproductcart: () => {},
+  tedadhamecart: () => {},
+  totalprice: () => {},
+  showcartmobstatus: () => {},
+  showcartmob: () => {},
+  falsemenumob: () => {},
+  successtocart: "",
+});
 
-  
-    const [dataCart,setDatacart]=useState([])
+export const CartContextProvider = (props) => {
+  const { children } = props;
 
-    const [showcartstatus,setshowcartmobstatus]=useState(false)
-    const[successc,setsuccesstocart]=useState('')
- const Cartvalue={
+  const [dataCart, setDatacart] = useState([]);
+  const [showcartstatus, setshowcartmobstatus] = useState(false);
+  const [successc, setsuccesstocart] = useState("");
+  const [tedadhame, settedadhame] = useState(0);
+  const [tprice, settprice] = useState(0);
+
+  const [datafetchproduct, setdatafetchproduct] = useState([]);
+
+  useEffect(() => {
+    contentporduct();
+  }, []);
+
+  const Cartvalue = {
     item: dataCart,
     addtocard,
     tedadproduct,
     removeproductcart,
     tedadhamecart,
     totalprice,
-    showcartmobstatus:showcartstatus,
+    showcartmobstatus: showcartstatus,
     showcartmob,
-    successtocart:successc,
-    falsemenumob
- }
- const [tedadhame,settedadhame]=useState(0)
-function tedadhamecart(){
-      const tedad=dataCart.length
-      settedadhame(tedad)
-      return tedadhame
-}
+    successtocart: successc,
+    falsemenumob,
+  };
 
-const [tprice,settprice]=useState(0)
-function totalprice(){
-  
-   let total_price = 0;
+  function addtocard(id) {
+    const newarraycart = datafetchproduct.find((item) => item.id === id);
 
-   // حلقه‌ی for برای جمع کردن مقادیر price در آرایه
-   for (let i = 0; i < dataCart.length; i++) {
-     total_price += dataCart[i].pricet;
-   }
-settprice(total_price)
-   return tprice
-}
+    setDatacart([...dataCart, newarraycart]);
+    setsuccesstocart("با موفقیت به سبد خرید اضافه شد");
+    alert(successc);
+  }
 
- function addtocard(id){
- const newarraycart=Dataproduct.find((item)=>item.id===id)
+  function removeproductcart(id) {
+    const newremoveitem = dataCart.filter((item) => item.id !== id);
+    setDatacart(newremoveitem);
+  }
 
- setDatacart([...dataCart,newarraycart])
-setsuccesstocart('با موفقیت به سبد خرید اضافه شد')
-return alert (successc)
- }
- function removeproductcart(id){
- const newremoveitem=dataCart.filter((item)=>item.id !== id)
- setDatacart(newremoveitem)
- }
-  
+  function tedadhamecart() {
+    const tedad = dataCart.length;
+    settedadhame(tedad);
+    return tedadhame;
+  }
 
-function showcartmob (){
-   setshowcartmobstatus(!showcartstatus)
-}
+  function totalprice() {
+    let total_price = 0;
 
-function     falsemenumob(){
-   setshowcartmobstatus(false)
-}
- function tedadproduct (id){
-   const quantity = dataCart.filter(item => item.id === id).length;
-return quantity
+    for (let i = 0; i < dataCart.length; i++) {
+      total_price += dataCart[i].pricet;
+    }
 
- }
+    settprice(total_price);
+    return tprice;
+  }
 
-     return <CartContext.Provider value={Cartvalue}>{children}</CartContext.Provider>
-}
+  function showcartmob() {
+    setshowcartmobstatus(!showcartstatus);
+  }
+
+  function falsemenumob() {
+    setshowcartmobstatus(false);
+  }
+
+  function tedadproduct(id) {
+    const quantity = dataCart.filter((item) => item.id === id).length;
+    return quantity;
+  }
+
+  const contentporduct = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/product`);
+      const data = await res.json();
+      setdatafetchproduct(data);
+    } catch (error) {
+      console.error("Error fetching product data:", error);
+    }
+  };
+
+  return (
+    <CartContext.Provider value={Cartvalue}>{children}</CartContext.Provider>
+  );
+};

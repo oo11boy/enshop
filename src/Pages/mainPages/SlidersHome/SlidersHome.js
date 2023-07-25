@@ -1,5 +1,6 @@
 import React from 'react'
 import paternbg from '../../pattern.svg'
+import { useEffect ,useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './SliderHome.css'
@@ -10,18 +11,51 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Navigation } from 'swiper/modules';
-import Sliderdata, { Sliderleftdata } from '../../Database/Sliderdata';
+
 
 
 
 export default function SlidersHome() {
+
+
+   
+  useEffect (()=>{
+   content()
+   contentleft()
+ },[])
+ const [slider,setslider]=useState([]) 
+
+
+ const content=async()=> {
+ 
+ const res =await fetch (`http://localhost:5000/slider`)
+ const data= await res.json()
+
+ setslider(data) 
+
+ }
+ const [Sliderleftdata,setsliderleftdata]=useState([]) 
+
+
+ const contentleft=async()=> {
+ 
+ const res =await fetch (`http://localhost:5000/slider`)
+ const data= await res.json()
+
+ setsliderleftdata(data) 
+
+ }
+
+
+
+
   return (
 <>
     <div className="slidersec">
       <div className="rowslide gap-4">
         <div className='rightsideslider'>
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-            {Sliderdata.map((item)=>{
+            {slider.map((item)=>{
                 return    <SwiperSlide><img src={item.img} alt="" /></SwiperSlide>
             })}
     

@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../../Contexts/CartContext';
-import Dataproduct from '../../Database/DataProduct';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {BsCartPlus} from 'react-icons/bs'
@@ -18,10 +17,6 @@ export default function Product(props) {
   const {margin,title}=props
   const Productandcart = useContext(CartContext);
 
-  const tprice = (id) => {
-    const tp = Dataproduct.find((item) => item.id === id)
-    console.log(tp)
-  }
   // Define breakpoints
   const breakpoints = {
     300: {
@@ -47,6 +42,25 @@ export default function Product(props) {
     },
   };
 
+
+
+  useEffect (()=>{
+    contentporduct()
+  },[])
+  const [datafetchproduct,setdatafetchproduct]=useState([]) 
+
+
+  const contentporduct=async()=> {
+  
+  const res =await fetch (`http://localhost:5000/product`)
+  const data= await res.json()
+
+    setdatafetchproduct(data) 
+
+  }
+
+
+
   return (
     <div className= {`products ${margin}`}>
       <div className='titerproduct'>
@@ -61,12 +75,14 @@ export default function Product(props) {
           modules={[Pagination, Navigation]}
           className="mySwiper2"
         >
-          {Dataproduct.map((item) => (
+          
+          {datafetchproduct.map((item) => (
             <SwiperSlide key={item.id}>
+        
               <div className='productbody'>
                 <div className='productname' >
-                  <img src={item.img} alt="" />
-                  {() => tprice(item.id)}
+                  <img src={'../'+item.img} alt="" />
+          
                   <Link to={'../product/' +item.cat +'/'+ item.id} >{item.name}</Link>
 
                   {item.takhfif !== 0 && <span className='takhfif'>{item.takhfif}%</span>

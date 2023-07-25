@@ -4,15 +4,34 @@ import './Brands.css'
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-
+import { useEffect ,useState } from 'react';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 
 import './Brands.css';
-import Brandsdata from '../../Database/Brandsdata';
+
 
 export default function Brands(props) {
-  const {margin,title}=props
+
+
+  useEffect(() => {
+    content()
+  }, [])
+  const [Brandsdata, setdataBrandsdata] = useState([])
+
+
+  const content = async () => {
+
+    const res = await fetch(`http://localhost:5000/Brandsdata`)
+    const data = await res.json()
+
+    setdataBrandsdata(data)
+
+  }
+
+
+
+  const { margin, title } = props
 
   const breakpoints = {
     320: {
@@ -42,7 +61,7 @@ export default function Brands(props) {
   };
 
   return (
-    <div className= {`products ${margin}`}>
+    <div className={`products ${margin}`}>
       <div className='titerproduct'>
         <p>{title}</p>
       </div>
@@ -57,8 +76,8 @@ export default function Brands(props) {
           {Brandsdata.map((item) => (
             <SwiperSlide key={item.id}>
               <div className='productbody'>
-               
-        <img src={item.img} alt="" />
+
+                <img src={item.img} alt="" />
               </div>
             </SwiperSlide>
           ))}

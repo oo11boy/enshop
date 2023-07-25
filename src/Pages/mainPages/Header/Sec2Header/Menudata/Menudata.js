@@ -1,17 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Menudata.css'
-import Boxmenu from './Boxmenu'
-import { BiLogoDigitalocean } from 'react-icons/bi'
-import { MdFastfood } from 'react-icons/md'
-import { GiAmpleDress } from 'react-icons/gi'
-import { AiOutlineShop } from 'react-icons/ai'
-import { AiFillCar } from 'react-icons/ai'
-import { Menuinform } from '../../../../Database/Menudata'
+import {BiLogoDigitalocean} from 'react-icons/bi'
+import {MdFastfood} from 'react-icons/md'
+import {GiAmpleDress} from 'react-icons/gi'
+import { useEffect, useState } from 'react';
 export default function Menudata() {
+
+    useEffect(() => {
+        content()
+    }, [])
+    const [Menuinform, setdataMenuinform] = useState([])
+
+
+    const content = async () => {
+
+        const res = await fetch(`http://localhost:5000/Menuinform`)
+        const data = await res.json()
+
+        setdataMenuinform(data)
+
+    }
+
     const [secmenu, setsecmenu] = useState([])
     const showsecmenu = (id) => {
         const findsecmenu = Menuinform.find((item) => item.id === id).body
         setsecmenu(findsecmenu)
+
     }
 
     return (
@@ -20,7 +34,11 @@ export default function Menudata() {
                 <ul>
 
                     {Menuinform.map((item) => {
-                        return <span> {item.icon} <li onMouseEnter={() => showsecmenu(item.id)} >{item.title}</li> </span>
+                        return <span>
+                            {item.icon === 'BiLogoDigitalocean' && <BiLogoDigitalocean />}
+                            {item.icon === 'MdFastfood' && <MdFastfood />}
+                            {item.icon === 'GiAmpleDress' && <GiAmpleDress />}
+                            <li onMouseEnter={() => showsecmenu(item.id)} >{item.title}</li> </span>
                     })}
 
                 </ul>

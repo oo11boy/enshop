@@ -1,11 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { MenumobileContext } from '../../../../Contexts/MenumobileContext'
 import './Menumobilebody.css'
-import { Menuinform } from '../../../Database/Menudata'
 import { IoIosArrowBack } from 'react-icons/io'
 import {TfiBackRight} from 'react-icons/tfi'
 import { Link } from 'react-router-dom'
+import { BiLogoDigitalocean } from 'react-icons/bi'
+import { MdFastfood } from 'react-icons/md'
+import { GiAmpleDress } from 'react-icons/gi'
 export default function Menumobilebody() {
+    useEffect (()=>{
+        content()
+      },[])
+      const [Menuinform,setdataMenuinform]=useState([]) 
+    
+    
+      const content=async()=> {
+      
+      const res =await fetch (`http://localhost:5000/Menuinform`)
+      const data= await res.json()
+    
+        setdataMenuinform(data) 
+    
+      }
 
     const menuinfo = useContext(MenumobileContext)
     const [bodyundermenu, setbodyundermenu] = useState([])
@@ -56,7 +72,14 @@ const deepmenu =(cat)=>{
                 <ul >
                     {Menuinform.map((item) => (
 
-                        <li onClick={() => showundermenu(item.id)} className='menumobitem'><div> {item.icon} {item.title}</div> <IoIosArrowBack /></li>
+                        <li onClick={() => showundermenu(item.id)} className='menumobitem'><div> 
+                            
+                            {item.icon === 'BiLogoDigitalocean' && <BiLogoDigitalocean />}
+                            {item.icon === 'MdFastfood' && <MdFastfood />}
+                            {item.icon === 'GiAmpleDress' && <GiAmpleDress />}
+
+
+                            {item.title}</div> <IoIosArrowBack /></li>
 
 
                     ))}
