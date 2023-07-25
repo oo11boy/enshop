@@ -78,7 +78,7 @@ export default function Brands(props) {
             <SwiperSlide key={item.id}>
               <div className='productbody'>
 
-                <img src={item.img} alt="" />
+                <img src={"../"+item.img} alt="" />
               </div>
             </SwiperSlide>
           ))}
