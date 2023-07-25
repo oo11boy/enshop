@@ -56,7 +56,7 @@ export const AccountContextProvider = ({ children }) => {
 
   const contentlogin = async () => {
     try {
-      const res = await fetch(`${Api}UserLogindata`);
+      const res = await fetch(`${Api}/UserLogindata`);
       const data = await res.json();
       setUserLogindata(data);
     } catch (error) {
