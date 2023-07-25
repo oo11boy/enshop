@@ -31,7 +31,6 @@ const texthomesearch=useParams()
     setsearchtext(event.target.value);
 
   };
-console.log(texthomesearch.searchinput)
 const [statussort,setstatussort]=useState(false)
 
 const showsort=()=>{
@@ -51,8 +50,20 @@ const showorder=()=>{
   const Productandcart = useContext(CartContext);
 
   useEffect(() => {
+    fetchAllProducts();
     contentporduct()
   }, [searchtext, sort, minprice, maxprice, cat])
+
+  const fetchAllProducts = async () => {
+    try {
+      const res = await fetch(`${Api}/product`);
+      const data = await res.json();
+      setdatafetchproduct(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
   const [datafetchproduct, setdatafetchproduct] = useState([])
 
 
