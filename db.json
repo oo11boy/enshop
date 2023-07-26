@@ -280,6 +280,21 @@
 
     "id":3 , "catname":"لوازم خانگی" , "catid":"home"
 
+  },
+  {
+
+    "id":4 , "catname":"کرم ها" , "catid":"cream"
+
+  },
+  {
+
+    "id":5 , "catname":"خوراکی" , "catid":"foods"
+
+  },
+  {
+
+    "id":6 , "catname":"لوازم آرایشی" , "catid":"beauty"
+
   }
 ] 
   

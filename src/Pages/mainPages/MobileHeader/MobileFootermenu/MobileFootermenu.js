@@ -7,26 +7,55 @@ import { BiCart } from 'react-icons/bi'
 import { AiOutlineUser } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../../../Contexts/CartContext'
+import { CategoryContext } from '../../../../Contexts/CategoryContext'
 export default function MobileFootermenu() {
 
   const cartinfo=useContext(CartContext)
+const catinfo=useContext(CategoryContext)
 
+const handlercat=(event)=>{
+  
+  cartinfo.falsemenumob()
+  catinfo.showcat(event)
+}
+
+const carthandler=(event)=>{
+  cartinfo.showcartmob(event)
+  catinfo.falsestatus()
+}
+
+const handlerearch=()=>{
+  catinfo.falsestatus()
+  
+  cartinfo.falsemenumob()
+}
+const Homepagehandler=()=>{
+  catinfo.falsestatus()
+  
+  cartinfo.falsemenumob()
+}
+
+const achandler=()=>{
+  catinfo.falsestatus()
+  
+  cartinfo.falsemenumob()
+}
   return (
     <div className='footermenubody'>
 
-      <Link onClick={cartinfo.falsemenumob} to='../'>
+      <Link onClick={Homepagehandler} to='../'>
         <GrHomeRounded />
         <p>صفحه نخست</p>
       </Link>
-      <Link  onClick={cartinfo.falsemenumob} to='../search'>
+      <Link  onClick={handlerearch} to='../search'>
         <FiSearch />
         <p>جستجو</p>
       </Link>
-      <div  onClick={cartinfo.falsemenumob} className='catfootermenu'>
+      <div  onClick={handlercat} className='catfootermenu'>
   <TbCategory />
         <p>دسته بندی</p>
       </div>
-      <div onClick={cartinfo.showcartmob} className='cartmob'>
+      <div onClick={carthandler} className='cartmob'>
       
           
        
@@ -39,7 +68,7 @@ export default function MobileFootermenu() {
      
 
       
-      <Link  onClick={cartinfo.falsemenumob} to='../useraccount'>
+      <Link  onClick={achandler} to='../useraccount'>
         <AiOutlineUser />
         <p>حساب کاربری</p>
       </Link>

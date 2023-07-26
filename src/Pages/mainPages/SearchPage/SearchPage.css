@@ -203,7 +203,7 @@ align-items: center;
 
 @media screen and (max-width:1300px) {
   .filter {
-    bottom: 50px;
+    bottom: 100px;
     display: flex;
     flex-direction: column;
     width: 95%;
@@ -215,6 +215,7 @@ align-items: center;
     position: fixed;
     border-radius: 15px;
     margin-bottom: 10px;
+    
     background-color: white;
 }
 .productserach{
@@ -226,7 +227,7 @@ align-items: center;
   display: flex;
   border-radius: 15px;
   align-items: center;
-  top: 159px;
+  top: 160px;
   margin: auto;
   position: fixed;
 

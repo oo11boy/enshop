@@ -18,7 +18,7 @@ const texthomesearch=useParams()
 
 
 
-  const [searchtext, setsearchtext] = useState(texthomesearch.searchinput!=='' ?texthomesearch.searchinput : '');
+  const [searchtext, setsearchtext] = useState(' ');
 
   const [sort, setsortby] = useState(['asc', 'pricet'])
 
@@ -50,19 +50,10 @@ const showorder=()=>{
   const Productandcart = useContext(CartContext);
 
   useEffect(() => {
-    fetchAllProducts();
     contentporduct()
   }, [searchtext, sort, minprice, maxprice, cat])
 
-  const fetchAllProducts = async () => {
-    try {
-      const res = await fetch(`${Api}/product`);
-      const data = await res.json();
-      setdatafetchproduct(data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
+
 
   const [datafetchproduct, setdatafetchproduct] = useState([])
 
@@ -154,14 +145,8 @@ const showorder=()=>{
 
         <div className='leftsidesearch'>
 
-          {searchtext !== '' &&
-            <div className={'resultsearch mt5 mb-2'}>
-              <span>   نتیجه جستجو برای: {searchtext}</span>
-
-            </div>
-          }
    <div className={statusorder==false && 'hiddenmobile'}>
-          <div className={searchtext == '' ? 'mt5 sortsearch' : 'sortsearch' }>
+          <div className="sortsearch  mt5">
             <span><TbSortDescending2 />  مرتب سازی بر اساس:</span>
             <ul className='sortsearchbody'>
               <li onClick={() => { setsortby(['asc', 'pricet']) }} >ارزانترین</li>

@@ -5,6 +5,7 @@ import './App.css';
 import   { CartContextProvider }  from './Contexts/CartContext';
 import { MenumobileContextProvider } from './Contexts/MenumobileContext';
 import { AccountContextProvider } from './Contexts/AccountContext';
+import { CategoryContextProvider } from './Contexts/CategoryContext';
 
 
 function App() {
@@ -13,11 +14,13 @@ function App() {
      <CartContextProvider>
       <MenumobileContextProvider>
         <AccountContextProvider>
+          <CategoryContextProvider>
     <div className="App">
 
     {router}
 
     </div> 
+    </CategoryContextProvider>
     </AccountContextProvider>
     </MenumobileContextProvider>
        </CartContextProvider>
