@@ -46,7 +46,7 @@ export default function Productamazing() {
   };
 
 
-  
+  const [loading,setloading]=useState(true)
   useEffect (()=>{
     content()
   },[])
@@ -59,7 +59,7 @@ export default function Productamazing() {
   const data= await res.json()
 
     setdatafetchproduct(data) 
-
+    setloading(false)
   }
 
   return (
@@ -80,7 +80,9 @@ export default function Productamazing() {
                 <img src="https://iraniwp.ir/digix/cosmetic/wp-content/themes/Digix/static/img/amazing.png" alt="" />
                 </div>
              </SwiperSlide>
-          {datafetchproduct.map((item) => (
+          {
+            loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
+          datafetchproduct.map((item) => (
             <SwiperSlide key={item.id}>
               <div className='productbodyamazing'>
                 <div className='productname' >

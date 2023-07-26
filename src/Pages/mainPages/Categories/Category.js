@@ -9,7 +9,7 @@ export default function Category() {
     const catinfo = useContext(CategoryContext);
     const [catlist, setcatlist] = useState([]);
     const [images, setImages] = useState([]);
-
+    const [loading,setloading]=useState(true)
     useEffect(() => {
         content();
     }, []);
@@ -18,6 +18,7 @@ export default function Category() {
         const res = await fetch(`${Api}/category`);
         const data = await res.json();
         setcatlist(data);
+        setloading(false)
     };
 
     useEffect(() => {
@@ -39,7 +40,11 @@ export default function Category() {
                 </div>
                 <div className='container pt-5 overflow-auto pb-5'>
                     <div className='row justify-content-between'>
-                    {catlist.map((item, index) => (
+
+                        
+                    {
+                       loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
+                    catlist.map((item, index) => (
                         <div className="col-12 g-3 col-md-6 col-sm-6 col-lg-6 categoryitem" key={item.catname}>
 
                             <img src={images[index]} alt="" />

@@ -11,6 +11,7 @@ export default function PostsHome() {
   },[])
   const [Postdata,setdataPostdata]=useState([]) 
 
+  const [loading,setloading]=useState(true)
 
   const content=async()=> {
   
@@ -18,12 +19,14 @@ export default function PostsHome() {
   const data= await res.json()
 
     setdataPostdata(data) 
-
+    setloading(false)
   }
 
   return (
     <div className='posts mt-3 mb-3'>
-      {Postdata.map((item)=>{
+      {
+        loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
+      Postdata.map((item)=>{
         return <Link to={'../post/'+item.id} style={{ backgroundImage: `url(${item.img})`   }} className="postbody" >
           
             <h3>{item.title}</h3>

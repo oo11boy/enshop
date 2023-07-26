@@ -14,9 +14,8 @@ import { AiOutlineFilter } from 'react-icons/ai';
 import { Api } from '../../../api';
 export default function SearchPage() {
   
-const texthomesearch=useParams()
 
-
+const [loading,setloading]=useState(true)
 
   const [searchtext, setsearchtext] = useState(' ');
 
@@ -62,6 +61,7 @@ const showorder=()=>{
     const res = await fetch(`${Api}/product/?${cat !== '' && 'cat=' + cat}&q=${searchtext}&_sort=${sort[1]}&_order=${sort[0]}&price_gte=${minprice}&price_lte=${maxprice}`)
     const data = await res.json()
     setdatafetchproduct(data)
+    setloading(false)
 
   }
 
@@ -161,7 +161,9 @@ const showorder=()=>{
 
 
 
-            {datafetchproduct.map((item) => (
+            {
+             loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
+            datafetchproduct.map((item) => (
 
               <div className='productbody'>
 

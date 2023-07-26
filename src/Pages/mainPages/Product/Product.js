@@ -17,7 +17,7 @@ import { Api } from '../../../api';
 export default function Product(props) {
   const {margin,title}=props
   const Productandcart = useContext(CartContext);
-
+const [loading,setloading]=useState(true)
   // Define breakpoints
   const breakpoints = {
     300: {
@@ -46,7 +46,13 @@ export default function Product(props) {
 
 
   useEffect (()=>{
-    contentporduct()
+
+    setTimeout(() => {
+      contentporduct()
+    }, 2000);
+  
+
+   
   },[])
   const [datafetchproduct,setdatafetchproduct]=useState([]) 
 
@@ -58,7 +64,7 @@ export default function Product(props) {
   const data= await res.json()
 
     setdatafetchproduct(data) 
-
+setloading(false)
   }
 
 
@@ -78,7 +84,10 @@ export default function Product(props) {
           className="mySwiper2"
         >
           
-          {datafetchproduct.map((item) => (
+          {
+          
+          loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
+          datafetchproduct.map((item) => (
             <SwiperSlide key={item.id}>
         
               <div className='productbody'>
