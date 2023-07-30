@@ -1,52 +1,81 @@
-import React, {  useState ,useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import Header from '../Header/Header'
-import { CartContext } from '../../../Contexts/CartContext'
-import { useContext } from 'react'
-export default function SingleProduct() {
-          const infocart=useContext(CartContext)
+// import React, {  useState ,useEffect } from 'react'
+// import { useParams } from 'react-router-dom'
+// import { CartContext } from '../../../Contexts/CartContext'
+// import { useContext } from 'react'
+// import { Api, domain } from '../../../api'
+// import Header from '../Header/Header'
+// import MobileHeader from '../MobileHeader/MobileHeader'
+// import './SingleProduct.css'
+// export default function SingleProduct() {
+//           const infocart=useContext(CartContext)
 
-          useEffect (()=>{
-            contentporduct()
-          },[])
-          const [datafetchproduct,setdatafetchproduct]=useState([]) 
         
-        
-          const contentporduct=async()=> {
-          
-          const res =await fetch (`http://localhost:5000/product`)
-          const data= await res.json()
-        
-            setdatafetchproduct(data) 
-        
-          }
- const [products,setproducts]=useState(datafetchproduct)
-   const productinfo=useParams()
-const singlepro=products.find((item)=>item.id===productinfo.id)
+//           const [datafetchproduct,setdatafetchproduct]=useState([]) 
+//           const [loading,setloading]=useState(true)
+//   useEffect (()=>{
 
-return(
+  
+//       contentporduct()
+   
+  
+
+   
+//   },[])
+
+
+
+//   const contentporduct=async()=> {
+  
+//   const res =await fetch (`${Api}/product`)
+//   const data= await res.json()
+
+//     setdatafetchproduct(data) 
+//     setloading(false)
+
+//   }
+
+//    const productinfo=useParams()
+
+// const  singlepro=datafetchproduct.find((item)=>item.id==productinfo.id)
+// return(
  
-   <>
-   <Header />
-     id:{ singlepro.id}
-     <br />
-   price:{singlepro.price}
-   <br />
+//    <>
+//    <Header />
+//    <MobileHeader/>
 
-   name:{ singlepro.name}
-   <br />
+//    { loading===false && <div className='singleproduct'>
 
-img:  <img src={singlepro.img} alt="" srcset="" />
-   <br />
-   <div onClick={()=>infocart.addtocard(singlepro.id)}>add cart</div>
-   <br />
+    
+//      {/* id:{ singlepro.id}
+//      <br />
+//    price:{singlepro.price}
+//    <br />
 
-   </>
+//    name:{ singlepro.name}
+//    <br />
+
+// img:  <img src={domain+singlepro.img} alt="" />
+//    <br />
+//    <div onClick={()=>infocart.addtocard(singlepro.id)}>add cart</div>
+   
+//    <br /> */}
+
+// <div className='rightsproduct'>
+// <p className='titlesproduct'>
+// { singlepro.name }
+// </p>
+
+// <p className='statussproduct'>وضعیت: {singlepro.status ? 'موجود' : 'ناموجود'}</p>
+// </div>
+
+// <div className="leftsproduct">left</div>
+//    </div> }
+//    </>
  
  
-)
+// )
 
-}
+// }
 
 
 

@@ -1,0 +1,34 @@
+.singleproduct{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
+    margin-top: 30px;
+    height: 50vh;
+}
+
+.rightsproduct{
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+ 
+    background-color: red;
+}
+.leftsproduct{
+    padding: 20px;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    background-color: black;
+}
+.titlesproduct{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+    padding-bottom: 10px;
+    width: 100%;
+}

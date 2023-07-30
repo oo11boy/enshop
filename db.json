@@ -1,4 +1,81 @@
 {
+
+  "product": [
+    {
+      "id": 1,
+      "name": "شامپو بچه صحت",
+      "price": 1200,
+      "img": "img/productimg/1.jpg",
+      "takhfif": 20,
+      "cat": "cream",
+      "pricet": 1050,
+      "status":true
+    },
+    {
+      "id": 2,
+      "name": "ژل بهداشتی بانوان لافارر ظرفیت 250 میلی لیتر",
+      "price": 4200,
+      "img": "img/productimg/2.jpg",
+      "takhfif": 0,
+      "cat": "mobile",
+      "pricet": 4200,
+         "status":true
+    },
+    {
+      "id": 3,
+      "name": "کرم آبرسان حاوی عصاره خیار ماسینکس ظرفیت 200 میلی لیتر",
+      "price": 5200,
+      "img": "img/productimg/3.jpg",
+      "takhfif": 35,
+      "cat": "home",
+      "pricet": 3684
+      ,
+         "status":false
+    },
+    {
+      "id": 4,
+      "name": "شامپو بچه صحت",
+      "price": 1200,
+      "img": "img/productimg/4.jpg",
+      "takhfif": 16,
+      "cat": "mobile",
+      "pricet": 1100
+      ,
+         "status":false
+
+    },
+    {
+      "id": 5,
+      "name": "کرم آبرسان حاوی عصاره خیار ماسینکس ظرفیت 200 میلی لیتر",
+      "price": 2500,
+      "img": "img/productimg/5.jpg",
+      "takhfif": 0,
+      "cat": "cream",
+      "pricet": 2500 
+    },
+    {
+      "id": 6,
+      "name": "ژل بهداشتی بانوان لافارر ظرفیت 250 میلی لیتر",
+      "price": 4400,
+      "img": "img/productimg/6.jpg",
+      "takhfif": 20,
+      "cat": "cream",
+      "pricet": 3800
+      ,
+         "status":false
+    },
+    {
+      "id": 7,
+      "name": "کرم آبرسان حاوی عصاره خیار ماسینکس ظرفیت 2200 میلی لیتر",
+      "price": 9200,
+      "img": "img/productimg/7.jpg",
+      "takhfif": 20,
+      "cat": "cream",
+      "pricet": 8050
+ 
+    }
+  ]
+  , 
 "slider" :[
   {"id":1 , "img": "img/slider/slide1.webp"},
   {"id":2 , "img": "img/slider/slide2.webp"}
@@ -199,72 +276,7 @@
     }
   ]
 ,
-"product": [
-      {
-        "id": 1,
-        "name": "شامپو بچه صحت",
-        "price": 1200,
-        "img": "img/productimg/1.jpg",
-        "takhfif": 20,
-        "cat": "cream",
-        "pricet": 1050
-      },
-      {
-        "id": 2,
-        "name": "ژل بهداشتی بانوان لافارر ظرفیت 250 میلی لیتر",
-        "price": 4200,
-        "img": "img/productimg/2.jpg",
-        "takhfif": 0,
-        "cat": "mobile",
-        "pricet": 4200
-      },
-      {
-        "id": 3,
-        "name": "کرم آبرسان حاوی عصاره خیار ماسینکس ظرفیت 200 میلی لیتر",
-        "price": 5200,
-        "img": "img/productimg/3.jpg",
-        "takhfif": 35,
-        "cat": "home",
-        "pricet": 3684
-      },
-      {
-        "id": 4,
-        "name": "شامپو بچه صحت",
-        "price": 1200,
-        "img": "img/productimg/4.jpg",
-        "takhfif": 16,
-        "cat": "mobile",
-        "pricet": 1100
-      },
-      {
-        "id": 5,
-        "name": "کرم آبرسان حاوی عصاره خیار ماسینکس ظرفیت 200 میلی لیتر",
-        "price": 2500,
-        "img": "img/productimg/5.jpg",
-        "takhfif": 0,
-        "cat": "cream",
-        "pricet": 2500
-      },
-      {
-        "id": 6,
-        "name": "ژل بهداشتی بانوان لافارر ظرفیت 250 میلی لیتر",
-        "price": 4400,
-        "img": "img/productimg/6.jpg",
-        "takhfif": 20,
-        "cat": "cream",
-        "pricet": 3800
-      },
-      {
-        "id": 7,
-        "name": "کرم آبرسان حاوی عصاره خیار ماسینکس ظرفیت 2200 میلی لیتر",
-        "price": 9200,
-        "img": "img/productimg/7.jpg",
-        "takhfif": 20,
-        "cat": "cream",
-        "pricet": 8050
-      }
-    ]
-    , 
+
   "category":[
     {
 

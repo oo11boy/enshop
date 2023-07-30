@@ -60,7 +60,6 @@ const [loading,setloading]=useState(true)
   const contentporduct=async()=> {
   
   const res =await fetch (`${Api}/product`)
-  console.log(res)
   const data= await res.json()
 
     setdatafetchproduct(data) 
