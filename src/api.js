@@ -5,7 +5,7 @@ export let Api ='https://apishop-md.vercel.app'
 
 // https://apishop-md.vercel.app
 
-export let domain='https://shopnew-tau.vercel.app/'
+export let domain='http://localhost:3000/'
 
 // https://shopnew-tau.vercel.app/
 

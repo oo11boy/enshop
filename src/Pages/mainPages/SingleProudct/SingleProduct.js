@@ -18,35 +18,25 @@ export default function SingleProduct() {
    const [loading, setloading] = useState(true)
    const [loadingcat, setloadingcat] = useState(true)
    useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const resProduct = await fetch(`${Api}/product`);
+            const dataProduct = await resProduct.json();
+            setdatafetchproduct(dataProduct);
+            setloading(false);
+   
+            const resCategory = await fetch(`${Api}/category`);
+            const dataCategory = await resCategory.json();
+            setcatinfo(dataCategory);
+            setloadingcat(false);
+         } catch (error) {
+            // handle error
+         }
+      };
+   
+      fetchData();
+   }, []);
 
-
-      contentporduct()
-      contentcat()
-
-
-
-   }, [])
-
-
-
-   const contentporduct = async () => {
-
-      const res = await fetch(`${Api}/product`)
-      const data = await res.json()
-
-      setdatafetchproduct(data)
-      setloading(false)
-
-   }
-   const contentcat = async () => {
-
-      const res = await fetch(`${Api}/category`)
-      const data = await res.json()
-
-      setcatinfo(data)
-
-      setloadingcat(false)
-   }
 
    const productinfo = useParams()
 
