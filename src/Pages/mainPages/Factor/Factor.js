@@ -21,7 +21,7 @@ const acinfo=useContext(AccountContext)
 <MobileHeader/>
   
   
-  <div className="factorbody">
+  <div className="factorbody paddingtopmob" >
   {Bilinfo.infobilling.address==undefined ?
   
 <div className='alert alert-danger w-100  m-auto mt-3'>
