@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import './CartShowMobile.css'
 import { CartContext } from '../../../../Contexts/CartContext';
 import { LiaOpencart } from 'react-icons/lia';
+import { domain } from '../../../../api';
 export default function CartShowMobile() {
     const cartinfo = useContext(CartContext);
 
@@ -37,7 +38,7 @@ export default function CartShowMobile() {
 
                         <div className='cartbodymob' key={item.id}>
                             <div className='imgcart'>
-                                <img src={item.img} alt="" />
+                                <img src={domain+ item.img} alt="" />
                             </div>
                             <div className='informcartmob'>
                                 <Link to={'product/' + item.id}>{item.name}</Link>

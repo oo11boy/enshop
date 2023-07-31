@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 
 import './Product.css';
-import { Api } from '../../../api';
+import { Api, domain } from '../../../api';
 
 export default function Product(props) {
   const {margin,title}=props
@@ -91,7 +91,7 @@ setloading(false)
         
               <div className='productbody'>
                 <div className='productname' >
-                  <img src={'../'+item.img} alt="" />
+                  <img src={domain+item.img} alt="" />
           
                   <Link to={'../product/' +item.cat +'/'+ item.id} >{item.name}</Link>
 

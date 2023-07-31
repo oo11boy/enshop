@@ -9,7 +9,7 @@ import { useEffect ,useState } from 'react';
 import { Pagination, Navigation } from 'swiper/modules';
 
 import './Brands.css';
-import { Api } from '../../../api';
+import { Api, domain } from '../../../api';
 
 
 export default function Brands(props) {
@@ -78,7 +78,7 @@ export default function Brands(props) {
             <SwiperSlide key={item.id}>
               <div className='productbody'>
 
-                <img src={"../"+item.img} alt="" />
+                <img src={domain+item.img} alt="" />
               </div>
             </SwiperSlide>
           ))}

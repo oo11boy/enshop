@@ -4,6 +4,7 @@ import { CiCircleRemove } from 'react-icons/ci';
 import { useContext } from 'react';
 import { CartContext } from '../../../../../Contexts/CartContext';
 import { Link } from 'react-router-dom';
+import { domain } from '../../../../../api';
 export default function ShowCart() {
   const cartinfo = useContext(CartContext);
 
@@ -30,7 +31,7 @@ export default function ShowCart() {
         {itemsToRender.map(item => (
           <div className='cartbody' key={item.id}>
             <div className='imgcart'>
-              <img src={item.img} alt="" />
+              <img src={domain+ item.img} alt="" />
             </div>
             <div className='informcart'>
               <Link to={'product/' + item.id}>{item.name}</Link>

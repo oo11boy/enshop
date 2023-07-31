@@ -5,30 +5,227 @@
     width: 95%;
     margin: auto;
     margin-top: 30px;
-    height: 50vh;
+    height: 60vh;
+    font-family: kalameh;
+    gap: 20px;
+    
 }
 
+.bodysingleproduct{
+    width: 95%;
+    margin: auto;
+    margin-top: 30px;
+
+    font-family: kalameh;
+    padding-bottom: 120px;
+}
 .rightsproduct{
     width: 50%;
+    box-shadow: 0px 5px 10px 5px rgba(0,0,0,.031372549);
+    border-radius: 15px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
     padding: 20px;
+    height: 100%;
  
-    background-color: red;
 }
 .leftsproduct{
     padding: 20px;
     width: 50%;
     display: flex;
     justify-content: flex-end;
+    box-shadow: 0px 5px 10px 5px rgba(0,0,0,.031372549);
+    border-radius: 15px;
     align-items: flex-end;
     flex-direction: column;
-    background-color: black;
+   
+    height: 100%;
+}
+.statussproduct{
+    margin-top: 20px;
 }
 .titlesproduct{
     border-bottom: 1px solid rgba(0, 0, 0, 0.171);
     padding-bottom: 10px;
     width: 100%;
+    font-size: 2em!important;
+}
+
+.sendday{
+    display: flex;
+    justify-content: space-between;
+    width: 43%;
+    align-items: center;
+    margin-top: 20px;
+}
+.sendday p{
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 0.8em!important;
+}
+.priceproduct{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+    margin-top: 20px;
+
+}
+
+.priceproduct p{
+    font-size: 1.5em!important;
+}
+
+.priceproduct p:nth-child(1){
+    color: rgba(0, 0, 0, 0.258);
+}
+
+.priceproduct p:nth-child(2){
+    color: red;
+}
+.priceproduct p:nth-child(3){
+ background-color: red;
+ padding: 5px 10px;
+ border-radius: 15px;
+ color: white; 
+}
+
+.tocard{
+    cursor: pointer;
+}
+
+.catsproduct{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 45%;
+}
+
+.catsproduct p{
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 0.8em!important; 
+    margin-top: 20px; 
+}
+.leftsproduct {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+}
+.leftsproduct img{
+ max-width: 100%;
+    height: 100%;
+}
+.bodysingleproduct button{
+font-family: kalameh;
+}
+
+.bodysingleproduct p{
+    font-family: kalameh2;
+    font-size: 1.5em!important;
+    }
+
+
+    .accordion-button::after {
+       
+        margin-left: 0!important;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+@media screen and (max-width:1300px) {
+    .singleproduct{
+     
+        padding-top: 120px;
+        flex-direction: column;
+  height: auto;
+   
+    }
+    .titlesproduct{
+        font-size: 20px!important;
+    }
+    .leftsproduct{
+        width: 100%!important;
+        height: 50vh;
+    }
+    .rightsproduct{
+        width: 100%!important;
+        order: 2;
+    }
+}
+
+
+@media screen and (max-width:670px) {
+    .titlesproduct{
+        font-size: 15px!important;
+    }
+    .sendday{
+        width: 100%!important;
+    }
+    .priceproduct {
+        flex-direction: column;
+          width: 100%;
+          justify-content: flex-start;
+          align-items: flex-start;
+          gap: 10px;
+      }
+      .tocard{
+        font-size: 1em!important;
+      }
+
+      .catsproduct {
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+    }
+    .css-heg063-MuiTabs-flexContainer {
+       
+        overflow: auto;
+    }
+    .accordion-flush .accordion-item .accordion-button, .accordion-flush .accordion-item .accordion-button.collapsed {
+        
+        text-align: right;
+    }
+    .css-19kzrtu {
+        padding: 3px;
+    }
+}
+
+
+
+@media screen and (max-width:300px) {
+
+    .sendday{
+       flex-direction: column;
+       justify-content: flex-start;
+       align-items: flex-start;
+       gap: 10px;
+    }
+
+}
+
+
+.accordion-flush .accordion-item .accordion-button, .accordion-flush .accordion-item .accordion-button.collapsed {
+    text-align: right;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
