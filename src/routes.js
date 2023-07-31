@@ -2,6 +2,7 @@
 import HomePannel from "./Pages/PannelPages/MainPage/HomePannel"
 import Adduser from "./Pages/PannelPages/Users/Adduser/Adduser"
 import Billing from "./Pages/mainPages/Billing/Billing"
+import Factor from "./Pages/mainPages/Factor/Factor"
 import Home from "./Pages/mainPages/Home"
 import PrivateRoute from "./Pages/mainPages/PrivateRoute"
 import SearchPage from "./Pages/mainPages/SearchPage/SearchPage"
@@ -31,6 +32,9 @@ let routes=[
 
     {path:'/useraccount/inform/*' , element:<PrivateRoute><Accountinformuser /></PrivateRoute>}, 
 
+
+
+    {path:'/outputpay' , element:<Factor />}, 
 
 
 
