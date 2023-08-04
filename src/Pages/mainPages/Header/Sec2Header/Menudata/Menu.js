@@ -24,9 +24,9 @@ export default function Menu() {
 
 
                 <Link to='/blog'> <li>وبلاگ</li> </Link>
-                <Link to='/myaccount'> <li>حساب کاربری من</li>  </Link>
-                <Link to='/pay'> <li>پرداخت</li>  </Link>
-                <Link to='/shop'> <li>فروشگاه</li>  </Link>
+                <Link to='/useraccount/inform'> <li>حساب کاربری من</li>  </Link>
+                <Link to='/biling'> <li>پرداخت</li>  </Link>
+                <Link to='/search'> <li>فروشگاه</li>  </Link>
             </ul>
       
                 <div onMouseLeave={nomenu} className={showmenuheader ? 'menuinform' : 'menuinform-no'}>

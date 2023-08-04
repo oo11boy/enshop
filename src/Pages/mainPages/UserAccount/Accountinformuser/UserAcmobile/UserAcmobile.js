@@ -8,6 +8,11 @@ import { AccountContext } from '../../../../../Contexts/AccountContext'
 import Dashboard from '../ItemsAcuser/Dashboard/Dashboard'
 import { IoMdExit } from 'react-icons/io'
 import { RxAvatar } from 'react-icons/rx'
+import Orders from '../ItemsAcuser/Orders/Orders'
+import Downloads from '../ItemsAcuser/Downloads/Downloads'
+import Hearts from '../ItemsAcuser/Hearts/Hearts'
+import Comments from '../ItemsAcuser/Comments/Comments'
+import Address from '../ItemsAcuser/Adress/Adress'
 
 export default function UserAcmobile() {
 
@@ -84,11 +89,15 @@ export default function UserAcmobile() {
                   
               <Dashboard />
                   }
-                  {statusmenu==='menu2'&& 'سفارشات'}
-                  {statusmenu==='menu3'&& 'دانلود ها'}
-                  {statusmenu==='menu4'&& 'ادرس'}
-                  {statusmenu==='menu5'&& 'علاقه'}
-                  {statusmenu==='menu6'&& 'دیدگاه'}
+                  {statusmenu==='menu2'&& 
+                  <Orders />
+                  }
+                  {statusmenu==='menu3'&& 
+                  <Downloads />
+                  }
+                  {statusmenu==='menu4'&& <Address />}
+                  {statusmenu==='menu5'&& <Hearts/>}
+                  {statusmenu==='menu6'&& <Comments />}
                   
           </div>
 

@@ -12,13 +12,13 @@ export default function Sec1Header() {
 
         <Link to='/' >   <img src="img/main/header/logo.png" alt="" /></Link>
 
-
       </div>
       <div className='siteinform'>
         <div className="boxesheader">
 
-          <Boxheader icon={<BiPhoneCall />} title=' پشتیبانی آنلاین' body="02156982542" />
-          <Boxheader icon={<GrLocation />} title='آدرس فروشگاه' body="تهران، بزرگراه باکری خیابان شهیدمحسن یعقوبی(بهار جنوبی) نبش کوچه شهید اکبر اصغر زاده" />
+          <Boxheader icon={<BiPhoneCall />} title=' پشتیبانی آنلاین' body="09354502369" />
+          <Boxheader icon={<GrLocation />} title='آدرس فروشگاه' body="کرمانشاه رسول قاسمی توسعه دهنده ری اکت جی اس
+          " />
         </div>
 
         <div className="iconsocialheader">

@@ -14,29 +14,30 @@ export default function Footer() {
                     <div className='menucontent'>
                         <ul >
                             <Link to='../blog'><li>وبلاگ</li></Link>
-                            <Link to='../mycart'><li>سبدخرید</li></Link>
-                            <Link to='../account'><li>حساب کاربری من</li></Link>
-                            <Link to='../shop'><li>فروشگاه</li></Link>
-                            <Link to='../pay'><li>پرداخت</li></Link>
+                            <Link to='../biling'><li>پرداخت</li></Link>
+                            <Link to='../useraccount/inform'><li>حساب کاربری من</li></Link>
+                            <Link to='../search'><li>فروشگاه</li></Link>
+                            <Link to='../biling'><li>پرداخت</li></Link>
 
                         </ul>
 
                         <ul >
                             <Link to='../blog'><li>وبلاگ</li></Link>
-                            <Link to='../mycart'><li>سبدخرید</li></Link>
-                            <Link to='../account'><li>حساب کاربری من</li></Link>
-                            <Link to='../shop'><li>فروشگاه</li></Link>
-                            <Link to='../pay'><li>پرداخت</li></Link>
+                            <Link to='../biling'><li>پرداخت</li></Link>
+                            <Link to='../useraccount/inform'><li>حساب کاربری من</li></Link>
+                            <Link to='../search'><li>فروشگاه</li></Link>
+                            <Link to='../biling'><li>پرداخت</li></Link>
 
                         </ul>
                         <ul >
                             <Link to='../blog'><li>وبلاگ</li></Link>
-                            <Link to='../mycart'><li>سبدخرید</li></Link>
-                            <Link to='../account'><li>حساب کاربری من</li></Link>
-                            <Link to='../shop'><li>فروشگاه</li></Link>
-                            <Link to='../pay'><li>پرداخت</li></Link>
+                            <Link to='../biling'><li>پرداخت</li></Link>
+                            <Link to='../useraccount/inform'><li>حساب کاربری من</li></Link>
+                            <Link to='../search'><li>فروشگاه</li></Link>
+                            <Link to='../biling'><li>پرداخت</li></Link>
 
                         </ul>
+                        
                     </div>
                 </div>
                 <div className='leftsidefooter'>

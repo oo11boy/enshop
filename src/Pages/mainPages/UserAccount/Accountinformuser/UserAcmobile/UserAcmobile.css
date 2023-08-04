@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center;
     width: 95%;
+    z-index: 1201;
 }
 
 
@@ -48,6 +49,7 @@
     position: fixed;
     height: 70vh;
     border-radius: 15px 15px 0 0;
+    z-index: 1200;
 }
     
 
@@ -116,4 +118,3 @@
 .avatarusermob svg{
   font-size: 2em;
 }
-

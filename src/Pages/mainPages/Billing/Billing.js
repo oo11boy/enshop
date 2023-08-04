@@ -17,7 +17,6 @@ export default function Billing() {
   ///
 const bilinginfo=useContext(BillingContext)
 const acinfo=useContext(AccountContext)
-
   return (
     <>
       <Header />
