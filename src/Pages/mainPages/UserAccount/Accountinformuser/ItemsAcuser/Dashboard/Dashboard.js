@@ -149,7 +149,7 @@ const [loading,setloading]=useState(true)
 
 <div className='lastprodash mb-3'>
      <p>آخرین محصولات</p>
-     {loading===false && dataproduct.map((item)=>{
+     {loading==false && dataproduct.map((item)=>{
  return <div className='bodylast'>
  <p>{item.name}</p>
 
