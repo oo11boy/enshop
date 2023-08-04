@@ -84,6 +84,10 @@ export default function LoginForm() {
                     فراموشی رمز عبور
                   </Button>
                 </div>
+                <button className='mt-3 rounded-2  p-1 border border-danger text-danger ' onClick={(event)=>{
+                  event.preventDefault()
+                  alert('email: r@gmail.com - password:123')
+                }}>نمایش اطلاعات دمو</button>
               </Form>
             </div>
           </div>

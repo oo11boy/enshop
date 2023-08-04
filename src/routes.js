@@ -28,7 +28,7 @@ let routes=[
     {path:'/useraccount/*' , element:<LoginForm />}, 
     {path:'/useraccount/Login' , element:<LoginForm />}, 
     {path:'/useraccount/Register' , element:<Registeruser />}, 
-    {path:'/useraccount/inform' , element:<Accountinformuser />}, 
+    {path:'/useraccount/inform' , element:<PrivateRoute><Accountinformuser /></PrivateRoute>}, 
 
     {path:'/useraccount/inform/*' , element:<PrivateRoute><Accountinformuser /></PrivateRoute>}, 
 
