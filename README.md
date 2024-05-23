@@ -4,7 +4,9 @@ A comprehensive e-commerce store built with React.js.
 
 ## Demo
 
- <NEED VPN> [Live Demo](https://shopnew-tau.vercel.app/) <NEED VPN>
+ (NEED VPN)
+ [Live Demo](https://shopnew-tau.vercel.app/)
+  (NEED VPN)
 
 ## Features
 
