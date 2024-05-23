@@ -1,7 +1,21 @@
-# Getting Started with Create React App
+# React Store Theme
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive e-commerce store built with React.js.
 
+## Demo
+
+ <NEED VPN> [Live Demo](https://shopnew-tau.vercel.app/) <NEED VPN>
+
+## Features
+
+- Show products
+- Add/remove products from cart
+- Categorize and filter products
+- Customer panel
+- Login and register
+- Advanced product search
+- Responsive design
+  
 ## Available Scripts
 
 In the project directory, you can run:
