@@ -1,23 +1,90 @@
-import React from 'react';
-import { useContext } from 'react';
-import { BillingContext } from '../../../Contexts/BillingContext';
-import { CartContext } from '../../../Contexts/CartContext';
-import { useAuth } from '../../../Contexts/AuthContext'; // وارد کردن useAuth
-import Header from '../Header/Header';
-import MobileHeader from '../MobileHeader/MobileHeader';
-import Footer from '../Footer/Footer';
-import './Factor.css';
+import React, { useState } from "react";
+import { useContext } from "react";
+import { BillingContext } from "../../../Contexts/BillingContext";
+import { CartContext } from "../../../Contexts/CartContext";
+import { useAuth } from "../../../Contexts/AuthContext";
+import Header from "../Header/Header";
+import MobileHeader from "../MobileHeader/MobileHeader";
+import Footer from "../Footer/Footer";
+import "./Factor.css";
+import { Api } from "../../../api";
+import axios from "axios";
 
 export default function Factor() {
-  // دسترسی به داده‌های BillingContext
-  const Bilinfo = useContext(BillingContext);
-  console.log(Bilinfo.infobilling.address);
+  const billingInfo = useContext(BillingContext);
+  const cartInfo = useContext(CartContext);
 
-  // دسترسی به داده‌های CartContext
-  const cartinfo = useContext(CartContext);
-
-  // دسترسی به داده‌های AuthContext
   const { email, isLoggedIn } = useAuth();
+
+  // State to manage order confirmation, order code, and payment status
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
+  const [orderCode, setOrderCode] = useState(null);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const [paymentError, setPaymentError] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState(null); // New state for payment status
+
+  // Calculate total price including shipping
+  const totalWithShipping = cartInfo.totalprice();
+
+  // Simulate payment process based on user input
+  const simulatePayment = (status) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (status === "success") {
+          resolve("Payment successful!");
+        } else {
+          reject("Payment failed. Please try again.");
+        }
+      }, 2000); // Simulate a 2-second delay
+    });
+  };
+
+  const handleConfirmOrder = async (status) => {
+    setIsPaymentProcessing(true); // Show loading state
+    setPaymentError(null); // Reset any previous errors
+
+    try {
+      // Simulate payment process based on user input
+      await simulatePayment(status);
+
+      // If payment is successful, proceed to save the order
+      const generatedOrderCode = `ORDER-${Math.floor(Math.random() * 1000000)}`;
+      const userId = localStorage.getItem("userId"); // Get userId from localStorage
+
+      const orderData = {
+        userId,
+        orderCode: generatedOrderCode,
+        totalPrice: totalWithShipping,
+        shippingAddress: `${billingInfo.infobilling.city} ${billingInfo.infobilling.address}`,
+        postalCode: billingInfo.infobilling.postalcode,
+        paymentMethod:
+          billingInfo.infobilling.typepay === "bank"
+            ? "Bank Payment"
+            : "Cash on Delivery",
+        shippingMethod:
+          billingInfo.infobilling.typepost === "dpd"
+            ? "DPD"
+            : billingInfo.infobilling.typepost === "dhl"
+            ? "DHL"
+            : "DHL Express",
+      };
+
+      // Save the order to the backend
+      const response = await axios.post(`${Api}/api/save-order`, orderData);
+      if (response.data.success) {
+        setOrderCode(generatedOrderCode);
+        setIsOrderConfirmed(true);
+      } else {
+        console.error("Error saving order:", response.data.message);
+        setPaymentError("Failed to save order. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during payment:", error);
+      setPaymentError(error.message || "Payment failed. Please try again.");
+    } finally {
+      setIsPaymentProcessing(false); // Hide loading state
+    }
+  };
 
   return (
     <>
@@ -25,18 +92,14 @@ export default function Factor() {
       <MobileHeader />
 
       <div className="factorbody paddingtopmob">
-        {Bilinfo.infobilling.address === undefined ? (
+        {billingInfo.infobilling.address === undefined ? (
           <div className="alert alert-danger w-100 m-auto mt-3">
-            فاکتوری صادر نشده است.
+            No invoice has been issued.
           </div>
         ) : (
           <div className="m-auto mt-3 w-100">
-            <div className="alert alert-danger factor w-100 m-auto mt-3">
-              سفارش شما دریافت شد و در حال بررسی آن هستیم
-            </div>
-
             <div className="alert alert-primary factor w-100 m-auto mt-3">
-              اطلاعات دریافت شده:
+              Received Information:
             </div>
 
             <div className="table-responsive">
@@ -44,25 +107,43 @@ export default function Factor() {
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">عنوان محصول</th>
-                    <th scope="col">قیمت محصول</th>
+                    <th scope="col">Product Title</th>
+                    <th scope="col">Product Price</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {cartinfo.item.map((items, index) => (
+                  {cartInfo.item.map((items, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
                       <td>{items.name}</td>
-                      <td>{items.pricet} * {cartinfo.tedadproduct(items.id)}</td>
+                      <td>
+                        {items.pricet} * {cartInfo.tedadproduct(items.id)}
+                      </td>
                     </tr>
                   ))}
+
+                  <tr>
+                    <th scope="row">+</th>
+                    <td>
+                      Shipping Cost ({" "}
+                      {billingInfo.infobilling.typepost === "dpd"
+                        ? "DPD"
+                        : billingInfo.infobilling.typepost === "dhl"
+                        ? "DHL"
+                        : billingInfo.infobilling.typepost === "dhl-express"
+                        ? "DHL Express"
+                        : ""}
+                      )
+                    </td>
+                    <td>{cartInfo.shippingCost.toLocaleString()} Toman </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
 
             <div className="w-100 bg-black">
               <p className="w-100 text-white p-3 text-center">
-                جمع کل مبلغ پرداخت شده:   {cartinfo.totalprice().toLocaleString()} تومان
+                Total Amount Paid: {totalWithShipping.toLocaleString()} Toman
               </p>
             </div>
 
@@ -70,39 +151,69 @@ export default function Factor() {
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col">ایمیل شما</th>
-                    <th scope="col">آدرس </th>
-                    <th scope="col">کدپستی </th>
-                    <th scope="col">نوع پرداخت </th>
-                    <th scope="col">نوع ارسال </th>
+                    <th scope="col">Your Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Postal Code</th>
+                    <th scope="col">Payment Method</th>
+                    <th scope="col">Shipping Method</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
                   <tr>
-                    <td>{email}</td> {/* نمایش ایمیل کاربر از AuthContext */}
-                    <td>{Bilinfo.infobilling.city} {Bilinfo.infobilling.address}</td>
-                    <td>{Bilinfo.infobilling.postalcode}</td>
+                    <td>{email}</td>
                     <td>
-                      {Bilinfo.infobilling.typepost === 'tbox'
-                        ? 'تیباکس'
-                        : Bilinfo.infobilling.typepost === 'pishtaz'
-                        ? 'پیشتاز'
-                        : ''}
+                      {billingInfo.infobilling.city} {billingInfo.infobilling.address}
                     </td>
-
-
+                    <td>{billingInfo.infobilling.postalcode}</td>
                     <td>
-                      {Bilinfo.infobilling.typepay === 'bank'
-                        ? 'پرداخت بانکی'
-                        : Bilinfo.infobilling.typepay === 'payhome'
-                        ? 'پرداخت درب منزل'
-                        : ''}
+                      {billingInfo.infobilling.typepay === "bank"
+                        ? "Bank Payment"
+                        : billingInfo.infobilling.typepay === "payhome"
+                        ? "Cash on Delivery"
+                        : ""}
+                    </td>
+                    <td>
+                      {billingInfo.infobilling.typepost === "dpd"
+                        ? "DPD"
+                        : billingInfo.infobilling.typepost === "dhl"
+                        ? "DHL"
+                        : billingInfo.infobilling.typepost === "dhl-express"
+                        ? "DHL Express"
+                        : ""}
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            {/* Confirmation Buttons and Order Code Display */}
+            {!isOrderConfirmed ? (
+              <div className="text-center mt-3 ">
+                <button
+                  className="btn btn-success mr-2"
+                  onClick={() => handleConfirmOrder("success")}
+                  disabled={isPaymentProcessing}
+                >
+                  {isPaymentProcessing ? "Processing Payment..." : "Confirm Successful Payment"}
+                </button>
+                <button
+                  className="btn m-4 btn-danger"
+                  onClick={() => handleConfirmOrder("fail")}
+                  disabled={isPaymentProcessing}
+                >
+                  { "Confirm Failed Payment"}
+                </button>
+                {paymentError && (
+                  <div className="alert alert-danger mt-3">
+                    {paymentError}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="alert alert-success mt-3 text-center">
+                Your order has been confirmed successfully. Order Code: {orderCode}
+              </div>
+            )}
           </div>
         )}
       </div>

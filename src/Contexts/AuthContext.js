@@ -114,7 +114,9 @@ export const AuthProvider = ({ children }) => {
       });
   
       const result = await response.json();
+      
       if (result.success) {
+        localStorage.setItem('userId', result.userId); // ذخیره ID کاربر
         localStorage.setItem('authToken', result.token);
         localStorage.setItem('userEmail', email); // ذخیره ایمیل کاربر
         setIsLoggedIn(true);

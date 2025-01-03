@@ -16,6 +16,8 @@ export const CartContext = createContext({
   decreaseQuantity: () => {},
   calculateDiscount: () => {},
   finalPrice: () => {},
+  setShippingCost: () => {}, // اضافه کردن متد جدید
+  shippingCost: 0, // اضافه کردن حالت جدید برای هزینه ارسال
 });
 
 export const CartContextProvider = (props) => {
@@ -27,6 +29,7 @@ export const CartContextProvider = (props) => {
   const [tedadhame, settedadhame] = useState(0);
   const [tprice, settprice] = useState(0);
   const [datafetchproduct, setdatafetchproduct] = useState([]);
+  const [shippingCost, setShippingCost] = useState(0); // حالت جدید برای هزینه ارسال
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -64,6 +67,8 @@ export const CartContextProvider = (props) => {
     decreaseQuantity,
     calculateDiscount,
     finalPrice,
+    setShippingCost, // اضافه کردن متد به مقدار context
+    shippingCost, // اضافه کردن هزینه ارسال به مقدار context
   };
 
   function addtocard(id) {
@@ -95,13 +100,14 @@ export const CartContextProvider = (props) => {
     settedadhame(tedad);
     return tedadhame;
   }
-  // به‌روزرسانی تابع totalprice برای محاسبه قیمت با تخفیف
+
+  // به‌روزرسانی تابع totalprice برای محاسبه قیمت با تخفیف و هزینه ارسال
   function totalprice() {
     let total_price = dataCart.reduce((total, item) => {
       const discount = calculateDiscount(item.quantity || 1);
       return total + item.pricet * (item.quantity || 1) * (1 - discount / 100);
     }, 0);
-    settprice(total_price);
+    settprice(total_price + shippingCost); // اضافه کردن هزینه ارسال به جمع کل
     return tprice;
   }
 

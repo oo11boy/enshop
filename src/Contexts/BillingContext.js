@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { createContext } from "react";
 import { useAuth } from "./AuthContext"; 
-
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export let BillingContext = createContext({
   infobilling: () => {},
@@ -20,7 +18,7 @@ export let BillingContext = createContext({
 
 export const BillingContextProvider = ({ children }) => {
   const [arrayinfoadress, setarrayinfoadress] = useState({});
-  const [messagelogin, setmessagelogin] = useState({});
+  const [messagelogin, setmessagelogin] = useState("");
   const [city, setcity] = useState('');
   const [address, setaddress] = useState('');
   const [ostan, setostan] = useState('');
@@ -45,6 +43,13 @@ export const BillingContextProvider = ({ children }) => {
   const navigatepage = useNavigate();
   const Billingsubhandler = (event) => {
     event.preventDefault();
+
+    // بررسی پر بودن فیلدهای اجباری
+    if (!address || !city || !ostan || !postalcode || !typepost || !typepay) {
+      setmessagelogin('لطفا تمام فیلدهای اجباری را پر کنید.');
+      setonsub(false);
+      return;
+    }
 
     const infonew = {
       address: address,

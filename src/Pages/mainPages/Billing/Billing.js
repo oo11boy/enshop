@@ -20,6 +20,18 @@ export default function Billing() {
   const [selectedPay, setSelectedPay] = useState(null);
   const [isDataProtectionChecked, setIsDataProtectionChecked] = useState(false); // State for checkbox
 
+  const shippingMethods = [
+    { id: 'dpd', name: 'DPD', price: 19 },
+    { id: 'dhl', name: 'DHL', price: 38 },
+    { id: 'dhl-express', name: 'DHL Express', price: 82 }
+  ];
+
+  const handleShippingMethodClick = (method) => {
+    billingInfo.settypepost(method.id);
+    setSelectedPost(method.id);
+    cartInfo.setShippingCost(method.price);
+  };
+
   return (
     <>
       <Header />
@@ -72,26 +84,16 @@ export default function Billing() {
         <Card body className="gotopay shadow mt-4">
           <p>Delivery Method:</p>
           <div>
-            <Card
-              onClick={() => {
-                billingInfo.settypepost("pishtaz");
-                setSelectedPost("pishtaz");
-              }}
-              body
-              className={`mt-3 cursor-pointer ${selectedPost === "pishtaz" ? "bg-primary text-white" : ""}`}
-            >
-              Express Delivery
-            </Card>
-            <Card
-              onClick={() => {
-                billingInfo.settypepost("tbox");
-                setSelectedPost("tbox");
-              }}
-              body
-              className={`mt-3 cursor-pointer ${selectedPost === "tbox" ? "bg-primary text-white" : ""}`}
-            >
-              Standard Delivery
-            </Card>
+            {shippingMethods.map((method) => (
+              <Card
+                key={method.id}
+                onClick={() => handleShippingMethodClick(method)}
+                body
+                className={`mt-3 cursor-pointer ${selectedPost === method.id ? "bg-primary text-white" : ""}`}
+              >
+                {method.name} - {method.price}€
+              </Card>
+            ))}
           </div>
 
           <p className="mt-4">Payment Method:</p>
