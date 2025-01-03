@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    padding-left: 20px;
 }
 .searchsec2header form {
     width: 100%;
@@ -15,7 +15,7 @@
   transform: translate(-10px, 6px);
   color: white;
   font-size: 30px;
-  left: 20px;
+  right: 10px;
 }
 .searchsec2header form input{
     width: 100%;

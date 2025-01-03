@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import ShowCart from './ShowCart';
 import { CartContext } from '../../../../../Contexts/CartContext';
 import './AccountHeader.css';
-
-import { VscAccount } from 'react-icons/vsc';
 import { MdExitToApp } from 'react-icons/md';
 import { useAuth } from '../../../../../Contexts/AuthContext';
 import { Api } from '../../../../../api';
@@ -55,7 +53,7 @@ export default function AccountcartHeader() {
       {isLoggedIn ? (
         <div className='posheader'>
           <p onClick={showunder}>
-            {email} ({onlineUsers} کاربر آنلاین)
+            {email} ({onlineUsers} online users)
             
           </p> {/* نمایش ایمیل و تعداد کاربران آنلاین */}
           {showunderac && (
@@ -63,7 +61,7 @@ export default function AccountcartHeader() {
               <ul>
             
                 <li onClick={logout}>
-                  <MdExitToApp /> خروج
+                  <MdExitToApp /> Logout
                 </li>
               </ul>
             </div>
@@ -71,8 +69,8 @@ export default function AccountcartHeader() {
         </div>
       ) : (
         <>
-          <Link to='/useraccount/login'><p>ورود</p></Link>
-          <Link to='/useraccount/Register'><p>ثبت نام</p></Link>
+          <Link to='/useraccount/login'><p>Login</p></Link>
+          <Link to='/useraccount/Register'><p>Register</p></Link>
         </>
       )}
 

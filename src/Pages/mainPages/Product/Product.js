@@ -52,7 +52,7 @@ export default function Product(props) {
           className="mySwiper2"
         >
           {loading ? (
-            <div className="loading pt-3">در حال بارگذاری...</div>
+            <div className="loading pt-3">Loading...</div>
           ) : (
             datafetchproduct.map((item) => (
               <SwiperSlide key={item.id}>
@@ -70,11 +70,11 @@ export default function Product(props) {
 
                   {item.takhfif !== 0 ? (
                     <div className="bynotakhfif">
-                      <span className="pricenot">{item.price} تومان</span>
-                      <p className="pricebyt">{item.pricet} تومان</p>
+                      <span className="pricenot">{item.price} $</span>
+                      <p className="pricebyt">{item.pricet} $</p>
                     </div>
                   ) : (
-                    <p>{item.price} تومان</p>
+                    <p>{item.price} $</p>
                   )}
 
                   <Button
@@ -82,11 +82,11 @@ export default function Product(props) {
                     onClick={() =>
                       isLoggedIn
                         ? Productandcart.addtocard(item.id)
-                        : alert('لطفاً وارد حساب کاربری خود شوید')
+                        : alert('login please')
                     }
                     >
                     <BsCartPlus />
-                    <span className="tocarttext">افزودن به سبد خرید</span>
+                    <span className="tocarttext">Add to cart</span>
                   </Button>
                 </div>
               </SwiperSlide>
