@@ -140,7 +140,7 @@ export default function Factor() {
                         : ""}
                       )
                     </td>
-                    <td>{cartInfo.shippingCost.toLocaleString()} Toman </td>
+                    <td>{cartInfo.shippingCost.toLocaleString()} € </td>
                   </tr>
                 </tbody>
               </table>
@@ -148,7 +148,7 @@ export default function Factor() {
 
             <div className="w-100 bg-black">
               <p className="w-100 text-white p-3 text-center">
-                Total Amount Paid: {totalWithShipping.toLocaleString()} Toman
+                Total Amount Paid: {totalWithShipping.toLocaleString()} €
               </p>
             </div>
 

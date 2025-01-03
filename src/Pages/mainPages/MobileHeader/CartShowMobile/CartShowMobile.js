@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./CartShowMobile.css";
 import { CartContext } from "../../../../Contexts/CartContext";
 import { LiaOpencart } from "react-icons/lia";
-import { domain } from "../../../../api";
+
 
 export default function CartShowMobile() {
   const cartinfo = useContext(CartContext);
@@ -37,7 +37,7 @@ export default function CartShowMobile() {
             itemsToRender.map((item) => (
               <div className="cartbodymob" key={item.id}>
                 <div className="imgcart">
-                  <img src={domain + item.img} alt="" />
+                  <img src={  item.img} alt="" />
                 </div>
                 <div className="informcartmob">
                   <Link to={"product/" + item.id}>{item.name}</Link>
@@ -59,7 +59,7 @@ export default function CartShowMobile() {
               </p>
                   <h3>
                     قیمت: {item.pricet} * {cartinfo.tedadproduct(item.id)} ={" "}
-                    {cartinfo.finalPrice(item.pricet, cartinfo.tedadproduct(item.id)).toLocaleString()} تومان
+                    {cartinfo.finalPrice(item.pricet, cartinfo.tedadproduct(item.id)).toLocaleString()} €
                   </h3>
                   {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id)) > 0 && (
                     <p className="text-success">
@@ -78,7 +78,7 @@ export default function CartShowMobile() {
             </div>
           )}
         </div>
-        <h3 className="viewpaycartmobfooter">جمع کل: {cartinfo.totalprice().toLocaleString()} تومان</h3>
+        <h3 className="viewpaycartmobfooter">جمع کل: {cartinfo.totalprice().toLocaleString()} €</h3>
       </div>
     </div>
   );

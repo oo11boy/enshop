@@ -4,7 +4,7 @@ import routes from './routes';
 import './App.css';
 import   { CartContextProvider }  from './Contexts/CartContext';
 import { MenumobileContextProvider } from './Contexts/MenumobileContext';
-import { CategoryContextProvider } from './Contexts/CategoryContext';
+
 import { BillingContextProvider } from './Contexts/BillingContext';
 import { AuthProvider } from './Contexts/AuthContext';
 
@@ -17,7 +17,7 @@ function App() {
      <CartContextProvider>
       
       <MenumobileContextProvider>
-          <CategoryContextProvider>
+      
             <BillingContextProvider>
     <div className="App">
 
@@ -25,7 +25,7 @@ function App() {
 
     </div> 
     </BillingContextProvider>
-    </CategoryContextProvider>
+  
   
     </MenumobileContextProvider>
        </CartContextProvider>

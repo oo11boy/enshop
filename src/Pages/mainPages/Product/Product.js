@@ -58,7 +58,7 @@ export default function Product(props) {
               <SwiperSlide key={item.id}>
                 <div className="productbody">
                   <div className="productname">
-                    <img src={domain + item.img} alt="" />
+                    <img src={ item.img} alt="" />
                     <Link to={'../product' + '/' + item.id}>
                       {item.name}
                     </Link>
@@ -70,11 +70,11 @@ export default function Product(props) {
 
                   {item.takhfif !== 0 ? (
                     <div className="bynotakhfif">
-                      <span className="pricenot">{item.price} $</span>
-                      <p className="pricebyt">{item.pricet} $</p>
+                      <span className="pricenot">{item.price} €</span>
+                      <p className="pricebyt">{item.pricet} €</p>
                     </div>
                   ) : (
-                    <p>{item.price} $</p>
+                    <p>{item.price} €</p>
                   )}
 
                   <Button

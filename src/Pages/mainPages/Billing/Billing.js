@@ -40,8 +40,8 @@ export default function Billing() {
       <div className='billing paddingtopmob'>
         <Form className='borderbox shadow p-3 rounded-3'>
           {isLoggedIn ? (
-            <div className="mb-3 d-flex justify-content-between align-items-center">
-              <span>You are logged in as {email}.</span>
+            <div className="mb-3 d-flex justify-content-between align-items-left">
+              <span className="ps-2">You are logged in as {email}.</span>
               <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
             </div>
           ) : null}
@@ -107,7 +107,7 @@ export default function Billing() {
        
         </Form>
 
-        <Card body className="gotopay shadow mt-4">
+        <Card body className="gotopay shadow ">
           <p>Delivery Method:</p>
           <div>
             {shippingMethods.map((method) => (
@@ -115,10 +115,10 @@ export default function Billing() {
                 key={method.id}
                 onClick={() => handleShippingMethodClick(method)}
                 body
-                className={`mt-3 cursor-pointer d-flex align-items-center gap-2 ${selectedPost === method.id ? "bg-primary text-white" : ""}`}
+                className={`mt-3 cursor-pointer d-flex align-items-left gap-2 ${selectedPost === method.id ? "bg-primary text-white" : ""}`}
               >
                 <FaTruck />
-                <span>{method.name} - {method.price}€</span>
+                <span className="ps-2">{method.name} - {method.price}€</span>
               </Card>
             ))}
           </div>
@@ -131,21 +131,21 @@ export default function Billing() {
                 billingInfo.settypepay("bank");
                 setSelectedPay("bank");
               }}
-              className={`mt-3 cursor-pointer d-flex align-items-center gap-2 ${selectedPay === "bank" ? "bg-primary text-white" : ""}`}
+              className={`mt-3 cursor-pointer d-flex align-items-left  gap-2 ${selectedPay === "bank" ? "bg-primary text-white" : ""}`}
             >
               <FaCreditCard />
-              <span>Bank Transfer</span>
+              <span className="ps-2">Bank Transfer</span>
             </Card>
             <Card
               body
-              className={`mt-3 cursor-pointer d-flex align-items-center gap-2 ${selectedPay === "payhome" ? "bg-primary text-white" : ""}`}
+              className={`mt-3 cursor-pointer d-flex align-items-left gap-2 ${selectedPay === "payhome" ? "bg-primary text-white" : ""}`}
               onClick={() => {
                 billingInfo.settypepay("payhome");
                 setSelectedPay("payhome");
               }}
             >
               <FaMoneyBillWave />
-              <span>Cash on Delivery</span>
+              <span className="ps-2">Cash on Delivery</span>
             </Card>
           </div>
 
@@ -164,12 +164,12 @@ export default function Billing() {
 
           <Card
             body
-            className={`mt-5 ${isDataProtectionChecked ? 'bg-success' : 'bg-secondary'} text-white cursor-pointer d-flex justify-content-center align-items-center`}
+            className={`mt-5 ${isDataProtectionChecked ? 'bg-success' : 'bg-secondary'} text-white cursor-pointer d-flex justify-content-center align-items-left`}
             onClick={isDataProtectionChecked ? billingInfo.Billingsubhandler : null}
             style={{ height: '60px', fontSize: '1.2rem', fontWeight: 'bold' }}
           >
-            <div className="submitlast d-flex align-items-center gap-2">
-              <span>Place Order</span>
+            <div className="submitlast d-flex align-items-left gap-2">
+              <span className="ps-2">Place Order</span>
               {isDataProtectionChecked && <FaCheckCircle />}
             </div>
           </Card>

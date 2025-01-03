@@ -95,10 +95,10 @@ export default function Productamazing() {
                   }
 
                 </div>
-                {item.takhfif !== 0 ? <div className='bynotakhfif'> <span className='pricenotamazing'>{item.price} تومان</span> <p className='pricebyt'>{item.pricet} تومان</p>    </div> :
+                {item.takhfif !== 0 ? <div className='bynotakhfif'> <span className='pricenotamazing'>{item.price} €</span> <p className='pricebyt'>{item.pricet} €</p>    </div> :
 
 
-                  <p>{item.price} تومان</p>
+                  <p>{item.price} €</p>
 
                 }
 

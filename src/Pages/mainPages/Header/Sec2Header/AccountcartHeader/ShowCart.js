@@ -4,7 +4,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import { useContext } from "react";
 import { CartContext } from "../../../../../Contexts/CartContext";
 import { Link } from "react-router-dom";
-import { domain } from "../../../../../api";
+
 import { LiaOpencart } from "react-icons/lia";
 
 export default function ShowCart() {
@@ -35,7 +35,7 @@ export default function ShowCart() {
         {itemsToRender.map((item) => (
           <div className="cartbody" key={item.id}>
             <div className="imgcart">
-              <img src={domain + item.img} alt="" />
+              <img src={ item.img} alt="" />
             </div>
             <div className="informcart">
               <Link
@@ -67,7 +67,7 @@ export default function ShowCart() {
                 {cartinfo
                   .finalPrice(item.pricet, cartinfo.tedadproduct(item.id))
                   .toLocaleString()}{" "}
-                $
+               €
               </h3>
               {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id)) >
                 0 && (
@@ -90,7 +90,7 @@ export default function ShowCart() {
             view the bill
           </Link>
           <h3 className="viewpaycart text-white">
-            total amount: {cartinfo.totalprice().toLocaleString()} $
+            total amount: {cartinfo.totalprice().toLocaleString()} €
           </h3>
         </div>
       </div>

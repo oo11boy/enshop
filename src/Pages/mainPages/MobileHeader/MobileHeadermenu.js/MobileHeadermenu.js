@@ -20,7 +20,7 @@ export default function MobileHeadermenu() {
           <GrClose onClick={menuinfo.Showmenu} />
         )}
       </div>
-      <div className="logomob">فروشگاه</div>
+      <div className="logomob">shop</div>
       <div className="helpmob">
         {isLoggedIn && (
           <div onClick={logout} className="signoutmobheader">

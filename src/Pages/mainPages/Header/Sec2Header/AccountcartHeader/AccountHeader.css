@@ -8,7 +8,7 @@
     border-radius: 15px;
     position: absolute;
     top: 120%;
-    left: 0;
+    right: 0;
 }
 
 .headeracstatus ul li{
@@ -19,11 +19,9 @@
    display: flex;
    font-family: kalameh;
    align-items: center;
-   justify-content: flex-start;
+   justify-content: flex-end;
 }
-.headeracstatus ul li:nth-child(1){
-    border-bottom: 1px dashed red;
-}
+
 .headeracstatus ul li svg{
     font-size: 2em;
     margin-left: 5px;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../../../Contexts/CartContext';
 import { useContext } from 'react';
-import { Api, domain } from '../../../api';
+import { Api } from '../../../api';
 import Header from '../Header/Header';
 import MobileHeader from '../MobileHeader/MobileHeader';
 import './SingleProduct.css';
@@ -41,7 +41,7 @@ export default function SingleProduct() {
 
          {loading === false && (
             <>
-               <div className='singleproduct'>
+               <div  className='singleproduct '>
                   <div className='rightsproduct'>
                      <p className='titlesproduct'>{singlepro.name}</p>
                      <p className='statussproduct'>Status: {singlepro.status ? 'Available' : 'Unavailable'}</p>
@@ -69,13 +69,14 @@ export default function SingleProduct() {
                   </div>
 
                   <div className='leftsproduct'>
-                     <img src={domain + singlepro.img} alt='' />
+                     <img src={ singlepro.img} alt='' />
                   </div>
                </div>
-               {/* <div className='bodysingleproduct'>
-                  <BodySingleProduct singlepro={singlepro} />
-               </div> */}
-               {/* <Product margin="mt-90" title="Latest Products" /> */}
+           
+           <div style={{marginTop:"10%"}} className='mt-8'>
+           <Product margin="mt-90" title="Latest Products" />
+           </div>
+            
             </>
          )}
 
