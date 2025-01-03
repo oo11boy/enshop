@@ -21,9 +21,11 @@ export default function Home() {
       <SlidersHome />
       <Product margin="mt-90" title="Products" />
       <Productamazing />
-      <BannerHome />
-      <Brands margin='mt-5' title="Popular ones" />
-      <PostsHome />
+   
+  
+      {/* <Product margin='mt-5' title="جدیدترین لوازم آرایشی" /> */}
+      {/* <Brands margin='mt-5' title="محبوب ترین برندها" /> */}
+      {/* <PostsHome /> */}
       <Footer />
     </>
   )

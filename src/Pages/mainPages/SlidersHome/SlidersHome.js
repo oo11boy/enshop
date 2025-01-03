@@ -19,23 +19,16 @@ import { Api } from '../../../api';
 export default function SlidersHome() {
 
 
-   
-  useEffect (()=>{
-   content()
-   contentleft()
- },[])
- const [slider,setslider]=useState([]) 
 
+ const [slider,setslider]=useState([
+  {img:"./img/bl4.jpg"},
+  {img:"./img/bl3.webp"}
+ ]) 
 
- const content=async()=> {
- 
- const res =await fetch (`${Api}/slider`)
- const data= await res.json()
-
- setslider(data) 
-
- }
- const [Sliderleftdata,setsliderleftdata]=useState([]) 
+ const [Sliderleftdata,setsliderleftdata]=useState([
+  {img:"./img/bl1.jpg"},
+ {img:"./img/bl2.jpg"}
+ ]) 
 
 
  const contentleft=async()=> {
@@ -57,7 +50,7 @@ export default function SlidersHome() {
         <div className='rightsideslider'>
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
             {slider.map((item)=>{
-                return    <SwiperSlide><img src={item.img} alt="" /></SwiperSlide>
+                return    <SwiperSlide><img style={{height:"500px", objectFit:"fill"}} src={item.img} alt="" /></SwiperSlide>
             })}
     
     
@@ -65,7 +58,7 @@ export default function SlidersHome() {
         </div>
         <div className='leftsideslider'>
      {Sliderleftdata.map((item)=>{
-        return <div><img src={item.img} alt="" /></div>
+        return <div><img style={{height:"250px", objectFit:"fill"}} src={item.img} alt="" /></div>
      })}
         </div>
         </div>
