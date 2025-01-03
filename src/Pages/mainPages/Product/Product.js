@@ -59,7 +59,7 @@ export default function Product(props) {
                 <div className="productbody">
                   <div className="productname">
                     <img src={domain + item.img} alt="" />
-                    <Link to={'../product/' + item.cat + '/' + item.id}>
+                    <Link to={'../product' + '/' + item.id}>
                       {item.name}
                     </Link>
 

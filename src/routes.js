@@ -29,7 +29,7 @@ let routes = [
       </PrivateRoute>
     ),
   },
-  { path: `/product/:cat/:id`, element: <SingleProduct /> },
+  { path: `/product/:id`, element: <SingleProduct /> },
   { path: `/post/:id`, element: <SinglePost /> },
   { path: `/search/:searchinput`, element: <SearchPage /> },
   { path: `/search/`, element: <SearchPage /> },
