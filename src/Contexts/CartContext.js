@@ -14,8 +14,8 @@ export const CartContext = createContext({
   successtocart: "",
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
-  calculateDiscount: () => {}, // تابع جدید برای محاسبه تخفیف
-  finalPrice: () => {}, // تابع جدید برای محاسبه قیمت نهایی
+  calculateDiscount: () => {},
+  finalPrice: () => {},
 });
 
 export const CartContextProvider = (props) => {
@@ -29,15 +29,21 @@ export const CartContextProvider = (props) => {
   const [datafetchproduct, setdatafetchproduct] = useState([]);
 
   useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setDatacart(JSON.parse(savedCart));
+    }
     contentporduct();
   }, []);
 
-  // تابع محاسبه تخفیف بر اساس تعداد
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(dataCart));
+  }, [dataCart]);
+
   const calculateDiscount = (quantity) => {
- return quantity
+    return quantity;
   };
 
-  // تابع محاسبه قیمت نهایی با احتساب تخفیف
   const finalPrice = (price, quantity) => {
     const discount = calculateDiscount(quantity);
     return price * quantity * (1 - discount / 100);
@@ -56,8 +62,8 @@ export const CartContextProvider = (props) => {
     falsemenumob,
     increaseQuantity,
     decreaseQuantity,
-    calculateDiscount, // اضافه کردن تابع به context
-    finalPrice, // اضافه کردن تابع به context
+    calculateDiscount,
+    finalPrice,
   };
 
   function addtocard(id) {
@@ -89,7 +95,6 @@ export const CartContextProvider = (props) => {
     settedadhame(tedad);
     return tedadhame;
   }
-
   // به‌روزرسانی تابع totalprice برای محاسبه قیمت با تخفیف
   function totalprice() {
     let total_price = dataCart.reduce((total, item) => {
