@@ -4,17 +4,19 @@ import routes from './routes';
 import './App.css';
 import   { CartContextProvider }  from './Contexts/CartContext';
 import { MenumobileContextProvider } from './Contexts/MenumobileContext';
-import { AccountContextProvider } from './Contexts/AccountContext';
 import { CategoryContextProvider } from './Contexts/CategoryContext';
 import { BillingContextProvider } from './Contexts/BillingContext';
+import { AuthProvider } from './Contexts/AuthContext';
 
 
 function App() {
   let router=useRoutes(routes)
   return (
+    <AuthProvider>
+
      <CartContextProvider>
+      
       <MenumobileContextProvider>
-        <AccountContextProvider>
           <CategoryContextProvider>
             <BillingContextProvider>
     <div className="App">
@@ -24,9 +26,10 @@ function App() {
     </div> 
     </BillingContextProvider>
     </CategoryContextProvider>
-    </AccountContextProvider>
+  
     </MenumobileContextProvider>
        </CartContextProvider>
+       </AuthProvider>
   );
 }
 

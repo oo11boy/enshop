@@ -9,6 +9,7 @@ import PostsHome from './PostsHome/PostsHome'
 import Footer from './Footer/Footer'
 import MobileHeader from './MobileHeader/MobileHeader'
 import './Home.css'
+
 export default function Home() {
 
 
@@ -21,7 +22,7 @@ export default function Home() {
       <Product margin="mt-90" title="جدیدترین محصولات" />
       <Productamazing />
       <BannerHome />
-      <Product margin='mt-5' title="جدیدترین لوازم آرایشی" />
+      {/* <Product margin='mt-5' title="جدیدترین لوازم آرایشی" /> */}
       <Brands margin='mt-5' title="محبوب ترین برندها" />
       <PostsHome />
       <Footer />

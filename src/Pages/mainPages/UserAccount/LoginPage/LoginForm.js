@@ -1,104 +1,207 @@
-import React, { useContext, useEffect, useState } from 'react'
-import './LoginForm.css'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { AccountContext } from '../../../../Contexts/AccountContext';
-import Header from '../../Header/Header'
-import Footer from '../../Footer/Footer'
-import MobileHeader from '../../MobileHeader/MobileHeader'
+import React, { useState } from 'react';
+import './LoginForm.css';
+import { Button, Form, Alert, Modal } from 'react-bootstrap';
+import { Link, Navigate } from 'react-router-dom';
+import Header from '../../Header/Header';
+import Footer from '../../Footer/Footer';
+import MobileHeader from '../../MobileHeader/MobileHeader';
+import { useAuth } from '../../../../Contexts/AuthContext';
 
 export default function LoginForm() {
-  const Acountinfo = useContext(AccountContext)
+  const {
+    isLoggedIn,
+    errorMessage,
+    setErrorMessage,
+    login,
+    sendVerificationCode,
+    resetPassword,
+    modalErrorMessage,
+    setModalErrorMessage,
+    isLoading,
+  } = useAuth();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
- 
+  // Handle login
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    if (!email || !email.includes('@') || email.length < 5) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (!password || password.length < 9 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
+      setErrorMessage('Password must be at least 9 characters long and include one uppercase letter, one lowercase letter, and one number.');
+      return;
+    }
+
+    login(email, password);
+  };
+
+  // Handle forgot password
+  const handleForgotPassword = async () => {
+    if (!email || !email.includes('@') || email.length < 5) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    const result = await sendVerificationCode(email);
+    if (result.success) {
+      setShowForgotPasswordModal(false);
+      setShowResetPasswordModal(true);
+      setModalErrorMessage('');
+    } else {
+      setModalErrorMessage('Failed to send verification code. Please try again.');
+    }
+  };
+
+  // Handle reset password
+  const handleResetPassword = async () => {
+    if (!verificationCode || !newPassword) {
+      setModalErrorMessage('Please enter the verification code and new password.');
+      return;
+    }
+
+    if (newPassword.length < 9 || !/[A-Z]/.test(newPassword) || !/[a-z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
+      setModalErrorMessage('Password must be at least 9 characters long and include one uppercase letter, one lowercase letter, and one number.');
+      return;
+    }
+
+    const result = await resetPassword(email, verificationCode, newPassword);
+    if (result.success) {
+      setShowResetPasswordModal(false);
+      setModalErrorMessage('');
+      setErrorMessage('Password reset successfully. Please login with your new password.');
+    } else {
+      setModalErrorMessage(result.message || 'Failed to reset password. Please try again.');
+    }
+  };
+
+  // Redirect to home page if logged in
+  if (isLoggedIn) {
+    return <Navigate to="../" />;
+  }
+
   return (
-
     <>
+      <Header />
+      <MobileHeader />
+      <div className="containerLogin">
+        <div className="form-boxLogin">
+          {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
+          <div className="topAccount">Login to Account</div>
+          <Form onSubmit={handleLogin}>
+            <Form.Group className="mb-3 boxformac" controlId="formBasicEmail">
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
 
+            <Form.Group className="mb-3 boxformac" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
 
-      {Acountinfo.statuslogin ? <Navigate to='/useraccount/inform' /> :
-        <>
-          <Header />
-          <MobileHeader />
-          <div className="containerLogin">
-            <div className="form-boxLogin">
-              {Acountinfo.signoutseted && <div>با موفقیت خارج شدید</div>}
-              <div className='topAccount'> ورود به اکانت </div>
-              <Form>
-                <Form.Group className="mb-3 boxformac" controlId="formBasicEmail">
-                  <Form.Label>آدرس ایمیل</Form.Label>
-                  <Form.Control value={Acountinfo.emaillogin} onChange={(event) => Acountinfo.emailloginval(event)} type="email" placeholder="Enter email" />
-                  {Acountinfo.statussub === true &&
-                    <Form.Text className="text-muted">
-                      {Acountinfo.emailstatus}
-                    </Form.Text>}
+            <Button className="w-100 btnlogin" variant="primary" type="submit">
+              Login
+            </Button>
 
-
-                </Form.Group>
-
-                <Form.Group className="mb-3 boxformac" controlId="formBasicPassword">
-                  <Form.Label>رمز عبور</Form.Label>
-                  <Form.Control value={Acountinfo.passlogin} onChange={(event) => Acountinfo.passloginval(event)} type="password" placeholder="Password" />
-
-
-                  {
-                    Acountinfo.statussub ?
-                      Acountinfo.passwordstatus != '' && <Form.Text className="text-muted">
-                        {Acountinfo.passwordstatus}
-                      </Form.Text> : null}
-
-
-
-                </Form.Group>
-                <Form.Group className="mb-3 boxformac d-flex" controlId="formBasicPassword">
-
-
-
-                  <Form.Control type="text" onChange={(event)=>Acountinfo.cadrcodeval(event)} placeholder='کد روبرو را وارد کنید' />
-
-                  <img className='w-25 me-4' src={'https://api.codebazan.ir/captcha/?font=1&bg=1&textcolor=1&text=' + Acountinfo.randomnum} alt="" />
-
-
-                 
-
-
-                </Form.Group>
-                {
-                    Acountinfo.statussub ?
-                      Acountinfo.codestatus !== '' && <Form.Text className="text-muted mb-3">
-                        {Acountinfo.codestatus}
-                      </Form.Text> : null}
-                <Form.Group className="my-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="ذخیره اطلاعات ورود" />
-                </Form.Group>
-                <Button className='w-100 btnlogin' onClick={Acountinfo.loginsubmit} variant="primary" type="submit">
-                  ورود به اکانت
-                </Button>
-                <div className='underloginform'>
-                  <Link to="../useraccount/register" className='btn w-100 underloginbtn border border-primary text-primary bg-white' type="submit">
-                    ثبت نام
-                  </Link>
-                  <Button className='w-50 underloginbtn border border-danger text-danger bg-white' type="submit">
-                    فراموشی رمز عبور
-                  </Button>
-                </div>
-                <button className='mt-3 rounded-2  p-1 border border-danger text-danger ' onClick={(event)=>{
-                  event.preventDefault()
-                  alert('email: r@gmail.com - password:123')
-                }}>نمایش اطلاعات دمو</button>
-              </Form>
+            <div className="underloginform">
+              <Link to="../useraccount/register" className="btn w-100 underloginbtn border border-primary text-primary bg-white">
+                Register
+              </Link>
+              <Button className="w-50 underloginbtn border border-danger text-danger bg-white" onClick={() => setShowForgotPasswordModal(true)}>
+                Forgot Password
+              </Button>
             </div>
-          </div>
+          </Form>
+        </div>
+      </div>
 
+      {/* Forgot Password Modal */}
+      <Modal show={showForgotPasswordModal} onHide={() => setShowForgotPasswordModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Forgot Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowForgotPasswordModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleForgotPassword} disabled={isLoading}>
+            {isLoading ? 'Sending...' : 'Send Code'}
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-          <div className="hiddenmobile">
-            <Footer />
-          </div>
-        </>
-      }
+      {/* Reset Password Modal */}
+      <Modal show={showResetPasswordModal} onHide={() => setShowResetPasswordModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reset Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {modalErrorMessage && <Alert variant="danger">{modalErrorMessage}</Alert>}
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicCode">
+              <Form.Label>Verification Code</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter verification code"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicNewPassword">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter new password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowResetPasswordModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleResetPassword} disabled={isLoading}>
+            {isLoading ? 'Resetting...' : 'Reset Password'}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <div className="hiddenmobile">
+        <Footer />
+      </div>
     </>
-
-  )
+  );
 }

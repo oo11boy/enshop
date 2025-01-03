@@ -11,7 +11,9 @@
     gap: 20px;
 
 }
-
+.cursor-pointer {
+    cursor: pointer;
+  }
 .billing form{
     width: 70%;
 }

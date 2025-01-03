@@ -13,10 +13,11 @@ import { Pagination, Navigation } from 'swiper/modules';
 
 import './Productamazing.css';
 import { Api } from '../../../api';
+import { useAuth } from '../../../Contexts/AuthContext';
 
 export default function Productamazing() {
   const Productandcart = useContext(CartContext);
-
+  const { isLoggedIn } = useAuth(); // گرفتن وضعیت لاگین از context
   // Define breakpoints
   const breakpoints = {
     0: {
@@ -101,11 +102,18 @@ export default function Productamazing() {
 
                 }
 
-                <Button className='tocartproduct' onClick={() => Productandcart.addtocard(item.id)}>
-               
-               <BsCartPlus />
-                  <span className='tocarttext'>افزودن به سبد خرید</span>
-                </Button>
+         
+                           <Button
+                             className="tocartproduct"
+                             onClick={() =>
+                               isLoggedIn
+                                 ? Productandcart.addtocard(item.id)
+                                 : alert('لطفاً وارد حساب کاربری خود شوید')
+                             }
+                             >
+                             <BsCartPlus />
+                             <span className="tocarttext">افزودن به سبد خرید</span>
+                           </Button>
 
               </div>
             </SwiperSlide>

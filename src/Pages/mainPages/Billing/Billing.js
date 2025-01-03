@@ -1,159 +1,156 @@
-import React, { useState } from 'react'
-import { CartContext } from '../../../Contexts/CartContext'
-import { useContext } from 'react'
-import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
+import { CartContext } from '../../../Contexts/CartContext';
+import { useContext } from 'react';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Header from '../Header/Header';
 import Card from 'react-bootstrap/Card';
-import './Billing.css'
+import './Billing.css';
 import MobileHeader from '../MobileHeader/MobileHeader';
 import Footer from '../Footer/Footer';
-import { AccountContext } from '../../../Contexts/AccountContext';
 import { BillingContext } from '../../../Contexts/BillingContext';
-export default function Billing() {
-  const cartinfo = useContext(CartContext)
+import { useAuth } from '../../../Contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
 
-  ///
-const bilinginfo=useContext(BillingContext)
-const acinfo=useContext(AccountContext)
+export default function Billing() {
+  const cartInfo = useContext(CartContext);
+  const billingInfo = useContext(BillingContext);
+  const { isLoggedIn, email, logout } = useAuth();
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPay, setSelectedPay] = useState(null);
+  const [isDataProtectionChecked, setIsDataProtectionChecked] = useState(false); // State for checkbox
+
   return (
     <>
       <Header />
       <MobileHeader />
       <div className='billing paddingtopmob'>
-        <Form className=' borderbox g-3 shadow p-3 rounded-3'>
-          {acinfo.statuslogin ?
-            <>
-              <div className="mb-3 justify-content-between align-ite">
-                <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>ایمیل</Form.Label>
-                  <Form.Control type="email" placeholder="ایمیل خود را وارد کنید" value={acinfo.emaillogin} />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>رمزعبور</Form.Label>
-                  <Form.Control type="password" placeholder="رمزعبور" value={acinfo.passlogin} />
-                </Form.Group>
-              </div>
-            </>
-
-            :
-            <>
-              <div className="mb-3 justify-content-between align-ite">
-                <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>ایمیل</Form.Label>
-                  <Form.Control type="email" placeholder="ایمیل خود را وارد کنید" value={acinfo.emaillogin} onChange={(event) => acinfo.emailloginval(event)} />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>رمزعبور</Form.Label>
-                  <Form.Control type="password" placeholder="رمزعبور" value={acinfo.passlogin} onChange={(event) => acinfo.passloginval(event)} />
-                </Form.Group>
-                <Form.Group className="mb-3 boxformac d-flex" controlId="formBasicPassword">
-
-
-
-                  <Form.Control type="text" onChange={(event) => acinfo.cadrcodeval(event)} placeholder='کد روبرو را وارد کنید' />
-
-                  <img className='w-25 me-4' src={'https://api.codebazan.ir/captcha/?font=1&bg=1&textcolor=1&text=' + acinfo.randomnum} alt="" />
-
-
-
-
-
-                </Form.Group>
-                <Button className='w-100 mt-3 btnlogin' onClick={acinfo.loginsubmit} variant="primary" type="submit">
-                  ورود به اکانت
-                </Button>
-              </div>
-            </>
-          }
+        <Form className='borderbox shadow p-3 rounded-3'>
+          {isLoggedIn ? (
+            <div className="mb-3 d-flex justify-content-between align-items-center">
+              <span>You are logged in as {email}.</span>
+              <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+            </div>
+          ) : null}
 
           <Form.Group className="mb-3" controlId="formGridAddress1">
-            <Form.Label>آدرس</Form.Label>
-            <Form.Control onChange={(event)=>bilinginfo.address1val(event)} placeholder="خیابان اصلی ۱۲۳۴" />
+            <Form.Label>Address</Form.Label>
+            <Form.Control onChange={(event) => billingInfo.address1val(event)} placeholder="1234 Main St" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGridAddress2">
-            <Form.Label>آدرس ۲</Form.Label>
-            <Form.Control placeholder="آپارتمان، استودیو یا طبقه" />
+            <Form.Label>Address 2</Form.Label>
+            <Form.Control placeholder="Apartment, studio, or floor" />
           </Form.Group>
 
-          <div className="mb-3">
+          <div className="row mb-3">
             <Form.Group as={Col} controlId="formGridCity">
-              <Form.Label>شهر</Form.Label>
-              <Form.Control onChange={(event)=>bilinginfo.cityval(event)} />
+              <Form.Label>City</Form.Label>
+              <Form.Control onChange={(event) => billingInfo.cityval(event)} />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>استان</Form.Label>
-              <Form.Select onChange={(event)=>{
-                bilinginfo.setostan(event.target.value)
-              }} defaultValue="انتخاب...">
-                <option >انتخاب...</option>
-                <option value='kermanshah'>کرمانشاه</option>
-                <option value='tehran'>تهران</option>
-                <option value='other'>سایر</option>
+              <Form.Label>State</Form.Label>
+              <Form.Select
+                onChange={(event) => billingInfo.setostan(event.target.value)}
+                defaultValue="Choose..."
+              >
+                <option>Choose...</option>
+                <option value="kermanshah">Kermanshah</option>
+                <option value="tehran">Tehran</option>
+                <option value="other">Other</option>
               </Form.Select>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label>کد پستی</Form.Label>
-              <Form.Control onChange={(event)=>bilinginfo.pcodeval(event)} />
+              <Form.Label>Postal Code</Form.Label>
+              <Form.Control onChange={(event) => billingInfo.pcodeval(event)} />
             </Form.Group>
           </div>
-
-
         </Form>
 
-
-        <Card body className='gotopay shadow'>
-          <p>نوع ارسال:</p>
-
+        <Card body className="gotopay shadow mt-4">
+          <p>Delivery Method:</p>
           <div>
-          <Card onClick={()=>{
-            bilinginfo.settypepost('pishtaz')
-          }} body className='mt-3'>ارسال با پست پیشتاز</Card>
-          <Card onClick={()=>{
-            bilinginfo.settypepost('tbox')
-          }}  body className='mt-3'>ارسال با تیباکس </Card>
+            <Card
+              onClick={() => {
+                billingInfo.settypepost("pishtaz");
+                setSelectedPost("pishtaz");
+              }}
+              body
+              className={`mt-3 cursor-pointer ${selectedPost === "pishtaz" ? "bg-primary text-white" : ""}`}
+            >
+              Express Delivery
+            </Card>
+            <Card
+              onClick={() => {
+                billingInfo.settypepost("tbox");
+                setSelectedPost("tbox");
+              }}
+              body
+              className={`mt-3 cursor-pointer ${selectedPost === "tbox" ? "bg-primary text-white" : ""}`}
+            >
+              Standard Delivery
+            </Card>
           </div>
-          <p className='mt-4'>نوع پرداخت:</p>
+
+          <p className="mt-4">Payment Method:</p>
           <div>
-          <Card body onClick={()=>{
-            bilinginfo.settypepay('bank')
-          }} className='mt-3' value='bank'>انتقال مستقیم بانکی</Card>
-          <Card body className='mt-3'
-          onClick={()=>{
-            bilinginfo.settypepay('payhome')
-          }}
-          value='payhome'> پرداخت در محل  </Card>
+            <Card
+              body
+              onClick={() => {
+                billingInfo.settypepay("bank");
+                setSelectedPay("bank");
+              }}
+              className={`mt-3 cursor-pointer ${selectedPay === "bank" ? "bg-primary text-white" : ""}`}
+            >
+              Bank Transfer
+            </Card>
+            <Card
+              body
+              className={`mt-3 cursor-pointer ${selectedPay === "payhome" ? "bg-primary text-white" : ""}`}
+              onClick={() => {
+                billingInfo.settypepay("payhome");
+                setSelectedPay("payhome");
+              }}
+            >
+              Cash on Delivery
+            </Card>
           </div>
-          <Card body className='mt-5 bg-danger text-white'>
 
+          {/* Data Protection Confirmation Checkbox */}
+          <Form.Group className="mt-4" controlId="formDataProtection">
+            <Form.Check
+              type="checkbox"
+              label="I agree to the data protection rules and confirm that my data will be processed in accordance with the privacy policy."
+              checked={isDataProtectionChecked}
+              onChange={(e) => setIsDataProtectionChecked(e.target.checked)}
+            />
+          </Form.Group>
 
-            <div> جمع کل مبلغ: {cartinfo.totalprice()} تومان </div>
+          <Card body className="mt-5 bg-danger text-white">
+            <div>Total Amount: {cartInfo.totalprice()} Toman</div>
           </Card>
-          <Card body className='mt-5 bg-success text-white'>
 
-
-            <div className='submitlast' onClick={bilinginfo.Billingsubhandler}>ثبت سفارش</div>
-
+          {/* Place Order Button (Disabled if checkbox is not checked) */}
+          <Card
+            body
+            className={`mt-5 ${isDataProtectionChecked ? 'bg-success' : 'bg-secondary'} text-white cursor-pointer`}
+            onClick={isDataProtectionChecked ? billingInfo.Billingsubhandler : null}
+          >
+            <div className="submitlast">Place Order</div>
           </Card>
 
-          <div className=' mt-3 p-3 '>
-            {bilinginfo.onsub === false ? <p className='p-3 bg-light rounded-2 shadow'>اطلاعات با دقت پر شود</p> :
-              <p className='p-3 bg-danger rounded-2  text-white'>* {bilinginfo.messagelogin}</p>
-            }
-
-
+          <div className="mt-3 p-3">
+            {billingInfo.onsub === false ? (
+              <p className="p-3 bg-light rounded-2 shadow">Please fill in the information carefully.</p>
+            ) : (
+              <p className="p-3 bg-danger rounded-2 text-white">* {billingInfo.messagelogin}</p>
+            )}
           </div>
         </Card>
       </div>
-
       <Footer />
     </>
-
-  )
+  );
 }

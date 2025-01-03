@@ -12,6 +12,10 @@ export const CartContext = createContext({
   showcartmob: () => {},
   falsemenumob: () => {},
   successtocart: "",
+  increaseQuantity: () => {},
+  decreaseQuantity: () => {},
+  calculateDiscount: () => {}, // تابع جدید برای محاسبه تخفیف
+  finalPrice: () => {}, // تابع جدید برای محاسبه قیمت نهایی
 });
 
 export const CartContextProvider = (props) => {
@@ -22,12 +26,22 @@ export const CartContextProvider = (props) => {
   const [successc, setsuccesstocart] = useState("");
   const [tedadhame, settedadhame] = useState(0);
   const [tprice, settprice] = useState(0);
-
   const [datafetchproduct, setdatafetchproduct] = useState([]);
 
   useEffect(() => {
     contentporduct();
   }, []);
+
+  // تابع محاسبه تخفیف بر اساس تعداد
+  const calculateDiscount = (quantity) => {
+ return quantity
+  };
+
+  // تابع محاسبه قیمت نهایی با احتساب تخفیف
+  const finalPrice = (price, quantity) => {
+    const discount = calculateDiscount(quantity);
+    return price * quantity * (1 - discount / 100);
+  };
 
   const Cartvalue = {
     item: dataCart,
@@ -40,15 +54,30 @@ export const CartContextProvider = (props) => {
     showcartmob,
     successtocart: successc,
     falsemenumob,
+    increaseQuantity,
+    decreaseQuantity,
+    calculateDiscount, // اضافه کردن تابع به context
+    finalPrice, // اضافه کردن تابع به context
   };
 
   function addtocard(id) {
     const newarraycart = datafetchproduct.find((item) => item.id === id);
+    const existingItem = dataCart.find((item) => item.id === id);
 
-    setDatacart([...dataCart, newarraycart]);
+    if (existingItem) {
+      increaseQuantity(id);
+    } else {
+      setDatacart([...dataCart, { ...newarraycart, quantity: 1 }]);
+    }
     setsuccesstocart("با موفقیت به سبد خرید اضافه شد");
-    alert(successc);
   }
+
+  useEffect(() => {
+    if (successc) {
+      alert(successc);
+      setsuccesstocart("");
+    }
+  }, [successc]);
 
   function removeproductcart(id) {
     const newremoveitem = dataCart.filter((item) => item.id !== id);
@@ -56,18 +85,17 @@ export const CartContextProvider = (props) => {
   }
 
   function tedadhamecart() {
-    const tedad = dataCart.length;
+    const tedad = dataCart.reduce((total, item) => total + (item.quantity || 1), 0);
     settedadhame(tedad);
     return tedadhame;
   }
 
+  // به‌روزرسانی تابع totalprice برای محاسبه قیمت با تخفیف
   function totalprice() {
-    let total_price = 0;
-
-    for (let i = 0; i < dataCart.length; i++) {
-      total_price += dataCart[i].pricet;
-    }
-
+    let total_price = dataCart.reduce((total, item) => {
+      const discount = calculateDiscount(item.quantity || 1);
+      return total + item.pricet * (item.quantity || 1) * (1 - discount / 100);
+    }, 0);
     settprice(total_price);
     return tprice;
   }
@@ -81,8 +109,28 @@ export const CartContextProvider = (props) => {
   }
 
   function tedadproduct(id) {
-    const quantity = dataCart.filter((item) => item.id === id).length;
-    return quantity;
+    const item = dataCart.find((item) => item.id === id);
+    return item ? item.quantity || 1 : 0;
+  }
+
+  function increaseQuantity(id) {
+    const updatedCart = dataCart.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: (item.quantity || 1) + 1 };
+      }
+      return item;
+    });
+    setDatacart(updatedCart);
+  }
+
+  function decreaseQuantity(id) {
+    const updatedCart = dataCart.map((item) => {
+      if (item.id === id && (item.quantity || 1) > 1) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setDatacart(updatedCart);
   }
 
   const contentporduct = async () => {
@@ -95,7 +143,5 @@ export const CartContextProvider = (props) => {
     }
   };
 
-  return (
-    <CartContext.Provider value={Cartvalue}>{children}</CartContext.Provider>
-  );
+  return <CartContext.Provider value={Cartvalue}>{children}</CartContext.Provider>;
 };
