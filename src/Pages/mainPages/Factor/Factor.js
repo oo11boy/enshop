@@ -21,7 +21,6 @@ export default function Factor() {
   const [orderCode, setOrderCode] = useState(null);
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState(null);
-  const [paymentStatus, setPaymentStatus] = useState(null); // New state for payment status
 
   // Calculate total price including shipping
   const totalWithShipping = cartInfo.totalprice();
@@ -42,15 +41,21 @@ export default function Factor() {
   const handleConfirmOrder = async (status) => {
     setIsPaymentProcessing(true); // Show loading state
     setPaymentError(null); // Reset any previous errors
-
+  
     try {
       // Simulate payment process based on user input
       await simulatePayment(status);
-
+  
       // If payment is successful, proceed to save the order
       const generatedOrderCode = `ORDER-${Math.floor(Math.random() * 1000000)}`;
       const userId = localStorage.getItem("userId"); // Get userId from localStorage
-
+  
+      // Prepare products array
+      const products = cartInfo.item.map(item => ({
+        name: item.name,
+        quantity: cartInfo.tedadproduct(item.id)
+      }));
+  
       const orderData = {
         userId,
         orderCode: generatedOrderCode,
@@ -67,8 +72,9 @@ export default function Factor() {
             : billingInfo.infobilling.typepost === "dhl"
             ? "DHL"
             : "DHL Express",
+        products: products // Add products array to order data
       };
-
+  
       // Save the order to the backend
       const response = await axios.post(`${Api}/api/save-order`, orderData);
       if (response.data.success) {
@@ -85,7 +91,6 @@ export default function Factor() {
       setIsPaymentProcessing(false); // Hide loading state
     }
   };
-
   return (
     <>
       <Header />
@@ -162,7 +167,8 @@ export default function Factor() {
                   <tr>
                     <td>{email}</td>
                     <td>
-                      {billingInfo.infobilling.city} {billingInfo.infobilling.address}
+                      {billingInfo.infobilling.city}{" "}
+                      {billingInfo.infobilling.address}
                     </td>
                     <td>{billingInfo.infobilling.postalcode}</td>
                     <td>
@@ -194,24 +200,25 @@ export default function Factor() {
                   onClick={() => handleConfirmOrder("success")}
                   disabled={isPaymentProcessing}
                 >
-                  {isPaymentProcessing ? "Processing Payment..." : "Confirm Successful Payment"}
+                  {isPaymentProcessing
+                    ? "Processing Payment..."
+                    : "Confirm Successful Payment"}
                 </button>
                 <button
                   className="btn m-4 btn-danger"
                   onClick={() => handleConfirmOrder("fail")}
                   disabled={isPaymentProcessing}
                 >
-                  { "Confirm Failed Payment"}
+                  {"Confirm Failed Payment"}
                 </button>
                 {paymentError && (
-                  <div className="alert alert-danger mt-3">
-                    {paymentError}
-                  </div>
+                  <div className="alert alert-danger mt-3">{paymentError}</div>
                 )}
               </div>
             ) : (
               <div className="alert alert-success mt-3 text-center">
-                Your order has been confirmed successfully. Order Code: {orderCode}
+                Your order has been confirmed successfully. Order Code:{" "}
+                {orderCode}
               </div>
             )}
           </div>
