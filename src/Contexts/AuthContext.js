@@ -1,18 +1,28 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Api } from '../api';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(localStorage.getItem('userEmail') || '');
   const [verificationCode, setVerificationCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [modalErrorMessage, setModalErrorMessage] = useState(''); // خطاهای مربوط به مودال
+  const [modalErrorMessage, setModalErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
 
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
   // ارسال کد تأیید برای ریست پسورد
   const sendVerificationCode = async (email) => {
     try {
@@ -86,14 +96,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // لاگین کاربر
   const login = async (email, password) => {
     const deviceInfo = {
       screenResolution: `${window.screen.width}x${window.screen.height}`,
       os: navigator.platform,
       loginTime: new Date().toISOString()
     };
-
+  
     try {
       setIsLoading(true);
       const response = await fetch(`${Api}/api/login`, {
@@ -103,10 +112,11 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ email, password, deviceInfo }),
       });
-
+  
       const result = await response.json();
       if (result.success) {
         localStorage.setItem('authToken', result.token);
+        localStorage.setItem('userEmail', email); // ذخیره ایمیل کاربر
         setIsLoggedIn(true);
         setEmail(email);
         setErrorMessage('');
@@ -127,13 +137,14 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       const response = await axios.post(`${Api}/api/logout`, { email });
-
+  
       if (response.data.success) {
         setIsLoggedIn(false);
         setEmail('');
         setVerificationCode('');
         setErrorMessage('');
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userEmail'); // حذف ایمیل کاربر
         console.log('Logout successful.');
       } else {
         console.error('Error during logout:', response.data.message);
