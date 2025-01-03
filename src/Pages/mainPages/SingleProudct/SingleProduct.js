@@ -52,11 +52,11 @@ export default function SingleProduct() {
                         <p>DHL Express</p>
                      </div>
                      <div className='priceproduct'>
-                        {singlepro.takhfif !== 0 ? (
+                        {singlepro.discount !== 0 ? (
                            <>
                               <p style={{ textDecoration: 'line-through' }}>{singlepro.price}</p>
                               <p>{singlepro.pricet} €</p>
-                              <p>{singlepro.takhfif}%</p>
+                              <p>{singlepro.discount}%</p>
                            </>
                         ) : (
                            <p className='text-danger'>{singlepro.pricet} €</p>

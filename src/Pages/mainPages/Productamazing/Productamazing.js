@@ -83,41 +83,41 @@ export default function Productamazing() {
              </SwiperSlide>
           {
             loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
-          datafetchproduct.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className='productbodyamazing'>
-                <div className='productname' >
-                  <img src={item.img} alt="" />
-              
-                  <Link to={'../product/' + item.id} >{item.name}</Link>
-
-                  {item.takhfif !== 0 && <span className='takhfif'>{item.takhfif}%</span>
-                  }
-
+            datafetchproduct
+            .filter((item) => item.discount != 0) // فقط آیتم‌هایی که تخفیف دارند را فیلتر کنید
+            .map((item) => (
+              <SwiperSlide key={item.id}>
+                <div className='productbodyamazing'>
+                  <div className='productname'>
+                    <img src={item.img} alt="" />
+                    <Link to={'../product/' + item.id}>{item.name}</Link>
+                    {item.discount !== 0 && (
+                      <span className='discount'>{item.discount}%</span>
+                    )}
+                  </div>
+                  {item.discount !== 0 ? (
+                    <div className='bynodiscount'>
+                      <span className='pricenotamazing'>{item.price} €</span>
+                      <p className='pricebyt'>{item.pricet} €</p>
+                    </div>
+                  ) : (
+                    <p>{item.price} €</p>
+                  )}
+                  <Button
+                    className="tocartproduct"
+                    onClick={() =>
+                      isLoggedIn
+                        ? Productandcart.addtocard(item.id)
+                        : alert('لطفاً وارد حساب کاربری خود شوید')
+                    }
+                  >
+                    <BsCartPlus />
+                    <span className="tocarttext">افزودن به سبد خرید</span>
+                  </Button>
                 </div>
-                {item.takhfif !== 0 ? <div className='bynotakhfif'> <span className='pricenotamazing'>{item.price} €</span> <p className='pricebyt'>{item.pricet} €</p>    </div> :
-
-
-                  <p>{item.price} €</p>
-
-                }
-
-         
-                           <Button
-                             className="tocartproduct"
-                             onClick={() =>
-                               isLoggedIn
-                                 ? Productandcart.addtocard(item.id)
-                                 : alert('لطفاً وارد حساب کاربری خود شوید')
-                             }
-                             >
-                             <BsCartPlus />
-                             <span className="tocarttext">افزودن به سبد خرید</span>
-                           </Button>
-
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            ))
+            }
         </Swiper>
       </div>
     </div>

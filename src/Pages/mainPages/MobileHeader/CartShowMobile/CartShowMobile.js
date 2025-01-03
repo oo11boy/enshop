@@ -57,10 +57,23 @@ export default function CartShowMobile() {
                   +
                 </button>
               </p>
-                  <h3>
-                    قیمت: {item.pricet} * {cartinfo.tedadproduct(item.id)} ={" "}
-                    {cartinfo.finalPrice(item.pricet, cartinfo.tedadproduct(item.id)).toLocaleString()} €
-                  </h3>
+              {item.discount != 0 ? (
+                  <>
+                    Price: {item.pricet} * {cartinfo.tedadproduct(item.id)} ={" "}
+                    {cartinfo
+                      .finalPrice(item.pricet, cartinfo.tedadproduct(item.id))
+                      .toLocaleString()}{" "}
+                    €
+                  </>
+                ) : (
+                  <>
+                  Price: {item.price} * {cartinfo.tedadproduct(item.id)} ={" "}
+                  {cartinfo
+                    .finalPrice(item.price, cartinfo.tedadproduct(item.id))
+                    .toLocaleString()}
+                  €
+                </>
+                )}
                   {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id)) > 0 && (
                     <p className="text-success">
                       تخفیف: {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id))}%

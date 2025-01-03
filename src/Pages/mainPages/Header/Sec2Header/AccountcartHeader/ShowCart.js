@@ -35,7 +35,7 @@ export default function ShowCart() {
         {itemsToRender.map((item) => (
           <div className="cartbody" key={item.id}>
             <div className="imgcart">
-              <img src={ item.img} alt="" />
+              <img src={item.img} alt="" />
             </div>
             <div className="informcart">
               <Link
@@ -63,11 +63,23 @@ export default function ShowCart() {
                 </button>
               </p>
               <h3 className="mt-2 text-muted">
-                price: {item.pricet} * {cartinfo.tedadproduct(item.id)} ={" "}
-                {cartinfo
-                  .finalPrice(item.pricet, cartinfo.tedadproduct(item.id))
-                  .toLocaleString()}{" "}
-               €
+                {item.discount != 0 ? (
+                  <>
+                    Price: {item.pricet} * {cartinfo.tedadproduct(item.id)} ={" "}
+                    {cartinfo
+                      .finalPrice(item.pricet, cartinfo.tedadproduct(item.id))
+                      .toLocaleString()}{" "}
+                    €
+                  </>
+                ) : (
+                  <>
+                  Price: {item.price} * {cartinfo.tedadproduct(item.id)} ={" "}
+                  {cartinfo
+                    .finalPrice(item.price, cartinfo.tedadproduct(item.id))
+                    .toLocaleString()}
+                  €
+                </>
+                )}
               </h3>
               {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id)) >
                 0 && (

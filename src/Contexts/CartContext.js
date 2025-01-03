@@ -104,13 +104,14 @@ export const CartContextProvider = (props) => {
   // به‌روزرسانی تابع totalprice برای محاسبه قیمت با تخفیف و هزینه ارسال
   function totalprice() {
     let total_price = dataCart.reduce((total, item) => {
-      const discount = calculateDiscount(item.quantity || 1);
-      return total + item.pricet * (item.quantity || 1) * (1 - discount / 100);
+      // بررسی کنید آیا تخفیف وجود دارد یا خیر
+      const priceToUse = item.discount > 0 ? item.pricet : item.price;
+      return total + priceToUse * (item.quantity || 1);
     }, 0);
-    settprice(total_price + shippingCost); // اضافه کردن هزینه ارسال به جمع کل
+  
+    settprice(total_price + shippingCost); // افزودن هزینه حمل و نقل به جمع کل
     return tprice;
   }
-
   function showcartmob() {
     setshowcartmobstatus(!showcartstatus);
   }

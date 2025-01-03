@@ -63,13 +63,13 @@ export default function Product(props) {
                       {item.name}
                     </Link>
 
-                    {item.takhfif !== 0 && (
-                      <span className="takhfif">{item.takhfif}%</span>
+                    {item.discount != 0 && (
+                      <span className="discount">{item.discount}%</span>
                     )}
                   </div>
 
-                  {item.takhfif !== 0 ? (
-                    <div className="bynotakhfif">
+                  {item.discount != 0 ? (
+                    <div className="bynodiscount">
                       <span className="pricenot">{item.price} €</span>
                       <p className="pricebyt">{item.pricet} €</p>
                     </div>
