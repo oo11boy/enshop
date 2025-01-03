@@ -16,8 +16,8 @@ export default function Sec1Header() {
       <div className='siteinform'>
         <div className="boxesheader">
 
-          <Boxheader icon={<BiPhoneCall />} title=' پشتیبانی آنلاین' body="09354502369" />
-          <Boxheader icon={<GrLocation />} title='آدرس فروشگاه' body="کرمانشاه رسول قاسمی توسعه دهنده ری اکت جی اس
+          <Boxheader icon={<BiPhoneCall />} title='call center' body="09354502369" />
+          <Boxheader icon={<GrLocation />} title='Address' body="Germany, Berlin
           " />
         </div>
 

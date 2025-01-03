@@ -55,7 +55,8 @@
 
 .sendday{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
     width: 43%;
     align-items: center;
     margin-top: 20px;

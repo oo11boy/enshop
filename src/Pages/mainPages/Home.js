@@ -19,9 +19,10 @@ export default function Home() {
       <Header/>
       <MobileHeader />
       <SlidersHome />
-      <Product margin="mt-90" title="جدیدترین محصولات" />
+      <Product margin="mt-90" title="Products" />
       <Productamazing />
-      <BannerHome />
+   
+  
       {/* <Product margin='mt-5' title="جدیدترین لوازم آرایشی" /> */}
       {/* <Brands margin='mt-5' title="محبوب ترین برندها" /> */}
       {/* <PostsHome /> */}

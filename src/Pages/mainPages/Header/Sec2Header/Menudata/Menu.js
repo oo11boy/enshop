@@ -19,14 +19,14 @@ export default function Menu() {
                    
             <ul className='menul1'>
                 <li onClick={showmenu} className='menucat'>
-                    <AiOutlineMenu />   دسته بندی محصول
+                    <AiOutlineMenu />   category
                 </li>
 
 
-                <Link to='/blog'> <li>وبلاگ</li> </Link>
-                <Link to='/useraccount/inform'> <li>حساب کاربری من</li>  </Link>
-                <Link to='/biling'> <li>پرداخت</li>  </Link>
-                <Link to='/search'> <li>فروشگاه</li>  </Link>
+                <Link to='/blog'> <li>Blogs</li> </Link>
+                <Link to='/useraccount/inform'> <li>Profile</li>  </Link>
+                <Link to='/biling'> <li>checkout</li>  </Link>
+                <Link to='/search'> <li>store</li>  </Link>
             </ul>
       
                 <div onMouseLeave={nomenu} className={showmenuheader ? 'menuinform' : 'menuinform-no'}>

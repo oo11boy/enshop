@@ -89,7 +89,7 @@ export default function Productamazing() {
                 <div className='productname' >
                   <img src={item.img} alt="" />
               
-                  <Link to={'../product/' +item.cat +'/'+ item.id} >{item.name}</Link>
+                  <Link to={'../product/' + item.id} >{item.name}</Link>
 
                   {item.takhfif !== 0 && <span className='takhfif'>{item.takhfif}%</span>
                   }
