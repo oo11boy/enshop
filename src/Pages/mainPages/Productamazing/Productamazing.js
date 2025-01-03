@@ -78,7 +78,7 @@ export default function Productamazing() {
              <SwiperSlide >
 
              <div className='productbodyamazingimg'>
-                <img src="https://iraniwp.ir/digix/cosmetic/wp-content/themes/Digix/static/img/amazing.png" alt="" />
+                <img src="./img/amazing.png" alt="" />
                 </div>
              </SwiperSlide>
           {

@@ -23,8 +23,8 @@ export default function Home() {
       <Productamazing />
       <BannerHome />
       {/* <Product margin='mt-5' title="جدیدترین لوازم آرایشی" /> */}
-      <Brands margin='mt-5' title="محبوب ترین برندها" />
-      <PostsHome />
+      {/* <Brands margin='mt-5' title="محبوب ترین برندها" /> */}
+      {/* <PostsHome /> */}
       <Footer />
     </>
   )
