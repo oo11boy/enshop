@@ -65,7 +65,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Register a new user
+
+  const checkEmail = async (email) => {
+    try {
+      const response = await axios.post(`${Api}/api/check-email-for-forgot-pass`, { email });
+      return response.data;
+    } catch (error) {
+      console.error('Error checking email:', error);
+      throw error;
+    }
+  };
+  // ثبت‌نام کاربر
   const registerUser = async (enteredCode) => {
     if (enteredCode !== verificationCode) {
       setModalErrorMessage('Invalid verification code.'); // Show error in modal
@@ -162,6 +172,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        checkEmail,
+        setIsLoading, // دریافت setIsLoading از AuthContext
         email,
         setEmail,
         verificationCode,
