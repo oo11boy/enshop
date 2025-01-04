@@ -6,9 +6,12 @@ import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
 import MobileHeader from '../../MobileHeader/MobileHeader';
 import { useAuth } from '../../../../Contexts/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginForm() {
   const {
+    checkEmail,
     isLoggedIn,
     errorMessage,
     setErrorMessage,
@@ -18,6 +21,7 @@ export default function LoginForm() {
     modalErrorMessage,
     setModalErrorMessage,
     isLoading,
+    setIsLoading,
   } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -27,7 +31,6 @@ export default function LoginForm() {
   const [verificationCode, setVerificationCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
-  // Handle login
   const handleLogin = (event) => {
     event.preventDefault();
 
@@ -44,24 +47,35 @@ export default function LoginForm() {
     login(email, password);
   };
 
-  // Handle forgot password
   const handleForgotPassword = async () => {
     if (!email || !email.includes('@') || email.length < 5) {
       setErrorMessage('Please enter a valid email address.');
       return;
     }
-
-    const result = await sendVerificationCode(email);
-    if (result.success) {
-      setShowForgotPasswordModal(false);
-      setShowResetPasswordModal(true);
-      setModalErrorMessage('');
-    } else {
-      setModalErrorMessage('Failed to send verification code. Please try again.');
+  
+    try {
+      setIsLoading(true);
+      const checkEmailResponse = await checkEmail(email);
+      console.log(checkEmailResponse);
+      const result = await sendVerificationCode(email);
+      if (result.success) {
+        setShowForgotPasswordModal(false);
+        setShowResetPasswordModal(true);
+        setModalErrorMessage('');
+      } else {
+        setModalErrorMessage('Failed to send verification code. Please try again.');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setModalErrorMessage('This email is not registered.');
+      } else {
+        setModalErrorMessage('Error checking email. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Handle reset password
   const handleResetPassword = async () => {
     if (!verificationCode || !newPassword) {
       setModalErrorMessage('Please enter the verification code and new password.');
@@ -77,13 +91,22 @@ export default function LoginForm() {
     if (result.success) {
       setShowResetPasswordModal(false);
       setModalErrorMessage('');
-      setErrorMessage('Password reset successfully. Please login with your new password.');
+ 
+      toast.success('Password reset successfully. Please login with your new password.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setEmail('')
     } else {
       setModalErrorMessage(result.message || 'Failed to reset password. Please try again.');
     }
   };
 
-  // Redirect to home page if logged in
   if (isLoggedIn) {
     return <Navigate to="../" />;
   }
@@ -122,7 +145,7 @@ export default function LoginForm() {
             </Button>
 
             <div className="underloginform">
-              <Link to="../useraccount/register" className="btn w-100 underloginbtn border border-primary text-primary bg-white">
+              <Link to="../useraccount/register" onClick={()=>setEmail('')} className="btn w-100 underloginbtn border border-primary text-primary bg-white">
                 Register
               </Link>
               <Button className="w-50 underloginbtn border border-danger text-danger bg-white" onClick={() => setShowForgotPasswordModal(true)}>
@@ -139,6 +162,7 @@ export default function LoginForm() {
           <Modal.Title>Forgot Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {modalErrorMessage && <Alert variant="danger">{modalErrorMessage}</Alert>}
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email Address</Form.Label>
@@ -156,7 +180,7 @@ export default function LoginForm() {
             Close
           </Button>
           <Button variant="primary" onClick={handleForgotPassword} disabled={isLoading}>
-            {isLoading ? 'Sending...' : 'Send Code'}
+            {isLoading ? 'Checking...' : 'Send Code'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -202,6 +226,18 @@ export default function LoginForm() {
       <div className="hiddenmobile">
         <Footer />
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

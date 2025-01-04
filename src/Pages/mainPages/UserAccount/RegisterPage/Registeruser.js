@@ -7,6 +7,8 @@ import Header from '../../Header/Header';
 import MobileHeader from '../../MobileHeader/MobileHeader';
 import Footer from '../../Footer/Footer';
 import { Link, Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'; // Adding ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Adding toast styles
 
 export default function RegisterUser() {
   const {
@@ -16,11 +18,11 @@ export default function RegisterUser() {
     registerUser,
     setErrorMessage,
     errorMessage,
-    modalErrorMessage, // خطاهای مربوط به مودال
+    modalErrorMessage,
     setModalErrorMessage,
     showModal,
     setShowModal,
-    isLoading
+    isLoading,
   } = useAuth();
 
   const [enteredCode, setEnteredCode] = useState('');
@@ -36,7 +38,7 @@ export default function RegisterUser() {
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
-};
+  };
 
   const validatePassword = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,}$/;
@@ -66,6 +68,7 @@ export default function RegisterUser() {
           setEmailError(error.response?.data?.message || 'Error checking email.');
         });
     }
+    
   };
 
   const handleSendCode = () => {
@@ -73,6 +76,7 @@ export default function RegisterUser() {
   };
 
   const handleRegister = async () => {
+    
     if (enteredCode.length === 0) {
       setModalErrorMessage('Please enter the verification code.');
       return;
@@ -106,8 +110,23 @@ export default function RegisterUser() {
 
       const result = await response.json();
       if (result.success) {
-        setShowChangePasswordModal(false);
-        setRedirectToHome(true);
+        // Show toast only on successful password change
+        toast.success('Registration completed successfully.', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          rtl:false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        setTimeout(() => {
+          setShowChangePasswordModal(false);
+          setRedirectToHome(true); 
+        }, 2000);
+      
       } else {
         setPasswordError(result.message || 'Error changing password.');
       }
@@ -129,14 +148,13 @@ export default function RegisterUser() {
           <h2 className="topAccount">Sign Up</h2>
           <Form>
             <Form.Group className="my-3" controlId="formBasicEmail">
-             
               <Form.Control
                 type="email"
                 placeholder="Enter your email (username)"
                 value={email}
                 onChange={handleEmailChange}
               />
-              </Form.Group>
+            </Form.Group>
 
             <Button
               className="w-100 btnlogin"
@@ -148,17 +166,16 @@ export default function RegisterUser() {
               {isLoading ? 'Sending...' : 'Send Verification Code'}
             </Button>
 
-<div className='text-center my-2'>OR</div>
-   <div className="underloginform">
+            <div className='text-center my-2'>OR</div>
+            <div className="underloginform">
               <Link to="../useraccount/login" className="btn w-100 underloginbtn border border-primary text-primary bg-white">
-              Sign in
+                Sign in
               </Link>
-             
             </div>
 
             {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
             {!emailValid && emailFormatValid && <Alert variant="danger" className="mt-2">{emailError}</Alert>}
-           
+
             {/* Verification Code Modal */}
             <Modal show={showModal} onHide={() => { setShowModal(false); setModalErrorMessage(''); }} centered>
               <Modal.Header closeButton>
@@ -166,7 +183,7 @@ export default function RegisterUser() {
               </Modal.Header>
               <Modal.Body>
                 <p>Please enter the verification code sent to your email.</p>
-                {modalErrorMessage && <Alert variant="danger" className="mt-2">{modalErrorMessage}</Alert>} {/* نمایش خطا در مودال */}
+                {modalErrorMessage && <Alert variant="danger" className="mt-2">{modalErrorMessage}</Alert>}
                 <Form.Group className="mb-3" controlId="formBasicCode">
                   <Form.Label>Verification Code</Form.Label>
                   <Form.Control
@@ -203,7 +220,7 @@ export default function RegisterUser() {
             <li>Includes one lowercase letter</li>
             <li>Includes one number</li>
           </ul>
-          {passwordError && <Alert variant="danger" className="mt-2">{passwordError}</Alert>} {/* نمایش خطا در مودال */}
+          {passwordError && <Alert variant="danger" className="mt-2">{passwordError}</Alert>}
           <Form.Group className="mb-3" controlId="formNewPassword">
             <Form.Label>New Password</Form.Label>
             <Form.Control
@@ -236,6 +253,19 @@ export default function RegisterUser() {
       <div className="hiddenmobile">
         <Footer />
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }
