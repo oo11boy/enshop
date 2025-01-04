@@ -12,35 +12,35 @@ import { Api } from '../../../../../api';
 export default function AccountcartHeader() {
   const infocart = useContext(CartContext);
   const [cartheader, setshowcart] = useState(false);
-  const [onlineUsers, setOnlineUsers] = useState(0); // برای نگهداری تعداد کاربران آنلاین
+  const [onlineUsers, setOnlineUsers] = useState(0); // To store the number of online users
   const showcart = () => {
     setshowcart(!cartheader);
   };
 
-  const { isLoggedIn, email, logout } = useAuth(); // گرفتن اطلاعات از AuthContext
+  const { isLoggedIn, email, logout } = useAuth(); // Get data from AuthContext
   const [showunderac, setshowunderac] = useState(false);
   const showunder = () => {
     setshowunderac(!showunderac);
   };
 
-  // درخواست ایجکسی برای دریافت تعداد کاربران آنلاین به صورت لحظه‌ای
+  // Axios request to fetch the number of online users in real-time
   useEffect(() => {
     const fetchOnlineUsers = async () => {
       try {
-        const response = await fetch(`${Api}/api/online-users`); // درخواست به API
-        const data = await response.json(); // دریافت داده‌ها به صورت JSON
-        setOnlineUsers(data.length); // ذخیره تعداد کاربران آنلاین
-        console.log(data.length)
+        const response = await fetch(`${Api}/api/online-users`); 
+        const data = await response.json(); 
+        setOnlineUsers(data.length); 
+        console.log(data.length);
       } catch (error) {
         console.error('Error fetching online users:', error);
       }
     };
 
-    fetchOnlineUsers(); // اولین فراخوانی برای دریافت کاربران آنلاین
+    fetchOnlineUsers(); // Initial call to fetch online users
 
-    const intervalId = setInterval(fetchOnlineUsers, 5000); // فراخوانی هر 5 ثانیه یکبار برای به‌روزرسانی کاربران آنلاین
+    const intervalId = setInterval(fetchOnlineUsers, 5000); // Call every 5 seconds to update online users
 
-    return () => clearInterval(intervalId); // پاک‌سازی interval در هنگام از بین رفتن کامپوننت
+    return () => clearInterval(intervalId); // Cleanup interval when the component unmounts
   }, []);
 
   return (
@@ -54,12 +54,10 @@ export default function AccountcartHeader() {
         <div className='posheader'>
           <p onClick={showunder}>
             {email} ({onlineUsers} online users)
-            
-          </p> {/* نمایش ایمیل و تعداد کاربران آنلاین */}
+          </p> {/* Display email and number of online users */}
           {showunderac && (
             <div className='headeracstatus z-[999]'>
               <ul>
-            
                 <li onClick={logout}>
                   <MdExitToApp /> Logout
                 </li>

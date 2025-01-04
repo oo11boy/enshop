@@ -25,7 +25,7 @@ export const BillingContextProvider = ({ children }) => {
   const [postalcode, setpostalcode] = useState('');
   const [typepost, settypepost] = useState('');
   const [typepay, settypepay] = useState('');
-  const { isLoggedIn } = useAuth(); // استفاده از useAuth برای وضعیت لاگین
+  const { isLoggedIn } = useAuth();
   const [onsub, setonsub] = useState(false);
 
   const address1val = (event) => {
@@ -44,9 +44,8 @@ export const BillingContextProvider = ({ children }) => {
   const Billingsubhandler = (event) => {
     event.preventDefault();
 
-    // بررسی پر بودن فیلدهای اجباری
     if (!address || !city || !ostan || !postalcode || !typepost || !typepay) {
-      setmessagelogin('لطفا تمام فیلدهای اجباری را پر کنید.');
+      setmessagelogin('Please fill in all fields.');
       setonsub(false);
       return;
     }
@@ -61,11 +60,11 @@ export const BillingContextProvider = ({ children }) => {
     };
     setarrayinfoadress(infonew);
 
-    // تغییر به استفاده از isLoggedIn از useAuth
+    // Change to use isLoggedIn from useAuth
     if (isLoggedIn) {
       navigatepage('outputpay');
     } else {
-      setmessagelogin('لطفا قبل از ثبت نهایی به اکانت خود لاگین نمایید');
+      setmessagelogin('Please login to your account before final registration');
     }
 
     setonsub(true);

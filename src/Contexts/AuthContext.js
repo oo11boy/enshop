@@ -13,8 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
 
-
-
+  // Check if the user is logged in on initial render
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -23,7 +22,8 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
     }
   }, []);
-  // ارسال کد تأیید برای ریست پسورد
+
+  // Send verification code for password reset
   const sendVerificationCode = async (email) => {
     try {
       setIsLoading(true);
@@ -31,21 +31,21 @@ export const AuthProvider = ({ children }) => {
       if (response.data.success) {
         setVerificationCode(response.data.verificationCode);
         setShowModal(true);
-        setModalErrorMessage(''); // پاک کردن خطاهای قبلی
+        setModalErrorMessage(''); // Clear previous errors
         return { success: true };
       } else {
-        setModalErrorMessage('Error sending verification code.'); // نمایش خطا در مودال
+        setModalErrorMessage('Error sending verification code.'); // Show error in modal
         return { success: false };
       }
     } catch (error) {
-      setModalErrorMessage('Error sending verification code.'); // نمایش خطا در مودال
+      setModalErrorMessage('Error sending verification code.'); // Show error in modal
       return { success: false };
     } finally {
       setIsLoading(false);
     }
   };
 
-  // تغییر رمز عبور
+  // Reset user password
   const resetPassword = async (email, verificationCode, newPassword) => {
     try {
       setIsLoading(true);
@@ -54,21 +54,21 @@ export const AuthProvider = ({ children }) => {
         setModalErrorMessage('');
         return { success: true };
       } else {
-        setModalErrorMessage(response.data.message || 'Error resetting password.'); // نمایش خطا در مودال
+        setModalErrorMessage(response.data.message || 'Error resetting password.'); // Show error in modal
         return { success: false };
       }
     } catch (error) {
-      setModalErrorMessage('Error resetting password.'); // نمایش خطا در مودال
+      setModalErrorMessage('Error resetting password.'); // Show error in modal
       return { success: false };
     } finally {
       setIsLoading(false);
     }
   };
 
-  // ثبت‌نام کاربر
+  // Register a new user
   const registerUser = async (enteredCode) => {
     if (enteredCode !== verificationCode) {
-      setModalErrorMessage('Invalid verification code.'); // نمایش خطا در مودال
+      setModalErrorMessage('Invalid verification code.'); // Show error in modal
       return { success: false };
     }
 
@@ -85,24 +85,25 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
         return { success: true };
       } else {
-        setModalErrorMessage(response.data.message || 'Registration failed.'); // نمایش خطا در مودال
+        setModalErrorMessage(response.data.message || 'Registration failed.'); // Show error in modal
         return { success: false };
       }
     } catch (error) {
-      setModalErrorMessage('Error during registration.'); // نمایش خطا در مودال
+      setModalErrorMessage('Error during registration.'); // Show error in modal
       return { success: false };
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Log in the user
   const login = async (email, password) => {
     const deviceInfo = {
       screenResolution: `${window.screen.width}x${window.screen.height}`,
       os: navigator.platform,
       loginTime: new Date().toISOString()
     };
-  
+
     try {
       setIsLoading(true);
       const response = await fetch(`${Api}/api/login`, {
@@ -112,13 +113,13 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ email, password, deviceInfo }),
       });
-  
+
       const result = await response.json();
-      
+
       if (result.success) {
-        localStorage.setItem('userId', result.userId); // ذخیره ID کاربر
+        localStorage.setItem('userId', result.userId); // Save user ID
         localStorage.setItem('authToken', result.token);
-        localStorage.setItem('userEmail', email); // ذخیره ایمیل کاربر
+        localStorage.setItem('userEmail', email); // Save user email
         setIsLoggedIn(true);
         setEmail(email);
         setErrorMessage('');
@@ -135,18 +136,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // لاگ‌اوت کاربر
+  // Log out the user
   const logout = async () => {
     try {
       const response = await axios.post(`${Api}/api/logout`, { email });
-  
+
       if (response.data.success) {
         setIsLoggedIn(false);
         setEmail('');
         setVerificationCode('');
         setErrorMessage('');
         localStorage.removeItem('authToken');
-        localStorage.removeItem('userEmail'); // حذف ایمیل کاربر
+        localStorage.removeItem('userEmail'); // Remove user email
         console.log('Logout successful.');
       } else {
         console.error('Error during logout:', response.data.message);
@@ -173,7 +174,7 @@ export const AuthProvider = ({ children }) => {
         isLoggedIn,
         errorMessage,
         setErrorMessage,
-        modalErrorMessage, // اضافه کردن خطاهای مودال
+        modalErrorMessage, // Add modal error messages
         setModalErrorMessage,
         showModal,
         setShowModal,

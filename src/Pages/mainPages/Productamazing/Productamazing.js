@@ -82,9 +82,9 @@ export default function Productamazing() {
                 </div>
              </SwiperSlide>
           {
-            loading ?<div className='loading pt-3'>در حال بارگذاری...</div>:
+            loading ?<div className='loading pt-3'>loading...</div>:
             datafetchproduct
-            .filter((item) => item.discount != 0) // فقط آیتم‌هایی که تخفیف دارند را فیلتر کنید
+            .filter((item) => item.discount != 0) // filter discount products
             .map((item) => (
               <SwiperSlide key={item.id}>
                 <div className='productbodyamazing'>
@@ -108,11 +108,11 @@ export default function Productamazing() {
                     onClick={() =>
                       isLoggedIn
                         ? Productandcart.addtocard(item.id)
-                        : alert('لطفاً وارد حساب کاربری خود شوید')
+                        : alert('login please')
                     }
                   >
                     <BsCartPlus />
-                    <span className="tocarttext">افزودن به سبد خرید</span>
+                    <span className="tocarttext">add to cart</span>
                   </Button>
                 </div>
               </SwiperSlide>
