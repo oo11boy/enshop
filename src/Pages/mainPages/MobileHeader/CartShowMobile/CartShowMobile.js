@@ -29,7 +29,7 @@ export default function CartShowMobile() {
       <div className="completecartmob">
         <div className="topcartmob">
           <Link to="../biling" className="viewpaycartmob">
-            مشاهده صورت حساب
+            view bill
           </Link>
         </div>
         <div className="centerbodycartmob">
@@ -42,7 +42,7 @@ export default function CartShowMobile() {
                 <div className="informcartmob">
                   <Link to={"product/" + item.id}>{item.name}</Link>
                   <p className="d-flex align-items-center gap-2 my-3">
-                تعداد:
+                count:
                 <button
                   onClick={() => cartinfo.decreaseQuantity(item.id)}
                   className="btn btn-danger btn-sm rounded-circle"
@@ -76,7 +76,7 @@ export default function CartShowMobile() {
                 )}
                   {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id)) > 0 && (
                     <p className="text-success">
-                      تخفیف: {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id))}%
+                      discount: {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id))}%
                     </p>
                   )}
                 </div>
@@ -87,11 +87,11 @@ export default function CartShowMobile() {
             ))
           ) : (
             <div className="emptycart">
-              <LiaOpencart /> سبد خالی است ...
+              <LiaOpencart /> there is no product
             </div>
           )}
         </div>
-        <h3 className="viewpaycartmobfooter">جمع کل: {cartinfo.totalprice().toLocaleString()} €</h3>
+        <h3 className="viewpaycartmobfooter">total price: {cartinfo.totalprice().toLocaleString()} €</h3>
       </div>
     </div>
   );
