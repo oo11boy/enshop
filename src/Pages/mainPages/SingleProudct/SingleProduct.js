@@ -52,16 +52,16 @@ export default function SingleProduct() {
                         <p>DHL Express</p>
                      </div>
                      <div className='priceproduct'>
-                        {singlepro.discount !== 0 ? (
-                           <>
-                              <p style={{ textDecoration: 'line-through' }}>{singlepro.price}</p>
-                              <p>{singlepro.pricet} €</p>
-                              <p>{singlepro.discount}%</p>
-                           </>
-                        ) : (
-                           <p className='text-danger'>{singlepro.pricet} €</p>
-                        )}
-                     </div>
+  {singlepro.discount != 0 ? ( // اگر تخفیف وجود داشت
+    <>
+      <p style={{ textDecoration: 'line-through' }}>{singlepro.price} €</p> {/* قیمت اصلی با خط‌خورده */}
+      <p>{singlepro.pricet} €</p> {/* قیمت تخفیف‌خورده */}
+      <p>{singlepro.discount}%</p> {/* درصد تخفیف */}
+    </>
+  ) : ( // اگر تخفیف وجود نداشت
+    <p>{singlepro.price} €</p> // فقط قیمت اصلی را نمایش بده
+  )}
+</div>
 
                      <div className='w-100 bg-danger rounded-2 mt-4 p-4' onClick={() => infocart.addtocard(singlepro.id)}>
                         <p className='w-100 pointer-event text-center fs-5 text-white tocard'>Add to Cart</p>
