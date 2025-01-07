@@ -73,12 +73,12 @@ export default function ShowCart() {
                   </>
                 ) : (
                   <>
-                  Price: {item.price} * {cartinfo.tedadproduct(item.id)} ={" "}
-                  {cartinfo
-                    .finalPrice(item.price, cartinfo.tedadproduct(item.id))
-                    .toLocaleString()}
-                  €
-                </>
+                    Price: {item.price} * {cartinfo.tedadproduct(item.id)} ={" "}
+                    {cartinfo
+                      .finalPrice(item.price, cartinfo.tedadproduct(item.id))
+                      .toLocaleString()}
+                    €
+                  </>
                 )}
               </h3>
               {cartinfo.calculateDiscount(cartinfo.tedadproduct(item.id)) >
@@ -98,7 +98,12 @@ export default function ShowCart() {
         ))}
 
         <div className="undercart">
-          <Link to="../biling" className="viewpaycart text-white">
+          <Link
+            to="../biling"
+            className={`viewpaycart text-white ${
+              itemsToRender.length < 1 ? "disabled" : "enabled"
+            }`}
+          >
             view the bill
           </Link>
           <h3 className="viewpaycart text-white">

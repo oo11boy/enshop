@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartContext } from '../../../Contexts/CartContext';
 import { useContext } from 'react';
 import Col from 'react-bootstrap/Col';
@@ -10,7 +10,7 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import Footer from '../Footer/Footer';
 import { BillingContext } from '../../../Contexts/BillingContext';
 import { useAuth } from '../../../Contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaTruck, FaMoneyBillWave, FaHome, FaMapMarkerAlt, FaCity, FaEnvelope, FaCreditCard } from 'react-icons/fa';
 
 export default function Billing() {
@@ -20,6 +20,13 @@ export default function Billing() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedPay, setSelectedPay] = useState(null);
   const [isDataProtectionChecked, setIsDataProtectionChecked] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (cartInfo.item.length === 0) {
+      navigate("/");
+    }
+  }, [cartInfo.item, navigate]);
 
   const shippingMethods = [
     { id: 'dpd', name: 'DPD', price: 19 },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { BillingContext } from "../../../Contexts/BillingContext";
 import { CartContext } from "../../../Contexts/CartContext";
@@ -9,6 +9,7 @@ import Footer from "../Footer/Footer";
 import "./Factor.css";
 import { Api } from "../../../api";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Factor() {
   const billingInfo = useContext(BillingContext);
@@ -21,6 +22,14 @@ export default function Factor() {
   const [orderCode, setOrderCode] = useState(null);
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState(null);
+
+   const navigate = useNavigate();
+  
+    useEffect(() => {
+      if (cartInfo.item.length === 0) {
+        navigate("/");
+      }
+    }, [cartInfo.item, navigate]);
 
   // Calculate total price including shipping
   const totalWithShipping = cartInfo.totalprice();

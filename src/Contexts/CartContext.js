@@ -17,8 +17,9 @@ export const CartContext = createContext({
   decreaseQuantity: () => {},
   calculateDiscount: () => {},
   finalPrice: () => {},
-  setShippingCost: () => {}, // Add new method for shipping cost
-  shippingCost: 0, // Add new state for shipping cost
+  setShippingCost: () => {},
+  shippingCost: 0,
+  clearCart: () => {}
 });
 
 export const CartContextProvider = (props) => {
@@ -73,8 +74,9 @@ export const CartContextProvider = (props) => {
     decreaseQuantity,
     calculateDiscount,
     finalPrice,
-    setShippingCost, // Add shipping cost method to context value
-    shippingCost, // Add shipping cost state to context value
+    setShippingCost,
+    shippingCost,
+    clearCart,
   };
 
   // Add item to cart
@@ -160,6 +162,10 @@ export const CartContextProvider = (props) => {
     });
     setDatacart(updatedCart);
   }
+
+  function clearCart() {
+    setDatacart([]);
+  };
 
   // Fetch product data from API
   const contentporduct = async () => {

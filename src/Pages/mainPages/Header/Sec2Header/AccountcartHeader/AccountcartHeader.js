@@ -12,18 +12,22 @@ import { Api } from '../../../../../api';
 export default function AccountcartHeader() {
   const infocart = useContext(CartContext);
   const [cartheader, setshowcart] = useState(false);
-  const [onlineUsers, setOnlineUsers] = useState(0); // To store the number of online users
+  const [onlineUsers, setOnlineUsers] = useState(0);
   const showcart = () => {
     setshowcart(!cartheader);
   };
 
-  const { isLoggedIn, email, logout } = useAuth(); // Get data from AuthContext
+  const { isLoggedIn, email, logout } = useAuth();
   const [showunderac, setshowunderac] = useState(false);
   const showunder = () => {
     setshowunderac(!showunderac);
   };
 
-  // Axios request to fetch the number of online users in real-time
+  const handleLogout = () => {
+    infocart.clearCart();
+    logout();
+  };
+
   useEffect(() => {
     const fetchOnlineUsers = async () => {
       try {
@@ -36,11 +40,11 @@ export default function AccountcartHeader() {
       }
     };
 
-    fetchOnlineUsers(); // Initial call to fetch online users
+    fetchOnlineUsers();
 
-    const intervalId = setInterval(fetchOnlineUsers, 5000); // Call every 5 seconds to update online users
+    const intervalId = setInterval(fetchOnlineUsers, 5000);
 
-    return () => clearInterval(intervalId); // Cleanup interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -54,11 +58,11 @@ export default function AccountcartHeader() {
         <div className='posheader'>
           <p onClick={showunder}>
             {email} ({onlineUsers} online users)
-          </p> {/* Display email and number of online users */}
+          </p>
           {showunderac && (
             <div className='headeracstatus z-[999]'>
               <ul>
-                <li onClick={logout}>
+                <li onClick={handleLogout}>
                   <MdExitToApp /> Logout
                 </li>
               </ul>

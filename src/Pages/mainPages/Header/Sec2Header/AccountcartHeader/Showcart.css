@@ -61,6 +61,17 @@
     padding: 10px;
 }
 
+.viewpaycart.disabled {
+    background-color: #ffcccc; 
+    cursor: not-allowed; 
+    opacity: 0.7; 
+  }
+  
+  .viewpaycart.enabled {
+    background-color:#FF4D6D;
+    cursor: pointer;
+  }
+
 .cartbody{
     display: flex;
     justify-content: flex-start;
