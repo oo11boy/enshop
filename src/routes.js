@@ -3,6 +3,7 @@ import Billing from "./Pages/mainPages/Billing/Billing";
 import Factor from "./Pages/mainPages/Factor/Factor";
 import Home from "./Pages/mainPages/Home";
 import PrivateRoute from "./Pages/mainPages/PrivateRoute";
+import Search from "./Pages/mainPages/Search/Search";
 
 
 import SingleProduct from "./Pages/mainPages/SingleProudct/SingleProduct";
@@ -29,7 +30,7 @@ let routes = [
     ),
   },
   { path: `/product/:id`, element: <SingleProduct /> },
-
+  { path: `/search/:text`, element: <Search /> },
 
   { path: "/useraccount", element: <LoginForm /> },
   { path: "/useraccount/*", element: <LoginForm /> },

@@ -21,8 +21,7 @@ export default function Home() {
       <Productamazing />
    
   
-      {/* <Product margin='mt-5' title="جدیدترین لوازم آرایشی" /> */}
-      {/* <Brands margin='mt-5' title="محبوب ترین برندها" /> */}
+     
      
       <Footer />
     </>

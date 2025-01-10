@@ -8,7 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Navigation } from 'swiper/modules';
 import './Product.css';
-import { Api, domain } from '../../../api';
+import { Api } from '../../../api';
 import { useAuth } from '../../../Contexts/AuthContext';
 
 
@@ -33,7 +33,7 @@ export default function Product(props) {
   };
 
   return (
-    <div className={`products ${margin}`}>
+    <div className={`products`}>
       <div className="titerproduct">
         <p>{title}</p>
       </div>

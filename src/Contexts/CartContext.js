@@ -33,7 +33,7 @@ export const CartContextProvider = (props) => {
   const [datafetchproduct, setdatafetchproduct] = useState([]); // State for fetched product data
   const [shippingCost, setShippingCost] = useState(0); // State for shipping cost
 
-  const [discount, setDiscount] = useState(0); // State برای ذخیره میزان تخفیف
+  const [discount, setDiscount] = useState(0); 
 
 
   // Load cart data from localStorage on initial render

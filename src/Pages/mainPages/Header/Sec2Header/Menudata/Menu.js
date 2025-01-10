@@ -15,7 +15,7 @@ export default function Menu() {
                 <Link to='/'> <li>Blogs</li> </Link>
                 <Link to='/'> <li>Profile</li>  </Link>
                 <Link to='/'> <li>checkout</li>  </Link>
-                <Link to='/'> <li>store</li>  </Link>
+                <Link to='/search/all'> <li>All Products</li>  </Link>
             </ul>
       
           
