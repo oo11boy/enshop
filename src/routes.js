@@ -1,10 +1,8 @@
-
 import Billing from "./Pages/mainPages/Billing/Billing";
 import Factor from "./Pages/mainPages/Factor/Factor";
 import Home from "./Pages/mainPages/Home";
 import PrivateRoute from "./Pages/mainPages/PrivateRoute";
 import Search from "./Pages/mainPages/Search/Search";
-
 
 import SingleProduct from "./Pages/mainPages/SingleProudct/SingleProduct";
 import LoginForm from "./Pages/mainPages/UserAccount/LoginPage/LoginForm";
@@ -45,7 +43,6 @@ let routes = [
       </PrivateRoute>
     ),
   },
-
 ];
 
 export default routes;
