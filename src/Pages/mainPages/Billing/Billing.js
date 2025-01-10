@@ -20,6 +20,8 @@ export default function Billing() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedPay, setSelectedPay] = useState(null);
   const [isDataProtectionChecked, setIsDataProtectionChecked] = useState(false);
+  const [discountCode, setDiscountCode] = useState('');
+  const [discountError, setDiscountError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +42,16 @@ export default function Billing() {
     cartInfo.setShippingCost(method.price);
   };
 
+  const applyDiscount = () => {
+    if (discountCode === 'd10') {
+      cartInfo.applyDiscount(10);
+      setDiscountError(''); 
+    } else {
+      cartInfo.applyDiscount(0); 
+      setDiscountError('Invalid discount code. Please try again.'); 
+    }
+  };
+
   return (
     <>
       <Header />
@@ -52,66 +64,79 @@ export default function Billing() {
               <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
             </div>
           ) : null}
-<Form.Group className="mb-3" controlId="formGridAddress1">
-  <Form.Label>
-    <FaMapMarkerAlt className="icon-style me-2" />
-    Address
-  </Form.Label>
-  <Form.Control onChange={(event) => billingInfo.address1val(event)} placeholder="1234 Main St" />
-</Form.Group>
 
-<Form.Group className="mb-3" controlId="formGridAddress2">
-  <Form.Label>
-    <FaHome className="icon-style me-2" />
-    Address 2
-  </Form.Label>
-  <Form.Control placeholder="Apartment, studio, or floor" />
-</Form.Group>
+          <Form.Group className="mb-3" controlId="formGridAddress1">
+            <Form.Label>
+              <FaMapMarkerAlt className="icon-style me-2" />
+              Address
+            </Form.Label>
+            <Form.Control onChange={(event) => billingInfo.address1val(event)} placeholder="1234 Main St" />
+          </Form.Group>
 
-<div className="row mb-3">
-  <Form.Group as={Col} controlId="formGridCity">
-    <Form.Label>
-      <FaCity className="icon-style me-2" />
-      City
-    </Form.Label>
-    <Form.Control onChange={(event) => billingInfo.cityval(event)} />
-  </Form.Group>
+          <Form.Group className="mb-3" controlId="formGridAddress2">
+            <Form.Label>
+              <FaHome className="icon-style me-2" />
+              Address 2
+            </Form.Label>
+            <Form.Control placeholder="Apartment, studio, or floor" />
+          </Form.Group>
 
-  <Form.Group as={Col} controlId="formGridState">
-    <Form.Label>State</Form.Label>
-    <Form.Select
-      onChange={(event) => billingInfo.setostan(event.target.value)}
-      defaultValue="Choose..."
-    >
-      <option>Choose...</option>
-      <option value="baden-wuerttemberg">Baden-Württemberg</option>
-      <option value="bayern">Bayern</option>
-      <option value="berlin">Berlin</option>
-      <option value="brandenburg">Brandenburg</option>
-      <option value="bremen">Bremen</option>
-      <option value="hamburg">Hamburg</option>
-      <option value="hessen">Hessen</option>
-      <option value="mecklenburg-vorpommern">Mecklenburg-Vorpommern</option>
-      <option value="niedersachsen">Niedersachsen</option>
-      <option value="nordrhein-westfalen">Nordrhein-Westfalen</option>
-      <option value="rheinland-pfalz">Rheinland-Pfalz</option>
-      <option value="saarland">Saarland</option>
-      <option value="sachsen">Sachsen</option>
-      <option value="sachsen-anhalt">Sachsen-Anhalt</option>
-      <option value="schleswig-holstein">Schleswig-Holstein</option>
-      <option value="thueringen">Thüringen</option>
-    </Form.Select>
-  </Form.Group>
+          <div className="row mb-3">
+            <Form.Group as={Col} controlId="formGridCity">
+              <Form.Label>
+                <FaCity className="icon-style me-2" />
+                City
+              </Form.Label>
+              <Form.Control onChange={(event) => billingInfo.cityval(event)} />
+            </Form.Group>
 
-  <Form.Group as={Col} controlId="formGridZip">
-    <Form.Label>
-      <FaEnvelope className="icon-style me-2" />
-      Postal Code
-    </Form.Label>
-    <Form.Control onChange={(event) => billingInfo.pcodeval(event)} />
-  </Form.Group>
-</div>
-       
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>State</Form.Label>
+              <Form.Select
+                onChange={(event) => billingInfo.setostan(event.target.value)}
+                defaultValue="Choose..."
+              >
+                <option>Choose...</option>
+                <option value="baden-wuerttemberg">Baden-Württemberg</option>
+                <option value="bayern">Bayern</option>
+                <option value="berlin">Berlin</option>
+                <option value="brandenburg">Brandenburg</option>
+                <option value="bremen">Bremen</option>
+                <option value="hamburg">Hamburg</option>
+                <option value="hessen">Hessen</option>
+                <option value="mecklenburg-vorpommern">Mecklenburg-Vorpommern</option>
+                <option value="niedersachsen">Niedersachsen</option>
+                <option value="nordrhein-westfalen">Nordrhein-Westfalen</option>
+                <option value="rheinland-pfalz">Rheinland-Pfalz</option>
+                <option value="saarland">Saarland</option>
+                <option value="sachsen">Sachsen</option>
+                <option value="sachsen-anhalt">Sachsen-Anhalt</option>
+                <option value="schleswig-holstein">Schleswig-Holstein</option>
+                <option value="thueringen">Thüringen</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridZip">
+              <Form.Label>
+                <FaEnvelope className="icon-style me-2" />
+                Postal Code
+              </Form.Label>
+              <Form.Control onChange={(event) => billingInfo.pcodeval(event)} />
+            </Form.Group>
+          </div>
+
+          <Form.Group className="mb-3" controlId="formDiscountCode">
+            <Form.Label>Discount Code</Form.Label>
+            <Form.Control
+              value={discountCode}
+              onChange={(e) => setDiscountCode(e.target.value)}
+              placeholder="Enter discount code"
+            />
+            <button type="button" className="btn btn-primary mt-2" onClick={applyDiscount}>
+              Apply Discount
+            </button>
+            {discountError && <div className="text-danger mt-2">{discountError}</div>} {/* نمایش پیغام خطا */}
+          </Form.Group>
         </Form>
 
         <Card body className="gotopay shadow ">
@@ -166,7 +191,8 @@ export default function Billing() {
           </Form.Group>
 
           <Card body className="mt-5 bg-danger text-white">
-            <div>Total Amount: {cartInfo.totalprice()} €</div>
+            <div>Total Amount: {cartInfo.totalprice().toFixed(2)} €</div>
+            {cartInfo.discount > 0 && <div className="text-success">{cartInfo.discount}% discount applied</div>}
           </Card>
 
           <Card

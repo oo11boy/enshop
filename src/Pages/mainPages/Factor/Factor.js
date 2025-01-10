@@ -83,7 +83,7 @@ export default function Factor() {
             : "DHL Express",
         products: products // Add products array to order data
       };
-  
+      
       // Save the order to the backend
       const response = await axios.post(`${Api}/api/save-order`, orderData);
       if (response.data.success) {

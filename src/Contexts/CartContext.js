@@ -33,6 +33,9 @@ export const CartContextProvider = (props) => {
   const [datafetchproduct, setdatafetchproduct] = useState([]); // State for fetched product data
   const [shippingCost, setShippingCost] = useState(0); // State for shipping cost
 
+  const [discount, setDiscount] = useState(0); // State برای ذخیره میزان تخفیف
+
+
   // Load cart data from localStorage on initial render
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -58,26 +61,7 @@ export const CartContextProvider = (props) => {
     return price * quantity * (1 - discount / 100);
   };
 
-  // Context value containing all states and methods
-  const Cartvalue = {
-    item: dataCart,
-    addtocard,
-    tedadproduct,
-    removeproductcart,
-    tedadhamecart,
-    totalprice,
-    showcartmobstatus: showcartstatus,
-    showcartmob,
-    successtocart: successc,
-    falsemenumob,
-    increaseQuantity,
-    decreaseQuantity,
-    calculateDiscount,
-    finalPrice,
-    setShippingCost,
-    shippingCost,
-    clearCart,
-  };
+
 
   // Add item to cart
   function addtocard(id) {
@@ -114,17 +98,29 @@ export const CartContextProvider = (props) => {
   }
 
   // Calculate total price including shipping cost
-  function totalprice() {
+  const totalprice = () => {
     let total_price = dataCart.reduce((total, item) => {
-      // Check if discount is applied
       const priceToUse = item.discount > 0 ? item.pricet : item.price;
       return total + priceToUse * (item.quantity || 1);
     }, 0);
 
-    settprice(total_price + shippingCost); // Add shipping cost to total price
-    return tprice;
-  }
+   
+    if (discount > 0) {
+      total_price *= (1 - discount / 100);
+    }
 
+ 
+    total_price += shippingCost;
+
+    settprice(total_price);
+    return total_price;
+  };
+
+   
+    const applyDiscount = (discountPercentage) => {
+      setDiscount(discountPercentage);
+    };
+    
   // Toggle mobile cart visibility
   function showcartmob() {
     setshowcartmobstatus(!showcartstatus);
@@ -178,5 +174,29 @@ export const CartContextProvider = (props) => {
     }
   };
 
+
+
+    // Context value containing all states and methods
+    const Cartvalue = {
+      item: dataCart,
+      addtocard,
+      tedadproduct,
+      removeproductcart,
+      tedadhamecart,
+      totalprice,
+      showcartmobstatus: showcartstatus,
+      showcartmob,
+      successtocart: successc,
+      falsemenumob,
+      increaseQuantity,
+      decreaseQuantity,
+      calculateDiscount,
+      finalPrice,
+      setShippingCost,
+      shippingCost,
+      clearCart,
+      applyDiscount, 
+      discount, 
+    };
   return <CartContext.Provider value={Cartvalue}>{children}</CartContext.Provider>;
 };
