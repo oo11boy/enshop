@@ -78,7 +78,8 @@ export default function Factor() {
             : billingInfo.infobilling.typepost === "dhl"
             ? "DHL"
             : "DHL Express",
-        products: products
+        products: products,
+        email: email // Add email to orderData
       };
   
       const response = await axios.post(`${Api}/api/save-order`, orderData);
@@ -97,6 +98,7 @@ export default function Factor() {
       setIsPaymentProcessing(false);
     }
   };
+  
   return (
     <>
       <Header />

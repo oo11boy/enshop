@@ -19,7 +19,9 @@ export const CartContext = createContext({
   finalPrice: () => {},
   setShippingCost: () => {},
   shippingCost: 0,
-  clearCart: () => {}
+  clearCart: () => {},
+  applyDiscount: () => {},
+  discount: 0,
 });
 
 export const CartContextProvider = (props) => {
@@ -32,9 +34,7 @@ export const CartContextProvider = (props) => {
   const [tprice, settprice] = useState(0); // State for total price of items in cart
   const [datafetchproduct, setdatafetchproduct] = useState([]); // State for fetched product data
   const [shippingCost, setShippingCost] = useState(0); // State for shipping cost
-
-  const [discount, setDiscount] = useState(0); 
-
+  const [discount, setDiscount] = useState(0); // State for discount
 
   // Load cart data from localStorage on initial render
   useEffect(() => {
@@ -52,7 +52,7 @@ export const CartContextProvider = (props) => {
 
   // Calculate discount based on quantity
   const calculateDiscount = (quantity) => {
-    return quantity;
+    return quantity * 1; // 1% discount per item
   };
 
   // Calculate final price after applying discount
@@ -60,8 +60,6 @@ export const CartContextProvider = (props) => {
     const discount = calculateDiscount(quantity);
     return price * quantity * (1 - discount / 100);
   };
-
-
 
   // Add item to cart
   function addtocard(id) {
@@ -97,30 +95,25 @@ export const CartContextProvider = (props) => {
     return tedadhame;
   }
 
-  // Calculate total price including shipping cost
+  // Calculate total price including shipping cost and discount
   const totalprice = () => {
     let total_price = dataCart.reduce((total, item) => {
       const priceToUse = item.discount > 0 ? item.pricet : item.price;
-      return total + priceToUse * (item.quantity || 1);
+      const itemDiscount = calculateDiscount(item.quantity || 1);
+      return total + priceToUse * (item.quantity || 1) * (1 - itemDiscount / 100);
     }, 0);
 
-   
-    if (discount > 0) {
-      total_price *= (1 - discount / 100);
-    }
-
- 
     total_price += shippingCost;
 
     settprice(total_price);
     return total_price;
   };
 
-   
-    const applyDiscount = (discountPercentage) => {
-      setDiscount(discountPercentage);
-    };
-    
+  // Apply discount
+  const applyDiscount = (discountPercentage) => {
+    setDiscount(discountPercentage);
+  };
+
   // Toggle mobile cart visibility
   function showcartmob() {
     setshowcartmobstatus(!showcartstatus);
@@ -159,9 +152,11 @@ export const CartContextProvider = (props) => {
     setDatacart(updatedCart);
   }
 
+  // Clear cart
   function clearCart() {
     setDatacart([]);
-  };
+    setShippingCost(0);
+  }
 
   // Fetch product data from API
   const contentporduct = async () => {
@@ -173,33 +168,29 @@ export const CartContextProvider = (props) => {
       console.error("Error fetching product data:", error);
     }
   };
-  function clearCart() {
-    setDatacart([]);
-    setShippingCost(0); 
-  }
 
+  // Context value containing all states and methods
+  const Cartvalue = {
+    item: dataCart,
+    addtocard,
+    tedadproduct,
+    removeproductcart,
+    tedadhamecart,
+    totalprice,
+    showcartmobstatus: showcartstatus,
+    showcartmob,
+    successtocart: successc,
+    falsemenumob,
+    increaseQuantity,
+    decreaseQuantity,
+    calculateDiscount,
+    finalPrice,
+    setShippingCost,
+    shippingCost,
+    clearCart,
+    applyDiscount,
+    discount,
+  };
 
-    // Context value containing all states and methods
-    const Cartvalue = {
-      item: dataCart,
-      addtocard,
-      tedadproduct,
-      removeproductcart,
-      tedadhamecart,
-      totalprice,
-      showcartmobstatus: showcartstatus,
-      showcartmob,
-      successtocart: successc,
-      falsemenumob,
-      increaseQuantity,
-      decreaseQuantity,
-      calculateDiscount,
-      finalPrice,
-      setShippingCost,
-      shippingCost,
-      clearCart, // Add clearCart method
-      applyDiscount, 
-      discount, 
-    };
   return <CartContext.Provider value={Cartvalue}>{children}</CartContext.Provider>;
 };
