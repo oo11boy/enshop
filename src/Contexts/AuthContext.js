@@ -7,6 +7,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [email, setEmail] = useState(localStorage.getItem('userEmail') || '');
   const [verificationCode, setVerificationCode] = useState('');
+  const [discountCode, setDiscountCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [modalErrorMessage, setModalErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -31,14 +32,14 @@ export const AuthProvider = ({ children }) => {
       if (response.data.success) {
         setVerificationCode(response.data.verificationCode);
         setShowModal(true);
-        setModalErrorMessage(''); // Clear previous errors
+        setModalErrorMessage('');
         return { success: true };
       } else {
-        setModalErrorMessage('Error sending verification code.'); // Show error in modal
+        setModalErrorMessage('Error sending verification code.');
         return { success: false };
       }
     } catch (error) {
-      setModalErrorMessage('Error sending verification code.'); // Show error in modal
+      setModalErrorMessage('Error sending verification code.');
       return { success: false };
     } finally {
       setIsLoading(false);
@@ -54,18 +55,18 @@ export const AuthProvider = ({ children }) => {
         setModalErrorMessage('');
         return { success: true };
       } else {
-        setModalErrorMessage(response.data.message || 'Error resetting password.'); // Show error in modal
+        setModalErrorMessage(response.data.message || 'Error resetting password.');
         return { success: false };
       }
     } catch (error) {
-      setModalErrorMessage('Error resetting password.'); // Show error in modal
+      setModalErrorMessage('Error resetting password.');
       return { success: false };
     } finally {
       setIsLoading(false);
     }
   };
 
-
+  // Check if email exists for forgot password
   const checkEmail = async (email) => {
     try {
       const response = await axios.post(`${Api}/api/check-email-for-forgot-pass`, { email });
@@ -75,13 +76,12 @@ export const AuthProvider = ({ children }) => {
       throw error;
     }
   };
-  // ثبت‌نام کاربر
   const registerUser = async (enteredCode) => {
     if (enteredCode !== verificationCode) {
-      setModalErrorMessage('Invalid verification code.'); // Show error in modal
+      setModalErrorMessage('Invalid verification code.');
       return { success: false };
     }
-
+  
     try {
       setIsLoading(true);
       const response = await axios.post(`${Api}/api/register`, {
@@ -89,75 +89,82 @@ export const AuthProvider = ({ children }) => {
         verificationCode,
         enteredCode
       });
-
+  
       if (response.data.success) {
         setShowModal(false);
         setIsLoggedIn(true);
+        setDiscountCode(response.data.discountCode);
+  
+        // Save userId in localStorage
+        localStorage.setItem('userId', response.data.userId);
+  
         return { success: true };
       } else {
-        setModalErrorMessage(response.data.message || 'Registration failed.'); // Show error in modal
+        setModalErrorMessage(response.data.message || 'Registration failed.');
         return { success: false };
       }
     } catch (error) {
-      setModalErrorMessage('Error during registration.'); // Show error in modal
+      setModalErrorMessage('Error during registration.');
       return { success: false };
     } finally {
       setIsLoading(false);
     }
   };
 
+
   // Log in the user
-  const login = async (email, password) => {
-    const deviceInfo = {
-      screenResolution: `${window.screen.width}x${window.screen.height}`,
-      os: navigator.platform,
-      loginTime: new Date().toISOString()
-    };
-
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${Api}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, deviceInfo }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        localStorage.setItem('userId', result.userId); // Save user ID
-        localStorage.setItem('authToken', result.token);
-        localStorage.setItem('userEmail', email); // Save user email
-        setIsLoggedIn(true);
-        setEmail(email);
-        setErrorMessage('');
-        return result;
-      } else {
-        setErrorMessage(result.message || 'Unknown error.');
-        return null;
-      }
-    } catch (error) {
-      setErrorMessage('Error logging in.');
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
+const login = async (email, password) => {
+  const deviceInfo = {
+    screenResolution: `${window.screen.width}x${window.screen.height}`,
+    os: navigator.platform,
+    loginTime: new Date().toISOString()
   };
+
+  try {
+    setIsLoading(true);
+    const response = await fetch(`${Api}/api/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, deviceInfo }),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      localStorage.setItem('userId', result.userId); // Save userId in localStorage
+      localStorage.setItem('authToken', result.token);
+      localStorage.setItem('userEmail', email);
+      setIsLoggedIn(true);
+      setEmail(email);
+      setErrorMessage('');
+      return result;
+    } else {
+      setErrorMessage(result.message || 'Unknown error.');
+      return null;
+    }
+  } catch (error) {
+    setErrorMessage('Error logging in.');
+    return null;
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   // Log out the user
   const logout = async () => {
     try {
       const response = await axios.post(`${Api}/api/logout`, { email });
-
+  
       if (response.data.success) {
         setIsLoggedIn(false);
         setEmail('');
         setVerificationCode('');
         setErrorMessage('');
         localStorage.removeItem('authToken');
-        localStorage.removeItem('userEmail'); // Remove user email
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userId'); // Remove userId from localStorage
         console.log('Logout successful.');
       } else {
         console.error('Error during logout:', response.data.message);
@@ -168,29 +175,55 @@ export const AuthProvider = ({ children }) => {
       setErrorMessage('Error during logout.');
     }
   };
+  
+
+  // Apply discount code
+  const applyDiscount = async (discountCode) => {
+    try {
+      const response = await axios.post(`${Api}/api/use-discount`, {
+        email,
+        discountCode
+      });
+
+      if (response.data.success) {
+        setErrorMessage('');
+        return { success: true };
+      } else {
+        setErrorMessage(response.data.message || 'Invalid discount code.');
+        return { success: false };
+      }
+    } catch (error) {
+      setErrorMessage('Error applying discount code.');
+      return { success: false };
+    }
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        checkEmail,
-        setIsLoading, // دریافت setIsLoading از AuthContext
         email,
         setEmail,
         verificationCode,
         setVerificationCode,
-        sendVerificationCode,
-        resetPassword,
-        registerUser,
-        login,
-        logout,
-        isLoggedIn,
+        discountCode,
+        setDiscountCode,
         errorMessage,
         setErrorMessage,
-        modalErrorMessage, // Add modal error messages
+        modalErrorMessage,
         setModalErrorMessage,
         showModal,
         setShowModal,
         isLoading,
+        setIsLoading,
+        isLoggedIn,
+        setIsLoggedIn,
+        sendVerificationCode,
+        resetPassword,
+        checkEmail,
+        registerUser,
+        login,
+        logout,
+        applyDiscount,
       }}
     >
       {children}
@@ -198,6 +231,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

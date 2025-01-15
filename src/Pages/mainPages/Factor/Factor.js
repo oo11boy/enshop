@@ -26,7 +26,7 @@ export default function Factor() {
    const navigate = useNavigate();
   
     useEffect(() => {
-      if (cartInfo.item.length === 0) {
+      if (!billingInfo.infobilling.city) {
         navigate("/");
       }
     }, [cartInfo.item, navigate]);
@@ -48,18 +48,15 @@ export default function Factor() {
   };
 
   const handleConfirmOrder = async (status) => {
-    setIsPaymentProcessing(true); // Show loading state
-    setPaymentError(null); // Reset any previous errors
+    setIsPaymentProcessing(true);
+    setPaymentError(null);
   
     try {
-      // Simulate payment process based on user input
       await simulatePayment(status);
   
-      // If payment is successful, proceed to save the order
       const generatedOrderCode = `ORDER-${Math.floor(Math.random() * 1000000)}`;
       const userId = localStorage.getItem("userId"); // Get userId from localStorage
   
-      // Prepare products array
       const products = cartInfo.item.map(item => ({
         name: item.name,
         quantity: cartInfo.tedadproduct(item.id)
@@ -81,14 +78,14 @@ export default function Factor() {
             : billingInfo.infobilling.typepost === "dhl"
             ? "DHL"
             : "DHL Express",
-        products: products // Add products array to order data
+        products: products
       };
-      
-      // Save the order to the backend
+  
       const response = await axios.post(`${Api}/api/save-order`, orderData);
       if (response.data.success) {
         setOrderCode(generatedOrderCode);
         setIsOrderConfirmed(true);
+        cartInfo.clearCart();
       } else {
         console.error("Error saving order:", response.data.message);
         setPaymentError("Failed to save order. Please try again.");
@@ -97,7 +94,7 @@ export default function Factor() {
       console.error("Error during payment:", error);
       setPaymentError(error.message || "Payment failed. Please try again.");
     } finally {
-      setIsPaymentProcessing(false); // Hide loading state
+      setIsPaymentProcessing(false);
     }
   };
   return (

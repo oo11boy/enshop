@@ -173,7 +173,9 @@ export const CartContextProvider = (props) => {
       console.error("Error fetching product data:", error);
     }
   };
-
+  function clearCart() {
+    setDatacart([]);
+  }
 
 
     // Context value containing all states and methods
@@ -194,7 +196,7 @@ export const CartContextProvider = (props) => {
       finalPrice,
       setShippingCost,
       shippingCost,
-      clearCart,
+      clearCart, // Add clearCart method
       applyDiscount, 
       discount, 
     };

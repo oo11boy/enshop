@@ -16,11 +16,11 @@ import { FaCheckCircle, FaTruck, FaMoneyBillWave, FaHome, FaMapMarkerAlt, FaCity
 export default function Billing() {
   const cartInfo = useContext(CartContext);
   const billingInfo = useContext(BillingContext);
-  const { isLoggedIn, email, logout } = useAuth();
+  const { email, isLoggedIn, logout, discountCode, applyDiscount } = useAuth();
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedPay, setSelectedPay] = useState(null);
   const [isDataProtectionChecked, setIsDataProtectionChecked] = useState(false);
-  const [discountCode, setDiscountCode] = useState('');
+  const [discountInput, setDiscountInput] = useState('');
   const [discountError, setDiscountError] = useState('');
   const navigate = useNavigate();
 
@@ -42,16 +42,19 @@ export default function Billing() {
     cartInfo.setShippingCost(method.price);
   };
 
-  const applyDiscount = () => {
-    if (discountCode === 'd10') {
-      cartInfo.applyDiscount(10);
-      setDiscountError(''); 
+  const handleApplyDiscount = async () => {
+    if (discountInput === discountCode) {
+      const result = await applyDiscount(discountCode);
+      if (result.success) {
+        cartInfo.applyDiscount(10); // Apply 10% discount
+        setDiscountError('');
+      } else {
+        setDiscountError('Invalid or already used discount code.');
+      }
     } else {
-      cartInfo.applyDiscount(0); 
-      setDiscountError('Invalid discount code. Please try again.'); 
+      setDiscountError('Invalid discount code.');
     }
   };
-
   return (
     <>
       <Header />
@@ -128,11 +131,11 @@ export default function Billing() {
           <Form.Group className="mb-3" controlId="formDiscountCode">
             <Form.Label>Discount Code</Form.Label>
             <Form.Control
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
+             value={discountInput}
+             onChange={(e) => setDiscountInput(e.target.value)}
               placeholder="Enter discount code"
             />
-            <button type="button" className="btn btn-primary mt-2" onClick={applyDiscount}>
+            <button type="button" className="btn btn-primary mt-2" onClick={handleApplyDiscount}>
               Apply Discount
             </button>
             {discountError && <div className="text-danger mt-2">{discountError}</div>} {/* نمایش پیغام خطا */}
