@@ -175,6 +175,7 @@ export const CartContextProvider = (props) => {
   };
   function clearCart() {
     setDatacart([]);
+    setShippingCost(0); 
   }
 
 
