@@ -96,18 +96,23 @@ export const CartContextProvider = (props) => {
   }
 
   // Calculate total price including shipping cost and discount
-  const totalprice = () => {
-    let total_price = dataCart.reduce((total, item) => {
-      const priceToUse = item.discount > 0 ? item.pricet : item.price;
-      const itemDiscount = calculateDiscount(item.quantity || 1);
-      return total + priceToUse * (item.quantity || 1) * (1 - itemDiscount / 100);
-    }, 0);
+ const totalprice = () => {
+  let total_price = dataCart.reduce((total, item) => {
+    const priceToUse = item.discount > 0 ? item.pricet : item.price;
+    const itemDiscount = calculateDiscount(item.quantity || 1);
+    return total + priceToUse * (item.quantity || 1) * (1 - itemDiscount / 100);
+  }, 0);
 
-    total_price += shippingCost;
+  total_price += shippingCost;
 
-    settprice(total_price);
-    return total_price;
-  };
+  // Apply global discount
+  if (discount > 0) {
+    total_price *= (1 - discount / 100);
+  }
+
+  settprice(total_price);
+  return total_price;
+};
 
   // Apply discount
   const applyDiscount = (discountPercentage) => {
@@ -156,6 +161,7 @@ export const CartContextProvider = (props) => {
   function clearCart() {
     setDatacart([]);
     setShippingCost(0);
+    setDiscount(0);
   }
 
   // Fetch product data from API
