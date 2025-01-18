@@ -50,9 +50,10 @@ export const CartContextProvider = (props) => {
     localStorage.setItem('cart', JSON.stringify(dataCart));
   }, [dataCart]);
 
-  // Calculate discount based on quantity
+  // Calculate discount based on quantity, with a maximum of 10%
   const calculateDiscount = (quantity) => {
-    return quantity * 1; // 1% discount per item
+    const discount = quantity * 1; // 1% discount per item
+    return Math.min(discount, 10); // Ensure discount does not exceed 10%
   };
 
   // Calculate final price after applying discount
@@ -96,27 +97,29 @@ export const CartContextProvider = (props) => {
   }
 
   // Calculate total price including shipping cost and discount
- const totalprice = () => {
-  let total_price = dataCart.reduce((total, item) => {
-    const priceToUse = item.discount > 0 ? item.pricet : item.price;
-    const itemDiscount = calculateDiscount(item.quantity || 1);
-    return total + priceToUse * (item.quantity || 1) * (1 - itemDiscount / 100);
-  }, 0);
+  const totalprice = () => {
+    let total_price = dataCart.reduce((total, item) => {
+      const priceToUse = item.discount > 0 ? item.pricet : item.price;
+      const itemDiscount = calculateDiscount(item.quantity || 1);
+      return total + priceToUse * (item.quantity || 1) * (1 - itemDiscount / 100);
+    }, 0);
 
-  total_price += shippingCost;
+    total_price += shippingCost;
 
-  // Apply global discount
-  if (discount > 0) {
-    total_price *= (1 - discount / 100);
-  }
+    // Apply global discount, ensuring it does not exceed 10%
+    if (discount > 0) {
+      const effectiveDiscount = Math.min(discount, 10);
+      total_price *= (1 - effectiveDiscount / 100);
+    }
 
-  settprice(total_price);
-  return total_price;
-};
+    settprice(total_price);
+    return total_price;
+  };
 
-  // Apply discount
+  // Apply discount, ensuring it does not exceed 10%
   const applyDiscount = (discountPercentage) => {
-    setDiscount(discountPercentage);
+    const effectiveDiscount = Math.min(discountPercentage, 10);
+    setDiscount(effectiveDiscount);
   };
 
   // Toggle mobile cart visibility
